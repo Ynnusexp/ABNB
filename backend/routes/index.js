@@ -2,14 +2,21 @@
 const express = require('express');
 const router = express.Router();
 
-router.get('/hello/world', function(req, res) {
-  res.cookie('XSRF-TOKEN', req.csrfToken());
-  res.send('Hello World!');
-});
+// router.get('/hello/world', function(req, res) {
+//   res.cookie('XSRF-TOKEN', req.csrfToken());
+//   res.send('Hello World!');
+// });
 
 // backend/routes/index.js
 // ...
-// Add a XSRF-TOKEN cookie
+const apiRouter = require('./api');
+
+router.use('/api', apiRouter);
+// // ...
+
+// // backend/routes/index.js
+// // ...
+// // Add a XSRF-TOKEN cookie
 router.get("/api/csrf/restore", (req, res) => {
   const csrfToken = req.csrfToken();
   res.cookie("XSRF-TOKEN", csrfToken);
@@ -18,5 +25,6 @@ router.get("/api/csrf/restore", (req, res) => {
   });
 });
 // ...
+
 
 module.exports = router;
