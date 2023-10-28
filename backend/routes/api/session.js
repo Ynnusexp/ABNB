@@ -20,6 +20,20 @@ const router = express.Router();
 // backend/routes/api/session.js
 // ...
 
+
+// backend/routes/api/session.js
+// ...
+
+// Log out
+router.delete(
+  '/',
+  (_req, res) => {
+    res.clearCookie('token');
+    return res.json({ message: 'success' });
+  }
+);
+
+// ...
 // Log in
 router.post(
     '/',
@@ -56,5 +70,6 @@ router.post(
       });
     }
   );
+
 
 module.exports = router;
