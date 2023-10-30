@@ -32,7 +32,7 @@ module.exports = {
         firstName: 'Demo',
         lastName: 'User'
       }
-    ], { validate: true });
+    ], options, { validate: true });
   },
 
   async down (queryInterface, Sequelize) {
