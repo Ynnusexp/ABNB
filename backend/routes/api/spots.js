@@ -50,6 +50,22 @@ const validateSpot = [
     handleValidationErrors
 ]
 
+const validateReview = [
+    check('review')
+        .exists({ checkFalsy: true })
+        .notEmpty()
+        .withMessage("Review text is required"),
+    check('stars')
+        .exists({ checkFalsy: true })
+        .notEmpty()
+        .isInt({
+            min: 1,
+            max: 5
+        })
+        .withMessage("Stars must be an integer from 1 to 5"),
+    handleValidationErrors
+]
+
 // //Get all Spots
 router.get('/', async (req, res) => {
     let spots = await Spot.findAll() //r3turn all spots
@@ -319,10 +335,79 @@ router.delete('/:spotId', requireAuth, async (req, res) => {
     }
 })
 
+//Get all Reviews by a Spot's id
+
+router.get('/:spotId/reviews', async (req, res) => {
+    const reviews = await Review.findAll({
+        where: {
+            spotId: req.params.spotId
+        },
+
+        include: [
+            {
+                model: User,
+                attributes: ['id', 'firstName', 'lastName']
+            }, {
+                model: ReviewImage,
+                attributes: ['id', 'url']
+            }
+        ]
+    })
 
 
+    res.status(200).json({ Reviews: reviews })
+})
 
 
+//Create a Review for a Spot based on the Spot's id
+router.post('/:spotId/reviews', validateReview, requireAuth, async (req, res, next) => {
+
+    const { review, stars } = req.body
+
+    const spotId = req.params.spotId
+
+    const spotCheck = await Spot.findByPk(spotId)
+
+    if (!spotCheck) {
+        return res.status(404).json(
+            {
+                "message": "Spot couldn't be found"
+            }
+        )
+
+    }
+
+    const reviewCheck = await Review.findAll({
+        where: {
+            userId: req.user.id,
+            spotId: spotId
+        }
+    })
+
+    if (reviewCheck) {
+        return res.status(500).json(
+            {
+                "message": "User already has a review for this spot"
+            }
+        )
+    }
+
+
+    try {
+        const spot = await Review.create({
+            userId: req.user.id,
+            spotId: spotId,
+            review: review,
+            stars: stars
+
+        })
+
+        return res.json(spot)
+
+    } catch (error) {
+        next(error)
+    }
+})
 
 
 
