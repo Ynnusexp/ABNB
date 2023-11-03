@@ -10,44 +10,45 @@ const { handleValidationErrors } = require('../../utils/validation');
 
 const validateSpot = [
     check('address')
-     .exists({ checkFalsy: true })
-     .notEmpty()
-     .withMessage("Street address is required"),
+        .exists({ checkFalsy: true })
+        .notEmpty()
+        .withMessage("Street address is required"),
     check('city')
-     .exists({ checkFalsy: true })
-     .notEmpty()
-     .withMessage("City is required"),
+        .exists({ checkFalsy: true })
+        .notEmpty()
+        .withMessage("City is required"),
     check('state')
-     .exists({ checkFalsy: true })
-     .notEmpty()
-     .withMessage("State is required"),
+        .exists({ checkFalsy: true })
+        .notEmpty()
+        .withMessage("State is required"),
     check('country')
-     .exists({ checkFalsy: true })
-     .notEmpty()
-     .withMessage("Country is required"),
+        .exists({ checkFalsy: true })
+        .notEmpty()
+        .withMessage("Country is required"),
     check('lat')
-     .exists({ checkFalsy: true })
-     .notEmpty()
-     .withMessage("Latitude is not valid"),
+        .exists({ checkFalsy: true })
+        .notEmpty()
+        .withMessage("Latitude is not valid"),
     check('lng')
-     .exists({ checkFalsy: true })
-     .notEmpty()
-     .withMessage("Longitude is not valid"),
+        .exists({ checkFalsy: true })
+        .notEmpty()
+        .withMessage("Longitude is not valid"),
     check('name')
-     .exists({ checkFalsy: true })
-     .notEmpty()
-     .isLength({ max: 50 })
-     .withMessage("Name must be less than 50 characters"),
+        .exists({ checkFalsy: true })
+        .withMessage("Name must be less than 50 characters")
+        //.notEmpty()
+        .isLength({ max: 50 })
+        .withMessage("Name must be less than 50 characters"),
     check('description')
-     .exists({ checkFalsy: true })
-     .notEmpty()
-     .withMessage("Description is required"),
+        .exists({ checkFalsy: true })
+        .notEmpty()
+        .withMessage("Description is required"),
     check('price')
-     .exists({ checkFalsy: true })
-     .notEmpty()
-     .withMessage("Price per day is required"),
+        .exists({ checkFalsy: true })
+        .notEmpty()
+        .withMessage("Price per day is required"),
     handleValidationErrors
-   ]
+]
 
 // //Get all Spots
 router.get('/', async (req, res) => {
@@ -143,7 +144,6 @@ router.get('/current', requireAuth, async (req, res) => {
     })
 })
 
-
 //Get details of a Spot from an id
 router.get('/:spotsId', async (req, res) => {
 
@@ -160,7 +160,6 @@ router.get('/:spotsId', async (req, res) => {
         attributes: {
             exclude: ['username']
         }
-
 
     })
 
@@ -213,25 +212,112 @@ router.get('/:spotsId', async (req, res) => {
 
 })
 //Create a Spot
-router.post('/', validateSpot,  async (req, res, next) => {
+router.post('/', validateSpot, async (req, res, next) => {
 
     const { address, city, state, country, lat, lng, name, description, price } = req.body
 
-    try{
+    try {
         const spot = await Spot.create({
             ownerId: req.user.id,
             address, city, state, country, lat, lng, name, description, price
         })
-        return res.json({
-            spot
-        })
+        return res.json(spot)
 
-    } catch(error){
+    } catch (error) {
         next(error)
     }
 })
 
+//Add an Image to a Spot based on the Spot's id
+router.post('/:spotId/images', requireAuth, async (req, res) => {
 
+    const { url, preview } = req.body;
+    const { spotId } = req.params;
+
+    const spot = await Spot.findByPk(spotId)
+
+
+    if (spot) {
+        const spotImage = await SpotImage.create({
+            spotId: req.params.spotId,
+            url: url,
+            preview: preview
+        })
+
+        return res.json({
+            id: spotImage.spotId,
+            url: spotImage.url,
+            preview: spotImage.url
+
+        })
+
+    } else {
+        return res.status(404).json({
+            "message": "Spot couldn't be found"
+        })
+    }
+})
+
+//Edit a Spot
+
+router.put('/:spotId', requireAuth, validateSpot, async (req, res, next) => {
+
+    const { address, city, state, country, lat, lng, name, description, price } = req.body
+    const { spotId } = req.params
+    const spots = await Spot.findByPk(spotId)
+
+    try {
+        spots.address = address,
+            spots.city = city,
+            spots.state = state,
+            spots.country = country,
+            spots.lat = lat,
+            spots.lng = lng,
+            spots.name = name,
+            spots.description = description,
+            spots.price = price
+
+        await spots.save()
+
+        res.json(spots)
+
+    } catch (err) {
+
+        if (!spots) {
+
+            return res
+                .status(404)
+                .json({
+                    statusCode: 404,
+                    message: "Spot couldn't be found"
+                })
+        }
+        next(err)
+    }
+})
+
+//Delete a Spot
+router.delete('/:spotId', requireAuth, async (req, res) => {
+    const spotId = req.params.spotId;
+    const deleteSpot = await Spot.findByPk(spotId);
+
+    console.log(deleteSpot)
+    console.log(spotId)
+
+    if (deleteSpot) {
+
+        await deleteSpot.destroy();
+
+        return res.json({
+            "message": "Successfully deleted"
+        })
+
+    } else {
+        return res.status(404).json({
+            "message": "Spot couldn't be found"
+        })
+    }
+})
 
 
 

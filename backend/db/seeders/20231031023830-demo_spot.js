@@ -42,7 +42,7 @@ module.exports = {
         country: 'USA',
         lat: 12.12,
         lng: 13.21,
-        name: 'catgirl',
+        name: 'Catgirl',
         description: 'she?!',
         price: 89.98,
       },
