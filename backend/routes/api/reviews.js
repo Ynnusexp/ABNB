@@ -49,7 +49,7 @@ router.get('/current', requireAuth, async (req, res) => {
 
     reviews[0].Spot.dataValues.previewImage = prvImg
 
-    res.status(200).json({
+   return res.status(200).json({
          Reviews: reviews
          })
 })
@@ -104,12 +104,12 @@ router.put('/:reviewId', requireAuth, async (req, res, next) => {
     const reviews = await Review.findByPk(req.params.reviewId)
     const { user } = req
     if (!reviews) {
-        res.status(404).json({
+        return res.status(404).json({
             message: "Review couldn't be found"
         })
     }
     if (reviews.userId !== user.id) {
-        res.status(403).json({
+       return res.status(403).json({
             message: "Forbidden"
         })
     }
@@ -131,7 +131,7 @@ router.put('/:reviewId', requireAuth, async (req, res, next) => {
     reviews.review = review
     reviews.stars = stars
     await reviews.save()
-    res.status(200).json(reviews)
+    return res.status(200).json(reviews)
 })
 
 //Delete a Review
