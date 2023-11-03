@@ -54,7 +54,7 @@ router.get('/current', requireAuth, async (req, res) => {
          })
 })
 
-//add an image to a review from reviewId
+//Add an Image to a Review based on the Review's id
 
 router.post('/:reviewId/images', requireAuth, async (req, res) => {
 
@@ -63,7 +63,7 @@ router.post('/:reviewId/images', requireAuth, async (req, res) => {
     const { user } = req
     if (!reviews) {
         return res.status(404).json({
-            message: "Review couldn't be found" 
+            message: "Review couldn't be found"
         })
     }
     if (reviews.userId !== user.id) {
@@ -134,7 +134,7 @@ router.put('/:reviewId', requireAuth, async (req, res, next) => {
     res.status(200).json(reviews)
 })
 
-//delete a review
+//Delete a Review
 
 router.delete('/:reviewId', requireAuth, async (req, res) => {
     let review = await Review.findByPk(req.params.reviewId)
