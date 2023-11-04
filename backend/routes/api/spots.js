@@ -66,6 +66,40 @@ const validateReview = [
     handleValidationErrors
 ]
 
+const validateBooking = [
+    check('startDate')
+        .custom(async val => {
+
+            const checkStart = await Booking.findAll({
+                where: {
+                    startDate: val
+                }
+            })
+
+            if (checkStart.length) {
+                throw new Error("Start date conflicts with an existing booking")
+            }
+            return true
+        })
+        .withMessage("Sorry, this spot is already booked for the specified dates"),
+    check('endDate')
+    .custom(async val => {
+        const checkStart = await Booking.findAll({
+            where: {
+                startDate: val
+            }
+        })
+
+        if (checkStart.length) {
+            throw new Error("Start date conflicts with an existing booking")
+        }
+        return true
+    })
+    .withMessage("Sorry, this spot is already booked for the specified dates"),
+    handleValidationErrors
+
+]
+
 // //Get all Spots
 router.get('/', async (req, res) => {
     let spots = await Spot.findAll() //r3turn all spots
@@ -410,7 +444,100 @@ router.post('/:spotId/reviews', validateReview, requireAuth, async (req, res, ne
 })
 
 
+//Get all Bookings for a Spot based on the Spot's id
 
+router.get('/:spotId/bookings', async (req, res) => {
+
+    const spot = req.params.spotId
+
+    const checkSpot = await Spot.findByPk(spot)
+
+    if (!checkSpot) {
+        return res.status(404).json({
+
+            "message": "Spot couldn't be found"
+        })
+    }
+
+    const bookings = await Booking.findAll({
+        where: {
+            spotId: req.params.spotId
+        },
+        include: [
+            {
+                model: User,
+                attributes: ['id', 'firstName', 'lastName']
+            },
+        ]
+    })
+
+    console.log(bookings)
+    res.status(200).json({ Bookings: bookings })
+})
+
+//Create a Booking from a Spot based on the Spot's id
+router.post('/:spotId/bookings', requireAuth, validateBooking, async (req, res, next) => {
+
+    const { startDate, endDate } = req.body
+
+    if (startDate > endDate) {
+        return res.status(400).json({
+            "message": "Bad Request",
+            "errors": {
+                "endDate": "endDate cannot be on or before startDate"
+            }
+        })
+    }
+
+    const spotId = req.params.spotId
+
+    const spotCheck = await Spot.findByPk(spotId)
+
+    if (!spotCheck) {
+        return res.status(404).json(
+            {
+                "message": "Spot couldn't be found"
+            }
+        )
+
+    }
+
+    // const bookingCheck = await Booking.findAll({
+
+    //     where: {
+    //         spotId: spotId,
+    //         startDate: startDate,
+    //         endDate: endDate
+    //     }
+
+    // })
+
+    // if (bookingCheck.length) {
+    //     return res.status(403).json(
+    //         {
+    //             "message": "Sorry, this spot is already booked for the specified dates",
+    //             "errors": {
+    //               "startDate": "Start date conflicts with an existing booking",
+    //               "endDate": "End date conflicts with an existing booking"
+    //             }
+    //           }
+    //     )
+    // }
+
+    try {
+        const spot = await Booking.create({
+            spotId: spotId,
+            userId: req.user.id,
+            startDate: startDate,
+            endDate: endDate
+        })
+
+        return res.json(spot)
+
+    } catch (error) {
+        next(error)
+    }
+})
 
 
 

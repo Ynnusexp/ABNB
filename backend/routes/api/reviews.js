@@ -100,7 +100,7 @@ router.post('/:reviewId/images', requireAuth, async (req, res) => {
 
 //Edit a Review
 
-router.put('/:reviewId', requireAuth, async (req, res, next) => {
+router.put('/:reviewId', requireAuth, async (req, res) => {
     const reviews = await Review.findByPk(req.params.reviewId)
     const { user } = req
     if (!reviews) {

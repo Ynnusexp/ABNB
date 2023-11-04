@@ -48,9 +48,6 @@ router.get('/current', requireAuth, async (req, res) => {
          })
 })
 
-//Get all Bookings for a Spot based on the Spot's id
-
-
 
 
 
