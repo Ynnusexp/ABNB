@@ -7,6 +7,7 @@ const { requireAuth } = require('../../utils/auth.js');
 const { where } = require('sequelize');
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
+const { queryFilters } = require('../../utils/queryfilters.js')
 
 const validateSpot = [
     check('address')
@@ -68,7 +69,7 @@ const validateReview = [
 
 const validateBooking = [
     check('startDate')
-        .custom(async val => {
+        .custom (async val => {
 
             const checkStart = await Booking.findAll({
                 where: {
@@ -80,28 +81,100 @@ const validateBooking = [
                 throw new Error("Start date conflicts with an existing booking")
             }
             return true
-        })
-        .withMessage("Sorry, this spot is already booked for the specified dates"),
+        }),
+        //.withMessage("Sorry, this spot is already booked for the specified dates"),
     check('endDate')
     .custom(async val => {
-        const checkStart = await Booking.findAll({
+        const checkEnd = await Booking.findAll({
             where: {
-                startDate: val
+                endDate: val
             }
         })
 
-        if (checkStart.length) {
-            throw new Error("Start date conflicts with an existing booking")
+        if (checkEnd.length) {
+            throw new Error("End date conflicts with an existing booking")
         }
         return true
-    })
-    .withMessage("Sorry, this spot is already booked for the specified dates"),
+    }),
+    //.withMessage("Sorry, this spot is already booked for the specified dates"),
     handleValidationErrors
 
 ]
 
-// //Get all Spots
+// Get all Spots
+
 router.get('/', async (req, res) => {
+
+// Add Query Filters to Get All Spots
+
+// page: integer, minimum: 1, maximum: 10, default: 1
+// size: integer, minimum: 1, maximum: 20, default: 20
+// minLat: decimal, optional
+// maxLat: decimal, optional
+// minLng: decimal, optional
+// maxLng: decimal, optional
+// minPrice: decimal, optional, minimum: 0
+// maxPrice: decimal, optional, minimum: 0
+
+router.get("/", queryFilters, async (req, res) => {
+    const {
+        limit,
+        offset,
+        size,
+        page,
+        minLat,
+        maxLat,
+        minLng,
+        maxLng,
+        minPrice,
+        maxPrice,
+        where,
+    } = req.pagination;
+
+    const spots = await Spot.unscoped().findAll({
+        where,
+        include: [
+            {
+                model: SpotImage,
+                attributes: ["url"],
+            },
+        ],
+        limit,
+        offset,
+    });
+
+    const spotsJSON = spots.map((ele) => ele.toJSON());
+
+    for (let i = 0; i < spotsJSON.length; i++) {
+        if (spotsJSON[i].SpotImages[0]) {
+            spotsJSON[i].previewImage = spotsJSON[i].SpotImages[0].url;
+            delete spotsJSON[i].SpotImages;
+        } else {
+            // If no image found, set previewImage to null or an empty string
+            spotsJSON[i].previewImage = 'No preview image'; // or spotsJSON[i].previewImage = '';
+            delete spotsJSON[i].SpotImages;
+        }
+
+        const sum = await Review.sum("stars", {
+            where: {
+                spotId: spotsJSON[i].id,
+            },
+        });
+        const total = await Review.count({
+            where: {
+                spotId: spotsJSON[i].id,
+            },
+        });
+
+        spotsJSON[i].avgRating = total > 0 ? sum / total : 'Spot not rated';
+    }
+
+    res.json({ Spots: spotsJSON, page: page, size: size });
+});
+
+
+
+    ///////////////////////////////////////////////////////////////////
     let spots = await Spot.findAll() //r3turn all spots
     // console.log(spots)
     let newSpots = [];
@@ -261,7 +334,7 @@ router.get('/:spotsId', async (req, res) => {
     })
 
 })
-//Create aSpot
+//Create a Spot
 router.post('/', validateSpot, async (req, res, next) => {
 
     const { address, city, state, country, lat, lng, name, description, price } = req.body
@@ -476,7 +549,7 @@ router.get('/:spotId/bookings', async (req, res) => {
 })
 
 //Create a Booking from a Spot based on the Spot's id
-router.post('/:spgitotId/bookings', requireAuth, validateBooking, async (req, res, next) => {
+router.post('/:spotId/bookings', requireAuth, validateBooking, async (req, res, next) => {
 
     const { startDate, endDate } = req.body
 
@@ -501,6 +574,13 @@ router.post('/:spgitotId/bookings', requireAuth, validateBooking, async (req, re
         )
 
     }
+
+
+    if (spotCheck.ownerId === user.id) {
+        return res.status(403).json({ message: "Owner Cannot Book Their Own Spot" });
+      }
+
+      {}
 
     // const bookingCheck = await Booking.findAll({
 
