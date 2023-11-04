@@ -476,7 +476,7 @@ router.get('/:spotId/bookings', async (req, res) => {
 })
 
 //Create a Booking from a Spot based on the Spot's id
-router.post('/:spotId/bookings', requireAuth, validateBooking, async (req, res, next) => {
+router.post('/:spgitotId/bookings', requireAuth, validateBooking, async (req, res, next) => {
 
     const { startDate, endDate } = req.body
 
