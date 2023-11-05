@@ -9,14 +9,17 @@ const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 
 
-
+//Delete a Review Image
 router.delete('/:imageId', requireAuth, async (req, res) => {
+
     const {imageId} = req.params
+
     const img = await ReviewImage.findByPk(imageId)
 
     if (!img) {
-        return res.status(404).json(
-            {
+
+        return res.status(404).json({
+
                 "message": "Review Image couldn't be found"
 
               })
@@ -31,27 +34,6 @@ router.delete('/:imageId', requireAuth, async (req, res) => {
 
     })
 
-})
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+});
 
 module.exports = router;

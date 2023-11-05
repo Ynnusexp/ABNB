@@ -27,7 +27,43 @@ module.exports = {
         userId: 3,
         review: "bad",
         stars: 1
-      }
+      },
+      {
+        spotId: 4,
+        userId: 4,
+        review: 'excellent',
+        stars: 5,
+      },
+      {
+        spotId: 5,
+        userId: 5,
+        review: 'average',
+        stars: 3,
+      },
+      {
+        spotId: 6,
+        userId: 6,
+        review: 'terrible',
+        stars: 1,
+      },
+      {
+        spotId: 7,
+        userId: 7,
+        review: 'great',
+        stars: 5,
+      },
+      {
+        spotId: 8,
+        userId: 8,
+        review: 'mediocre',
+        stars: 3,
+      },
+      {
+        spotId: 9,
+        userId: 9,
+        review: 'horrible',
+        stars: 1,
+      },
     ], options, { validate: true });
   },
 

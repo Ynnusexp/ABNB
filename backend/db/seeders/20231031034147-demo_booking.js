@@ -28,7 +28,43 @@ module.exports = {
       userId: 3,
       startDate: 2010-1-5,
       endDate: 2010-1-6,
-    }
+    },
+    {
+      spotId: 4,
+      userId: 4,
+      startDate: '2010-02-01',
+      endDate: '2010-02-02',
+    },
+    {
+      spotId: 5,
+      userId: 5,
+      startDate: '2010-02-03',
+      endDate: '2010-02-04',
+    },
+    {
+      spotId: 6,
+      userId: 6,
+      startDate: '2010-02-05',
+      endDate: '2010-02-06',
+    },
+    {
+      spotId: 7,
+      userId: 7,
+      startDate: '2010-02-07',
+      endDate: '2010-02-08',
+    },
+    {
+      spotId: 8,
+      userId: 8,
+      startDate: '2010-02-09',
+      endDate: '2010-02-10',
+    },
+    {
+      spotId: 9,
+      userId: 9,
+      startDate: '2010-02-11',
+      endDate: '2010-02-12',
+    },
   ], options, { validate: true });
   },
 

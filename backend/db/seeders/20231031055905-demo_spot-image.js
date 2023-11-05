@@ -11,19 +11,50 @@ module.exports = {
     await SpotImage.bulkCreate([
       {
         spotId: 1,
-        url: "www.hola.com",
+        url: "www.hola1.com",
         preview: false
      },
      {
         spotId: 2,
-        url: "www.chao.com",
+        url: "www.chao2.com",
         preview: true
     },
       {
         spotId: 3,
-        url: "www.morning.com",
+        url: "www.morning3.com",
         preview: true
+    },
+    {
+      spotId: 4,
+      url: 'www.evening4.com',
+      preview: true,
+    },
+    {
+      spotId: 5,
+      url: 'www.night5.com',
+      preview: false,
+    },
+    {
+      spotId: 6,
+      url: 'www.sunset6.com',
+      preview: true,
+    },
+    {
+      spotId: 7,
+      url: 'www.midday7.com',
+      preview: false,
+    },
+    {
+      spotId: 8,
+      url: 'www.sunrise8.com',
+      preview: true,
+    },
+    {
+      spotId: 9,
+      url: 'www.dawn9.com',
+      preview: false,
     }
+
     ], options, { validate: true });
   },
 

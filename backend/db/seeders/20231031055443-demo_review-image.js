@@ -11,16 +11,40 @@ module.exports = {
     await ReviewImage.bulkCreate([
       {
         reviewId: 1,
-        url: "www.hello.com"
+        url: "www.hello1.com"
       },
       {
         reviewId: 2,
-        url: "www.world.com"
+        url: "www.world2.com"
       },
       {
         reviewId: 3,
-        url: "www.bye.com"
-      }
+        url: "www.bye3.com"
+      },
+      {
+        reviewId: 4,
+        url: 'www.example4.com',
+      },
+      {
+        reviewId: 5,
+        url: 'www.sample5.com',
+      },
+      {
+        reviewId: 6,
+        url: 'www.test6.com',
+      },
+      {
+        reviewId: 7,
+        url: 'www.website7.com',
+      },
+      {
+        reviewId: 8,
+        url: 'www.link8.com',
+      },
+      {
+        reviewId: 9,
+        url: 'www.page9.com',
+      },
     ], options, { validate: true });
   },
 
