@@ -20,14 +20,37 @@ module.exports = (sequelize, DataTypes) => {
       })
     }
   }
+  // Booking.init({
+  //   spotId: DataTypes.INTEGER,
+  //   userId: DataTypes.INTEGER,
+  //   startDate: DataTypes.STRING,
+  //   endDate: DataTypes.STRING
+  // }, {
+  //   sequelize,
+  //   modelName: 'Booking',
+  // });
+
   Booking.init({
-    spotId: DataTypes.INTEGER,
-    userId: DataTypes.INTEGER,
-    startDate: DataTypes.STRING,
-    endDate: DataTypes.STRING
+    spotId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      onDelete: 'CASCADE'
+    },
+    userId: {
+      type: DataTypes.INTEGER,
+    },
+    startDate: {
+      type: DataTypes.DATE,
+      allowNull: false
+    },
+    endDate: {
+      type: DataTypes.DATE,
+      allowNull: false
+    }
   }, {
     sequelize,
     modelName: 'Booking',
   });
+
   return Booking;
 };

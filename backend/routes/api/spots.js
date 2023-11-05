@@ -70,6 +70,95 @@ const validateReview = [
 
 ]
 
+router.get("/", queryFilters, async (req, res) => {
+
+    const {
+
+        limit,
+        offset,
+        size,
+        page,
+        minLat,
+        maxLat,
+        minLng,
+        maxLng,
+        minPrice,
+        maxPrice,
+        where,
+
+    } = req.pagination;
+
+    const spots = await Spot.unscoped().findAll({
+
+        where,
+        include: [
+
+            {
+                model: SpotImage,
+                attributes: ["url"],
+            },
+
+        ],
+
+        limit,
+        offset,
+
+    });
+
+    const json = spots.map((tojson) => tojson.toJSON())
+
+    for (const spot of json) {
+
+        if (spot.SpotImages[0]) {
+
+            spot.previewImage = spot.SpotImages[0].url
+            delete spot.SpotImages
+
+        } else {
+
+            spot.previewImage = 'No preview image'
+            delete spot.SpotImages
+
+        }
+
+        const ratingSum = await Review.sum("stars", {
+
+            where: {
+
+                spotId: spot.id
+
+            },
+
+        });
+        const reviewCount = await Review.count({
+
+            where: {
+
+                spotId: spot.id
+
+            },
+
+        });
+
+        if (reviewCount > 0) {
+
+            spot.avgRating = ratingSum / reviewCount
+
+        } else {
+
+            spot.avgRating = 'Spot not rated'
+
+        }
+    }
+
+    return res.json({
+
+        Spots: json,
+        page: page,
+        size: size
+
+    });
+});
 
 // Get all Spots
 
@@ -758,94 +847,6 @@ router.post('/:spotId/bookings', requireAuth, async (req, res, next) => {
 });
 
 
-router.get("/", queryFilters, async (req, res) => {
 
-    const {
-
-        limit,
-        offset,
-        size,
-        page,
-        minLat,
-        maxLat,
-        minLng,
-        maxLng,
-        minPrice,
-        maxPrice,
-        where,
-
-    } = req.pagination;
-
-    const spots = await Spot.unscoped().findAll({
-
-        where,
-        include: [
-
-            {
-                model: SpotImage,
-                attributes: ["url"],
-            },
-
-        ],
-
-        limit,
-        offset,
-
-    });
-
-    const json = spots.map((tojson) => tojson.toJSON())
-
-    for (const spot of json) {
-
-        if (spot.SpotImages[0]) {
-
-            spot.previewImage = spot.SpotImages[0].url
-            delete spot.SpotImages
-
-        } else {
-
-            spot.previewImage = 'No preview image'
-            delete spot.SpotImages
-
-        }
-
-        const ratingSum = await Review.sum("stars", {
-
-            where: {
-
-                spotId: spot.id
-
-            },
-
-        });
-        const reviewCount = await Review.count({
-
-            where: {
-
-                spotId: spot.id
-
-            },
-
-        });
-
-        if (reviewCount > 0) {
-
-            spot.avgRating = ratingSum / reviewCount
-
-        } else {
-
-            spot.avgRating = 'Spot not rated'
-
-        }
-    }
-
-    return res.json({
-
-        Spots: json,
-        page: page,
-        size: size
-
-    });
-});
 
 module.exports = router;
