@@ -1,16 +1,5 @@
-markdown
-# [AIRBNB]
 
-## Database Schema Design
-
-![db-schema]
-
-[db-schema]: ./images/airbnb_dbdiagram.png
-
-## API Documentation
-
-<!--!!START SILENT -->
-# AirBnB Clone
+# ABNB
 <!--!!END -->
 <!--!!ADD -->
 <!-- # `<name of application here>` -->
