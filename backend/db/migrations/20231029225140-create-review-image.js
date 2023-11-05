@@ -19,7 +19,8 @@ module.exports = {
           model: "Reviews",
           key: "id"
         },
-        onDelete: "CASCADE"
+        onDelete: "CASCADE",
+        hooks: true
       },
       url: {
         type: Sequelize.STRING,
@@ -39,6 +40,6 @@ module.exports = {
   },
   async down(queryInterface, Sequelize) {
     options.tableName = "ReviewImages";
-    await queryInterface.dropTable(options); 
+    await queryInterface.dropTable(options);
   }
 };
