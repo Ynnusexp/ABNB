@@ -736,7 +736,6 @@ router.post('/:spotId/bookings', requireAuth, async (req, res) => {
         }
 
     });
-////////////////////
 
     const starting = new Date(body.startDate)
 
@@ -880,7 +879,7 @@ router.post('/:spotId/bookings', requireAuth, async (req, res) => {
 
             message: "Bad Request",
             errors: {
-                endDate: "End date cannot be before start date"
+                endDate: "endDate cannot be on or before startDate" //
             }
 
         })
