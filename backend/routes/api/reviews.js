@@ -1,8 +1,7 @@
 const express = require('express')
 const { Spot, Review, User, SpotImage, Booking, ReviewImage } = require('../../db/models');
 const { requireAuth } = require('../../utils/auth')
-//const { check } = require('express-validator');
-//const { handleValidationErrors } = require('../../utils/validation');
+
 const router = express.Router()
 
 
@@ -12,7 +11,9 @@ router.get('/current', requireAuth, async (req, res) => {
     const reviews = await Review.findAll({
 
         where: {
-            userId: req.id
+
+            userId: req.user.id
+
         },
 
         include: [
@@ -43,17 +44,12 @@ router.get('/current', requireAuth, async (req, res) => {
         ]
     })
 
-    let previewImage = await SpotImage.findOne({
-
-        where: {spotId: reviews[0].Spot.dataValues.id}
-
-    })
-
-    const prvImg = previewImage.dataValues.url
-
-   // console.log(prvImg)
-
-    reviews[0].Spot.dataValues.previewImage = prvImg
+ reviews.forEach(review => {
+    const spot = review.Spot
+    spot.lat = parseFloat(spot.lat);
+    spot.lng = parseFloat(spot.lng);
+    spot.price = parseFloat(spot.price);
+ });
 
    return res.status(200).json({
 
@@ -78,7 +74,7 @@ router.post('/:reviewId/images', requireAuth, async (req, res) => {
         })
     }
 
-    if (reviews.userId !== req.id) {
+    if (reviews.userId !== req.user.id) {
 
         return res.status(400).json({
 
@@ -94,7 +90,11 @@ router.post('/:reviewId/images', requireAuth, async (req, res) => {
 
     const reviewImg = await ReviewImage.findAll({
 
-        where: { reviewId: reviews.id }
+        where: {
+
+            reviewId: reviews.id
+
+        }
 
     })
 
@@ -158,9 +158,17 @@ router.put('/:reviewId', requireAuth, async (req, res) => {
 
     let errors = []
 
-    if (!req.body.review) errors.push("Review text is required")
+    if (!req.body.review){
 
-    if (req.body.stars > 5 || req.body.stars < 1 || !stars) errors.push("Stars must be an integer from 1 to 5")
+        errors.push("Review text is required")
+
+    }
+
+    if (req.body.stars > 5 || req.body.stars < 1 || !stars){
+
+        errors.push("Stars must be an integer from 1 to 5")
+
+    }
 
     if (errors.length > 0) {
 
@@ -204,7 +212,9 @@ router.delete('/:reviewId', requireAuth, async (req, res) => {
     if (review.userId !== user.id) {
 
         return res.status(403).json({
+
             message: "Forbidden"
+
         })
 
     }

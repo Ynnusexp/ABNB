@@ -57,6 +57,12 @@ module.exports = {
         type: Sequelize.DECIMAL,
         allowNull: false
       },
+      avgRating: {
+        type: Sequelize.INTEGER
+      },
+      previewImage: {
+        type: Sequelize.STRING
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,

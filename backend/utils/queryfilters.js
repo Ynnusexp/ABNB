@@ -3,6 +3,7 @@ const { Op } = require("sequelize");
 const queryFilters = async (req, res, next) => {
 
     const info = {
+
         message: "Bad Request",
         errors: {},
 
@@ -11,6 +12,7 @@ const queryFilters = async (req, res, next) => {
     const validateRange = (value, min, max, errorMessage) => {
 
         if (value && (value < min || value > max)) {
+            
             info.errors[errorMessage] = errorMessage;
             return true;
 
@@ -77,13 +79,19 @@ const queryFilters = async (req, res, next) => {
         where: {
 
             lat: {
+
                 [Op.between]: [minLat || -180.1, maxLat || 180.1],
+
             },
             lng: {
+
                 [Op.between]: [minLng || -180.1, maxLng || 180.1],
+
             },
             price: {
+
                 [Op.between]: [minPrice || 0.01, maxPrice || 1000000.01],
+
             },
 
         },
@@ -97,7 +105,7 @@ const queryFilters = async (req, res, next) => {
     } else {
 
         next();
-        
+
     }
 };
 

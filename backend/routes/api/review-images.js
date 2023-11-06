@@ -2,11 +2,8 @@ const sequelize = require('sequelize')
 const { Spot, User, SpotImage, Review, ReviewImage, Booking } = require('../../db/models'); //
 const express = require('express');
 const router = express.Router();
-
 const { requireAuth } = require('../../utils/auth.js');
-const { where } = require('sequelize');
-const { check } = require('express-validator');
-const { handleValidationErrors } = require('../../utils/validation');
+
 
 
 //Delete a Review Image
@@ -14,7 +11,9 @@ router.delete('/:imageId', requireAuth, async (req, res) => {
 
     const {imageId} = req.params
 
-    const img = await ReviewImage.findByPk(imageId)
+    const img = await ReviewImage.findByPk(imageId, {
+        include: { model: Review, attributes: ["userId"]}
+    })
 
     if (!img) {
 
@@ -25,6 +24,17 @@ router.delete('/:imageId', requireAuth, async (req, res) => {
               })
 
     }
+
+    if (img.Review.userId !== req.user.id) {
+
+        return res.status(403).json({
+
+            message: "Forbidden"
+
+        })
+    }
+
+
 
     await img.destroy()
 
