@@ -32,7 +32,8 @@ const validateSpot = [
         .withMessage("Latitude is not valid"),
     check('lng')
         .exists({ checkFalsy: true })
-        .isFloat({ min: -180, max: 180 }),
+        .isFloat({ min: -180, max: 180 })
+        .withMessage("Longitude is not valid"),
     check('name')
         .exists({ checkFalsy: true })
         .withMessage("Name must be less than 50 characters")
@@ -417,17 +418,15 @@ router.post('/:spotId/images', requireAuth, async (req, res) => {
 
     const spot = await Spot.findByPk(spotId)
 
-    if (spot.ownerId !== req.user.id) {
-
-        return res.status(403).json({
-
-            message: "Forbidden"
-
-        })
-    }
-
     if (spot) {
+        if (spot.ownerId !== req.user.id) {
 
+            return res.status(403).json({
+
+                message: "Forbidden"
+
+            })
+        }
         const spotImage = await SpotImage.create({
 
             spotId: req.params.spotId,
