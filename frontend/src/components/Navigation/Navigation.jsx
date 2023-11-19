@@ -6,9 +6,13 @@ import OpenModalButton from '../OpenModalButton/OpenModalButton';
 import LoginFormModal from '../LoginFormModal/LoginFormModal';
 import SignupFormModal from '../SignupFormModal/SignupFormModal';
 import './Navigation.css';
+import { useNavigate } from 'react-router-dom';
+import download from '../../img/download.png';
 
 function Navigation({ isLoaded }) {
   const sessionUser = useSelector((state) => state.session.user);
+
+  const navigate = useNavigate();
 
   let sessionLinks;
   if (sessionUser) {
@@ -37,13 +41,19 @@ function Navigation({ isLoaded }) {
   }
 
   return (
-    <ul>
-      <li>
-        <NavLink to="/">Home</NavLink>
-      </li>
-      {isLoaded && sessionLinks}
-    </ul>
-  );
+
+    <div className='nav-header'>
+      <img className='logo-img' src={download} onClick={() => {
+        navigate("/")
+      }} />
+      <ul>
+        <li>
+          <NavLink to="/">Home</NavLink>
+        </li>
+        {isLoaded && sessionLinks}
+      </ul>
+    </div>
+  )
 }
 
 export default Navigation;

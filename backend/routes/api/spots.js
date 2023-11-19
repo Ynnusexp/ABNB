@@ -716,7 +716,7 @@ router.post('/:spotId/bookings', requireAuth, async (req, res) => {
 
         })
     }
-
+    console.log(spot.ownerId)
     if (spot.ownerId === user.id) {
 
         return res.status(403).json({

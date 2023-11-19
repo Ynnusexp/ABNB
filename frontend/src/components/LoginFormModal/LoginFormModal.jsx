@@ -12,6 +12,7 @@ function LoginFormModal() {
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState({});
   const { closeModal } = useModal();
+  const [ isDisabled, setIsDisabled] = useState(true)
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -26,6 +27,7 @@ function LoginFormModal() {
       });
   };
 
+
   return (
     <>
       <h1>Log In</h1>
@@ -35,7 +37,11 @@ function LoginFormModal() {
           <input
             type="text"
             value={credential}
-            onChange={(e) => setCredential(e.target.value)}
+            onChange={(e) => {
+              setIsDisabled(e.target.value < 4 );
+              setCredential(e.target.value)
+            }
+          }
             required
           />
         </label>
@@ -44,14 +50,21 @@ function LoginFormModal() {
           <input
             type="password"
             value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={(e) => {
+              setIsDisabled(e.target.value < 6 );
+              setPassword(e.target.value)}
+            }
             required
           />
         </label>
         {errors.credential && (
           <p>{errors.credential}</p>
         )}
-        <button type="submit">Log In</button>
+        <button
+        type="submit"
+        disabled={isDisabled}
+
+        >Log In</button>
       </form>
     </>
   );

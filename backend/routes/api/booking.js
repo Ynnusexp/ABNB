@@ -112,6 +112,30 @@ router.put("/:bookingId", requireAuth, async (req, res) => {
         })
     }
 
+    // if (newEnd < newStart) {
+
+    //     return res.status(400).json({
+
+    //         message: "Bad Request",
+    //         errors: {
+    //             endDate: "endDate cannot come before startDate"
+    //         }
+
+    //     })
+    // }
+    // if (newEnd = newStart) {
+
+    //     return res.status(400).json({
+
+    //         message: "Bad Request",
+    //         errors: {
+    //             endDate: "endDate cannot be startDate"
+    //         }
+
+    //     })
+    // }
+
+
     const now = new Date().getTime();
 
     const after = new Date(endDate).getTime();
@@ -142,7 +166,6 @@ router.put("/:bookingId", requireAuth, async (req, res) => {
 
         })
 
-        const bookID = booking.dataValues.userId
 
         if (!booking) {
 
@@ -152,6 +175,7 @@ router.put("/:bookingId", requireAuth, async (req, res) => {
 
             })
         }
+    const bookID = booking.dataValues.userId
         if (booking.dataValues.id === bookingId && user.id === bookID) {
 
             booking.update({
@@ -175,14 +199,12 @@ router.put("/:bookingId", requireAuth, async (req, res) => {
                      }
                 }
             })
-
+            const errs = {};
             bookz.forEach((booking) => {
 
                 const startDay = new Date(booking.dataValues.startDate).getTime()
 
                 const endDay = new Date(booking.dataValues.endDate).getTime()
-
-                const errs = {};
 
                 if (newStart >= startDay && newStart <= endDay) {
 
@@ -214,17 +236,17 @@ router.put("/:bookingId", requireAuth, async (req, res) => {
                     errs.endDate = "End date conflicts with an existing booking"
 
                 }
-
-                if (errs.startDate || errs.endDate) {
-
-                    return res.status(403).json({
-
-                        message: "Sorry, this spot is already booked for the specified dates",
-                        errors: errs
-
-                    });
-                }
             });
+
+            if (errs.startDate || errs.endDate) {
+
+                return res.status(403).json({
+
+                    message: "Sorry, this spot is already booked for the specified dates",
+                    errors: errs
+
+                });
+            }
 
         if (user.id === booking.userId) {
 
@@ -237,7 +259,7 @@ router.put("/:bookingId", requireAuth, async (req, res) => {
 
 
         await booking.save()
-
+            console.log(booking, "***************************")
         return  res.status(200).json(booking);
 
         } else {

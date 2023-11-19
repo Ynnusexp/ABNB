@@ -1,5 +1,10 @@
 .hidden {
-
     display: none
-    
+}
+.nav-header {
+    display: flex;
+    justify-content: space-between;
+}
+.logo-img {
+    width: 20%;
 }
