@@ -36,14 +36,14 @@ const router = createBrowserRouter([
         </>
         )
       },
-      // {
-      //   path: '/test',
-      //   element: (
-      //     <>
-      //       <h1>Test!</h1>
-      //     </>
-      //   )
-      // }
+      {
+        path: '/test',
+        element: (
+          <>
+            <h1>Test!</h1>
+          </>
+        )
+      }
     ]
   }
 ]);
