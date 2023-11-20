@@ -50,6 +50,14 @@ const validateSignup = [
   handleValidationErrors
 ];
 
+///////////////////loginDemo//////////////////////////////////////////////
+router.get(
+  '/test',
+  async(req, res) => {
+    const users = await User.findAll()
+    res.json(users)
+  }
+)
 
 
 // Sign up

@@ -1,6 +1,6 @@
 
 import { NavLink } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import ProfileButton from './ProfileButton';
 import OpenModalButton from '../OpenModalButton/OpenModalButton';
 import LoginFormModal from '../LoginFormModal/LoginFormModal';
@@ -8,11 +8,13 @@ import SignupFormModal from '../SignupFormModal/SignupFormModal';
 import './Navigation.css';
 import { useNavigate } from 'react-router-dom';
 import download from '../../img/download.png';
+import { loginDemo } from '../../store/session';
 
 function Navigation({ isLoaded }) {
   const sessionUser = useSelector((state) => state.session.user);
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   let sessionLinks;
   if (sessionUser) {
@@ -35,6 +37,16 @@ function Navigation({ isLoaded }) {
             buttonText="Sign Up"
             modalComponent={<SignupFormModal />}
           />
+        </li>
+        <li>
+          {/* create button for demo user login button. onClick should ping backend login route with demo user's credentials */}
+          <button
+          onClick={()=> {
+              dispatch(loginDemo())
+          }}
+          >
+          Log in as Demo User
+          </button>
         </li>
       </>
     );

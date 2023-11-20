@@ -1,7 +1,9 @@
 import { csrfFetch } from './csrf';
 
+
 const SET_USER = "session/setUser";
 const REMOVE_USER = "session/removeUser";
+
 
 const setUser = (user) => {
   return {
@@ -25,6 +27,15 @@ export const login = (user) => async (dispatch) => {
       password
     })
   });
+  const data = await response.json();
+  dispatch(setUser(data.user));
+  return response;
+};
+
+//////////////////////loginDemo button/////////////////////////////////////////
+export const loginDemo = () => async (dispatch) => {
+
+  const response = await csrfFetch("/api/session/demo");
   const data = await response.json();
   dispatch(setUser(data.user));
   return response;
