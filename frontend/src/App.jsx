@@ -37,7 +37,6 @@ const router = createBrowserRouter([
 
         element:  (
           <>
-            <p>test text</p>
             <HomePage />,
           </>
         )
@@ -45,7 +44,10 @@ const router = createBrowserRouter([
       {
         path: '/spots/:spotId',
 
-        element:  <SpotTile />, 
+        element:
+
+        <SpotTile />, // TODO:individual page for spot
+        
       },
     ]
   }

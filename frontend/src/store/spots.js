@@ -26,9 +26,7 @@ export const getSpotsFetch = () => async (dispatch) => {
 
 }
 
-const initialState = {
-
-}
+const initialState = {}
 const spotsReducer = (state = initialState, action) => {
 
 

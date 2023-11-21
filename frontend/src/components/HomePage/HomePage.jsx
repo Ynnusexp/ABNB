@@ -13,6 +13,7 @@ export default function HomePage () {
     // console.log(spotsArr)
 
     const tiles = spotsArr.map(spot => (
+
       <SpotTile
         key={`spotTile-${spot.id}`}
         id={spot.id}
@@ -28,9 +29,7 @@ export default function HomePage () {
 
     return (
 
-        <div>
-
-          <h1>Welcome to the HomePage</h1>
+        <div className="tiles" >
 
           {tiles}
 

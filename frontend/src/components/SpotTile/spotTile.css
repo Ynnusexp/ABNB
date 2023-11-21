@@ -1,1 +1,15 @@
+.img {
+    display: inline-flex;
+    width: 200px;
+    height: 200px;
 
+}
+
+.onClick {
+    display: inline-flex;
+    border: 1px solid black;
+    width: fit-content;
+    flex-direction: column;
+    
+
+}
