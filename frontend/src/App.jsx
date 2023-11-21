@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import { createBrowserRouter, RouterProvider, Outlet } from 'react-router-dom';
 import Navigation from './components/Navigation/Navigation';
 import * as sessionActions from './store/session';
+//import { getSpotsFetch } from './store/spots';
 
 
 function Layout() {
@@ -10,6 +11,7 @@ function Layout() {
   const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
+    //dispatch(getSpotsFetch()) //populates store with all spots
     dispatch(sessionActions.restoreUser()).then(() => {
       setIsLoaded(true)
     });
@@ -47,6 +49,8 @@ const router = createBrowserRouter([
     ]
   }
 ]);
+
+//const router =
 
 function App() {
 
