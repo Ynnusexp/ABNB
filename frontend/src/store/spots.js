@@ -1,42 +1,55 @@
-// import { csrfFetch } from "./csrf";
+import { csrfFetch } from "./csrf";
 
-// const GET_ALL_SPOTS = "spots/getAllSpots";
+const GET_ALL_SPOTS = "spots/getAllSpots";
 
-// const getAllSpots = (spots) => {
+const getAllSpots = (spots) => {
 
-//     return {
-//         type: GET_ALL_SPOTS,
-//         spots
-//     }
+    return {
+        type: GET_ALL_SPOTS,
+        spots
+    }
 
-// }
+}
 
-// export const getSpotsFetch = () => async (dispatch) => {
+export const getSpotsFetch = () => async (dispatch) => {
 
-//     const res = await csrfFetch("/api/spots")
+    const res = await csrfFetch("/api/spots")
 
-//     if (res.ok) {
+    if (res.ok) {
 
-//         const allSpots = await res.json()
-//         dispatch(getAllSpots(allSpots))
-//         return allSpots
+        const allSpots = await res.json()
+        //console.log(allSpots)
+        dispatch(getAllSpots(allSpots))
+        return allSpots
 
-//     }
+    }
 
-// }
+}
+
+const initialState = {
+
+}
+const spotsReducer = (state = initialState, action) => {
 
 
-// const spotsReducer = (state = {}, action) => {
+    switch (action.type) {
 
-//     let newState;
+        case GET_ALL_SPOTS: {
 
-//     switch (action.type) {
+    //console.log(action.spots)
+     const newState = {...initialState}
+     action.spots.Spots.forEach(spot => newState[spot.id] = spot);
+     console.log(newState)
+     return newState
 
-//         case GET_ALL_SPOTS:
+        }
 
-//             return { ...state, newState: action.payload }
-//     }
+        default:
 
-// }
+            return state
 
-// export default spotsReducer
+    }
+
+}
+
+export default spotsReducer

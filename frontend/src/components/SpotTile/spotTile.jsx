@@ -1,24 +1,25 @@
-// import { useSelector } from 'react-redux';
-// import './spotTile.css';
-// import { useEffect, useState } from 'react';
+// import { useDispatch } from 'react-redux';
+import './spotTile.css';
+import { useNavigate } from 'react-router-dom';
 
-// export default function SpotTile() {
-//  const spots = useSelector(state => state.spots)
-//  const [isLoaded, setIsLoaded] = useState(false)
+export default function SpotTile({ image, name, city, state, avgRating, price, id }) {
 
-//  useEffect(() => {
-//     setIsLoaded(true)
-//  }, [])
+    const navigate = useNavigate()
 
-//     return isLoaded ? (
+    return (
 
-//         spots.map(spot => (
+        <div onClick={() => {
 
-//             <div key={spot.id}>
-//                 {spot.name}
-//             </div>
+            navigate(`/spots/${id}`)
 
-//         ))
+        }}>
 
-//     ) : null
-// };
+            <img src={image} alt='Spot Image'/>
+            <p>{`${city}, ${state}`}</p>
+            <p>{avgRating}</p>
+            <p>{price}</p>
+
+        </div>
+
+    )
+}

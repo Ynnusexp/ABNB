@@ -3,7 +3,9 @@ import { useDispatch } from 'react-redux';
 import { createBrowserRouter, RouterProvider, Outlet } from 'react-router-dom';
 import Navigation from './components/Navigation/Navigation';
 import * as sessionActions from './store/session';
-//import { getSpotsFetch } from './store/spots';
+import { getSpotsFetch } from './store/spots';
+import SpotTile from './components/SpotTile/spotTile';
+import HomePage from './components/HomePage/HomePage';
 
 
 function Layout() {
@@ -11,7 +13,7 @@ function Layout() {
   const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
-    //dispatch(getSpotsFetch()) //populates store with all spots
+    dispatch(getSpotsFetch()) //populates store with all spots
     dispatch(sessionActions.restoreUser()).then(() => {
       setIsLoaded(true)
     });
@@ -32,25 +34,22 @@ const router = createBrowserRouter([
     children: [
       {
         path: '/',
-        element: (
-        <>
-          <h1>Welcome!</h1>
-        </>
+
+        element:  (
+          <>
+            <p>test text</p>
+            <HomePage />,
+          </>
         )
       },
       {
-        path: '/test',
-        element: (
-          <>
-            <h1>Test!</h1>
-          </>
-        )
-      }
+        path: '/spots/:spotId',
+
+        element:  <SpotTile />, 
+      },
     ]
   }
 ]);
-
-//const router =
 
 function App() {
 

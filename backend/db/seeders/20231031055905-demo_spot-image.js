@@ -11,47 +11,47 @@ module.exports = {
     await SpotImage.bulkCreate([
       {
         spotId: 1,
-        url: "www.hola1.com",
+        url: "https://images.pexels.com/photos/106399/pexels-photo-106399.jpeg",
         preview: false
      },
      {
         spotId: 2,
-        url: "www.chao2.com",
+        url: "https://images.pexels.com/photos/106399/pexels-photo-106399.jpeg",
         preview: true
     },
       {
         spotId: 3,
-        url: "www.morning3.com",
+        url: "https://images.pexels.com/photos/106399/pexels-photo-106399.jpeg",
         preview: true
     },
     {
       spotId: 4,
-      url: 'www.evening4.com',
+      url: "https://images.pexels.com/photos/106399/pexels-photo-106399.jpeg",
       preview: true,
     },
     {
       spotId: 5,
-      url: 'www.night5.com',
+      url: "https://images.pexels.com/photos/106399/pexels-photo-106399.jpeg",
       preview: false,
     },
     {
       spotId: 6,
-      url: 'www.sunset6.com',
+      url: "https://images.pexels.com/photos/106399/pexels-photo-106399.jpeg",
       preview: true,
     },
     {
       spotId: 7,
-      url: 'www.midday7.com',
+      url: "https://images.pexels.com/photos/106399/pexels-photo-106399.jpeg",
       preview: false,
     },
     {
       spotId: 8,
-      url: 'www.sunrise8.com',
+      url: "https://images.pexels.com/photos/106399/pexels-photo-106399.jpeg",
       preview: true,
     },
     {
       spotId: 9,
-      url: 'www.dawn9.com',
+      url: "https://images.pexels.com/photos/106399/pexels-photo-106399.jpeg",
       preview: false,
     }
 
