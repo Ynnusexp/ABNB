@@ -53,7 +53,7 @@ module.exports = {
       spotId: 9,
       url: "https://images.pexels.com/photos/106399/pexels-photo-106399.jpeg",
       preview: false,
-    }
+    },
 
     ], options, { validate: true });
   },

@@ -8,7 +8,10 @@ export default function SpotTile({ image, name, city, state, avgRating, price, i
 
     return (
 
-        <div className="onClick" onClick={() => {
+
+        <div className="onClick" title={name}
+
+        onClick={() => {
 
             navigate(`/spots/${id}`)
 
@@ -16,10 +19,9 @@ export default function SpotTile({ image, name, city, state, avgRating, price, i
 
             <img className="img" src={image} alt='Spot Image'/>
             <p>{`${city}, ${state}`}</p>
-            <p>{avgRating}</p>
+            <p>{avgRating ? avgRating : "new"}</p>
             <p>{price}</p>
 
         </div>
-
     )
 }
