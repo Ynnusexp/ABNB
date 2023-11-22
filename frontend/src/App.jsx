@@ -4,8 +4,9 @@ import { createBrowserRouter, RouterProvider, Outlet } from 'react-router-dom';
 import Navigation from './components/Navigation/Navigation';
 import * as sessionActions from './store/session';
 import { getSpotsFetch } from './store/spots';
-import SpotTile from './components/SpotTile/spotTile';
+//import SpotTile from './components/SpotTile/spotTile';
 import HomePage from './components/HomePage/HomePage';
+import SpotPage from './components/SpotPage/SpotPage'
 
 
 function Layout() {
@@ -41,13 +42,21 @@ const router = createBrowserRouter([
           </>
         )
       },
+      // {
+      //   path: '/spots/:spotId',
+
+      //   element:
+
+      //   <SpotTile />,
+
+      // },
       {
         path: '/spots/:spotId',
 
         element:
 
-        <SpotTile />, // TODO:individual page for spot
-        
+        <SpotPage />,
+
       },
     ]
   }

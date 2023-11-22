@@ -4,13 +4,13 @@ import SpotTile from "../SpotTile/spotTile";
 export default function HomePage () {
 
     const spots = useSelector( (state) => {
-      console.log(state.spots);
+      //console.log(state.spots);
       return state.spots
     })
     // console.log(spots)
 
     const spotsArr = Object.values(spots)
-    // console.log(spotsArr)
+    console.log(spotsArr)
 
     const tiles = spotsArr.map(spot => (
 
