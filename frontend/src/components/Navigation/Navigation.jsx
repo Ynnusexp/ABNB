@@ -48,6 +48,16 @@ function Navigation({ isLoaded }) {
           Log in as Demo User
           </button>
         </li>
+        <li>
+          <button
+          onClick={()=> {
+            navigate("/spots/create")
+          }}
+        >
+          Create a New Spot
+          </button>
+
+        </li>
       </>
     );
   }

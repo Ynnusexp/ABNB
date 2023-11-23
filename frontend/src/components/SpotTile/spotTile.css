@@ -1,15 +1,31 @@
 .img {
-    display: inline-flex;
-    width: 200px;
-    height: 200px;
-
+  display: inline-flex;
+  width: 300px;
+  height: 300px;
+  padding-right: 65px;
+  padding-left: 25px;
 }
 
 .onClick {
-    display: inline-flex;
-    border: 1px solid black;
-    width: fit-content;
-    flex-direction: column;
-    
+  display: inline-flex;
+  border: 1px solid black;
+  width: fit-content;
+  flex-direction: column;
+}
+
+.nameRating {
+  display: flex;
+  flex-direction: row;
+}
+
+.cityState {
+  padding-left: 15px;
+}
+
+.rating {
+  padding-left: 70px;
+}
+.price{
+padding-left: 20px;
 
 }
