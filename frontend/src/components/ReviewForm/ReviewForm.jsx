@@ -2,9 +2,9 @@ import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useModal } from '../../context/Modal';
 import * as spots from '../../store/spots';
-import './Review.css';
+import './ReviewForm.css';
 
-function ReviewFormModal() {
+function ReviewForm() {
   const dispatch = useDispatch();
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
@@ -117,7 +117,7 @@ function ReviewFormModal() {
   );
 }
 
-export default ReviewFormModal;
+export default ReviewForm;
 
 
 // // frontend/src/components/SignupFormPage/SignupFormPage.jsx
