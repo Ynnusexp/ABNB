@@ -144,15 +144,24 @@ router.get("/", queryFilters, async (req, res) => {
 
         });
 
+        let reviews = await Review.findAll({
+            where: {
+                spotId
+            }
+        })
+
+        spot.reviews = reviews;
+
         if (count > 0) {
 
-            spot.avgRating = sumRating / count;
+            spot.avgRating = (sumRating / count).toFixed(2);;
 
           } else {
 
-            spot.avgRating = 'Spot not rated';
+            spot.avgRating = 'New';
 
           }
+
 
         if (spot.SpotImages[0]) {
 
@@ -212,6 +221,12 @@ router.get('/current', requireAuth, async (req, res) => {
 
         })
 
+        let reviews = await Review.findAll({
+            where: {
+                spotId: spots[i].id
+            }
+        })
+
         let previewImage = await SpotImage.findOne({
 
             where: {
@@ -238,7 +253,8 @@ router.get('/current', requireAuth, async (req, res) => {
             createdAt: spots[i].createdAt,
             updatedAt: spots[i].updatedAt,
             avgRating: avgRating ? avgRating: "spot has not been rated",
-            previewImage: previewImage ? previewImage.url : 'No preview image'
+            previewImage: previewImage ? previewImage.url : 'No preview image',
+            reviews
 
         }
 
@@ -316,6 +332,16 @@ router.get('/:spotsId', async (req, res) => {
 
         })
 
+        let reviews = await Review.findAll({
+
+            where: {
+
+                spotId: spots.id
+
+            }
+
+        })
+
         const spotImg = await SpotImage.findAll({
 
             where: {
@@ -351,6 +377,7 @@ router.get('/:spotsId', async (req, res) => {
             avgRating: avgRating ? avgRating: "spot has not been rated",
             previewImage: previewImage ? previewImage.url : 'No preview image',
             SpotImages: spotImg,
+            reviews,
             Owner: owners[0]
 
         }

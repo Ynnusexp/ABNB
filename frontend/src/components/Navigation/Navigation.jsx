@@ -19,9 +19,16 @@ function Navigation({ isLoaded }) {
   let sessionLinks;
   if (sessionUser) {
     sessionLinks = (
-      <li>
-        <ProfileButton user={sessionUser} />
-      </li>
+      <>
+        <li>
+          <ProfileButton user={sessionUser} />
+        </li>
+        <li>
+          <button  onClick={()=> { navigate("/spots/create") }}>
+            Create a New Spot
+          </button>
+        </li>
+      </>
     );
   } else {
     sessionLinks = (
@@ -47,16 +54,6 @@ function Navigation({ isLoaded }) {
           >
           Log in as Demo User
           </button>
-        </li>
-        <li>
-          <button
-          onClick={()=> {
-            navigate("/spots/create")
-          }}
-        >
-          Create a New Spot
-          </button>
-
         </li>
       </>
     );

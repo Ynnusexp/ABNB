@@ -1,6 +1,8 @@
 // import { useDispatch } from 'react-redux';
 import "./spotTile.css";
 import { useNavigate } from "react-router-dom";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faStar } from '@fortawesome/free-solid-svg-icons'
 
 export default function SpotTile({
   image,
@@ -27,7 +29,7 @@ export default function SpotTile({
           <p>{`${city}, ${state}`}</p>
         </div>
         <div className="rating">
-          <p>{avgRating ? avgRating : "new"}</p>
+          {avgRating ? <p><FontAwesomeIcon icon={faStar} /> {avgRating}</p> : <p>new</p>}
         </div>
       </div>
       <div className="price">

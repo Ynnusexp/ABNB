@@ -4,20 +4,38 @@ import { useModal } from '../../context/Modal';
 import * as spots from '../../store/spots';
 import './ReviewForm.css';
 
+const validForm = {
+  review: true,
+  stars: true,
+
+};
 function ReviewForm() {
   const dispatch = useDispatch();
-  const [email, setEmail] = useState("");
-  const [username, setUsername] = useState("");
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
+  const [review, setReview,] = useState("");
+  const [stars, setStars] = useState("");
   const [errors, setErrors] = useState({});
   const { closeModal } = useModal();
+  const [validation, setValidation] = useState(validForm);
+
+
+  const isValidForm = () => {
+    const checkForm = {
+      review: review.length > 30,
+      stars: stars.length,
+
+    };
+
+    setValidation(checkForm);
+    if (!Object.values(checkForm).some((value) => value === 0)) {
+      return true;
+    }
+
+    return false;
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (password === confirmPassword) {
+    if (isValidForm) {
       setErrors({});
       return dispatch(
         spots.signup({
@@ -43,18 +61,19 @@ function ReviewForm() {
 
   return (
     <>
-      <h1>Sign Up</h1>
+      <h1>How was your stay?</h1>
+       {errors.server && <p>{errors.server}</p>}
       <form onSubmit={handleSubmit}>
         <label>
-          Email
+
           <input
-            type="text"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            type="textArea"
+            value={review}
+            onChange={(e) => setReview(e.target.value)}
             required
           />
         </label>
-        {errors.email && <p>{errors.email}</p>}
+        {errors.review && <p>{errors.review}</p>}
         <label>
           Username
           <input
@@ -65,48 +84,11 @@ function ReviewForm() {
           />
         </label>
         {errors.username && <p>{errors.username}</p>}
-        <label>
-          First Name
-          <input
-            type="text"
-            value={firstName}
-            onChange={(e) => setFirstName(e.target.value)}
-            required
-          />
-        </label>
-        {errors.firstName && <p>{errors.firstName}</p>}
-        <label>
-          Last Name
-          <input
-            type="text"
-            value={lastName}
-            onChange={(e) => setLastName(e.target.value)}
-            required
-          />
-        </label>
-        {errors.lastName && <p>{errors.lastName}</p>}
-        <label>
-          Password
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </label>
-        {errors.password && <p>{errors.password}</p>}
-        <label>
-          Confirm Password
-          <input
-            type="password"
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
-            required
-          />
-        </label>
-        {errors.confirmPassword && (
-          <p>{errors.confirmPassword}</p>
-        )}
+        {/* <p>
+                <FontAwesomeIcon icon={faStar} /> {spot.avgRating}
+              </p> */}
+
+
         <button
         type="submit"
         disabled={( password.length < 6 || confirmPassword.length < 1 || username.length < 4 || firstName.length < 1 || lastName.length < 1 )}
