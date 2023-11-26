@@ -155,6 +155,7 @@ export default function SpotPage() {
               <ReviewTile
                 key={`${index}-${singleReview.id}`}
                 review={singleReview}
+                owner={spot.Owner}
               />
             ))}
         </div>
