@@ -69,38 +69,38 @@ const spotsReducer = (state = initialState, action) => {
 
         case GET_ALL_SPOTS: {
 
-    //console.log(action.spots)
-     const newState = {...state}
-     action.spots.Spots.forEach(spot => newState[spot.id] = spot);
-     console.log(newState)
-     return newState
+            //console.log(action.spots)
+            const newState = { ...state }
+            action.spots.Spots.forEach(spot => newState[spot.id] = spot);
+            console.log(newState)
+            return newState
 
         }
 
         case ADD_SPOT: {
-            const newState = {...state}
+            const newState = { ...state }
             console.log(newState)
 
             newState[action.spot.id] = action.spot;
             console.log(newState)
             return newState
 
-                }
+        }
 
         case ADD_REVIEW: {
-        const newState = {...state}
-        const spot = newState[action.review.spotId]
-        if(spot.reviews){
-          spot.reviews.unshift(action.review)
-        } else {
-            spot.reviews = [action.review]
-        }
+            const newState = { ...state }
+            const spot = newState[action.review.spotId]
+            if (spot.reviews) {
+                spot.reviews.unshift(action.review)
+            } else {
+                spot.reviews = [action.review]
+            }
 
             newState[action.review.spotId] = spot;
 
             return newState
 
-                        }
+        }
 
         default:
 

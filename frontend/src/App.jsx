@@ -8,6 +8,7 @@ import { getSpotsFetch } from "./store/spots";
 import HomePage from "./components/HomePage/HomePage";
 import SpotPage from "./components/SpotPage/SpotPage";
 import CreateForm from "./components/CreateForm/CreateForm"
+import ManageSpots from "./components/ManageSpots/ManageSpots";
 
 function Layout() {
   const dispatch = useDispatch();
@@ -53,6 +54,11 @@ const router = createBrowserRouter([
         path: "/spots/:spotId",
 
         element: <SpotPage />,
+      },
+      {
+        path: "/managespots",
+
+        element: <ManageSpots />,
       },
       {
         path: "/spots/create",

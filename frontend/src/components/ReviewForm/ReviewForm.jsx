@@ -33,7 +33,7 @@ function ReviewForm(props) {
 
 
   const isValidForm = () => {
-    if(review.length < 30){
+    if(review.length <= 10){
       return false
     }
     if(stars < 0){

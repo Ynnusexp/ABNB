@@ -9,14 +9,14 @@ import ReviewTile from "../ReviewTile/reviewTile";
 import { addNewSpot } from "../../store/spots";
 import { csrfFetch } from "../../store/csrf";
 import { SPOTS_ENDPOINT } from "../../api/endpoints";
-import ReviewForm from "../ReviewForm/ReviewForm"
+import ReviewForm from "../ReviewForm/ReviewForm";
 import OpenModalButton from "../OpenModalButton/OpenModalButton";
 
 export default function SpotPage() {
-  const [loaded, setLoaded] = useState(false)
-  const dispatch = useDispatch()
+  const [loaded, setLoaded] = useState(false);
+  const dispatch = useDispatch();
   const [spot, setSpot] = useState("");
-  const [canReview, setCanReview] = useState(false);
+  const [canReview, setCanReview] = useState(true);
   const spots = useSelector((state) => {
     return state.spots;
   });
@@ -26,48 +26,72 @@ export default function SpotPage() {
   const sessionUser = useSelector((state) => state.session.user);
 
   useEffect(() => {
-    fetchSpotDetail(spotId)
-
+    fetchSpotDetail(spotId);
   }, [spotId]);
+
+  useEffect(() => {
+    spot?.reviews?.forEach((spotItem) => {
+      if (spotItem.userId == spot.Owner.id) {
+        setCanReview(false);
+      }
+    });
+  }, []);
 
   const fetchSpotDetail = async (spotId) => {
     await csrfFetch(`${SPOTS_ENDPOINT}/${spotId}`, {
       method: "GET",
-      headers:{user: sessionUser},
-
+      headers: { user: sessionUser },
     })
-    
-    .then(resp => resp.json())
-    .then(response => {
-      //once we have the record iD weneed to input pictures
-      console.log('Successfully fetched spot');
-      console.log(response , "11111111111111111111111111111111111111")
-      if(response && response.Spots && response.Spots[0]){
-        console.log(response.Spots[0])
-        dispatch(addNewSpot(response.Spots[0]))
-        setSpot(response.Spots[0]);
-      }
-      //setSpot(spots[spotId]);
+      .then((resp) => resp.json())
+      .then((response) => {
+        //once we have the record iD weneed to input pictures
+        // console.log("Successfully fetched spot");
+         console.log(response, "11111111111111111111111111111111111111");
+        if (response && response.Spots && response.Spots[0]) {
+          // console.log(response.Spots[0]);
+          dispatch(addNewSpot(response.Spots[0]));
+          setSpot(response.Spots[0]);
+        }
+        //setSpot(spots[spotId]);
 
-      setLoaded(true)
-    })
-    .catch(err => {
-      alert(err)
-    }).finally(() => {
-      setLoaded(true)
-    })
-  }
-
-  const generateReviewLanguage = () => {
-    const reviewCount = spot?.reviews ? spot.reviews.length : 0
-    return reviewCount === 0 || reviewCount > 1
-      ? `${reviewCount} Reviews`
-      : "1 Review";
+        setLoaded(true);
+      })
+      .catch((err) => {
+         console.log(err);
+      })
+      .finally(() => {
+        setLoaded(true);
+      });
   };
 
+  const generateReviewLanguage = () => {
+    const reviewCount = spot?.reviews ? spot.reviews.length : 0;
+    if (reviewCount == 1) {
+      return "1 Review";
+    } else if (reviewCount > 1) {
+      return `${reviewCount} Reviews`;
+    } else {
+      return;
+    }
+  };
+
+  const calculateAverage = (reviews) => {
+    let average = 0;
+    let total = 0;
+    reviews.forEach((review) => {
+      total = total + review.stars
+    })
+
+    average = total / reviews.length;
+
+    return average;
+  }
+
   return (
-    loaded && spot && (
+    loaded &&
+    spot && (
       <div className="spotPageMain">
+
         <div className="spotHeading">
           <h1 className=" spotName">{spot.name}</h1>
           <h3 className="subHeading">
@@ -106,7 +130,7 @@ export default function SpotPage() {
           {spot.avgRating ? (
             <p>
               <FontAwesomeIcon icon={faStar} size="xl" />
-               {/* {spot.avgRating} fix should show d3cimals*/}
+              {/* {spot.avgRating} fix should show d3cimals*/}
             </p>
           ) : (
             <p>new</p>
@@ -114,29 +138,46 @@ export default function SpotPage() {
         </div>
         <div className="review-count">{generateReviewLanguage()}</div>
         <div>
-          {sessionUser && canReview && <OpenModalButton
-            buttonText="Post Review"
-            modalComponent={<ReviewForm spotId={spot.id} />}
-          />}
+          {sessionUser && canReview && spot.ownerId != spot.Owner.id && (
+            <OpenModalButton
+              buttonText="Post Your Review"
+              modalComponent={<ReviewForm spotId={spot.id} />}
+            />
+          )}
+          {sessionUser && canReview && spot.hasReview == false && (
+            <p>Be the first to post a review!</p>
+          )}
         </div>
         <div>
-            {spot.reviews && spot.reviews.length > 0 && spot.reviews.map((singleReview, index) => (
-               <ReviewTile key={`${index}-${singleReview.id}`} review={singleReview} />
-
+          {spot.reviews &&
+            spot.reviews.length > 0 &&
+            spot.reviews.map((singleReview, index) => (
+              <ReviewTile
+                key={`${index}-${singleReview.id}`}
+                review={singleReview}
+              />
             ))}
         </div>
         <div className="box">
           <p className="price">${spot.price} night</p>
-          <div className="box-rating">
-            {spot.avgRating ? (
-              <p>
-                <FontAwesomeIcon icon={faStar} /> {/* fix avgating fom back, should pass back a dcmical*/}
-              </p>
-            ) : (
-              <p>new</p>
-            )}
+          <div className="box-rating-wrapper">
+            <div className="box-rating">
+              {spot.hasReview ? (
+                <p>
+                  <FontAwesomeIcon icon={faStar} />
+                  {calculateAverage(spot.reviews)}
+                  {/* <FontAwesomeIcon icon={faStar} /> */}
+                  {/* fix avgating fom back, should pass back a dcmical*/}
+                </p>
+              ) : (
+                <p>
+                  <FontAwesomeIcon icon={faStar} /> new
+                </p>
+              )}
+            </div>
+            {spot.reviews.length > 0 && <div className="box-dot">·</div>}
+            <div className="box-reviews">{generateReviewLanguage()}</div>
           </div>
-          <div className="box-reviews">{generateReviewLanguage()}</div>
           <button
             className="reserve"
             onClick={() => alert("Feature coming soon")}

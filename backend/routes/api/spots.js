@@ -1,4 +1,4 @@
-const sequelize = require('sequelize');
+const sequelize = require('sequelize');//
 const { Spot, User, SpotImage, Review, ReviewImage, Booking } = require('../../db/models');
 const express = require('express');
 const router = express.Router();
@@ -301,7 +301,7 @@ router.get('/:spotsId', async (req, res) => {
 
         attributes: {
 
-            exclude: ['username']
+            include: ['username']
         }
 
     })
@@ -397,7 +397,7 @@ router.get('/:spotsId', async (req, res) => {
             reviews,
             Owner: owners[0],
             hasReview: myReview? true : false
-
+            
         }
 
         newSpots.push(newSpot)
