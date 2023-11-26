@@ -51,7 +51,7 @@ function ReviewForm(props) {
      }
   };
   const addReview = () => {
-
+    console.log('BEFORE REVIEW SUBMIT')
     csrfFetch(`${SPOTS_ENDPOINT}/${props.spotId}/reviews`, {
       method: "POST",
       headers:{user: sessionUser},
@@ -59,7 +59,10 @@ function ReviewForm(props) {
         review: review, stars: stars
       })
     })
-    .then(resp => resp.json())
+    .then(resp => {
+      console.log('RESP: ', resp);
+      return resp.json();
+    })
 
     .then(async response => {
 console.log("in r3sp", response)

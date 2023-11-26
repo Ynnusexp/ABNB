@@ -295,7 +295,7 @@ router.get('/:spotsId', async (req, res) => {
 
         where: {
 
-            id: user.id
+            id: spots.ownerId
 
         },
 
@@ -322,7 +322,7 @@ router.get('/:spotsId', async (req, res) => {
 
         })
 
-        let myReview = await Review.findOne({
+        let myReview = user && await Review.findOne({
 
             attribute: [
 
@@ -338,6 +338,7 @@ router.get('/:spotsId', async (req, res) => {
             }
 
         })
+        console.log("!!!!!!!!!!!!!!!!", myReview, "!!!!!!!!!!!!!");
 
         let previewImage = await SpotImage.findOne({
 
@@ -397,7 +398,7 @@ router.get('/:spotsId', async (req, res) => {
             reviews,
             Owner: owners[0],
             hasReview: myReview? true : false
-            
+
         }
 
         newSpots.push(newSpot)
@@ -588,7 +589,7 @@ router.delete('/:spotId', requireAuth, async (req, res) => {
 router.get('/:spotId/reviews', async (req, res) => {
 
     let spot = await Spot.findByPk(req.params.spotId)
-
+    console.log(spot)
     if (!spot) {
 
         return res.status(404).json({
@@ -618,6 +619,7 @@ router.get('/:spotId/reviews', async (req, res) => {
             }
         ]
     })
+    console.log(reviews)
 
     res.status(200).json({
 
@@ -669,12 +671,12 @@ router.post('/:spotId/reviews', requireAuth, validateReview, async (req, res, ne
 
     if (currCheck) {
 
+        return res.status(500).json({ message: "User already has a review for this spot" })
+        // return res.status(500).json({
 
-        return res.status(500).json({
+        //     "message": "User already has a review for this spot"
 
-            "message": "User already has a review for this spot"
-
-        })
+        // })
     }
 
 

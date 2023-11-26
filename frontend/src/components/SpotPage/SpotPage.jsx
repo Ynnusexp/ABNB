@@ -25,6 +25,13 @@ export default function SpotPage() {
 
   const sessionUser = useSelector((state) => state.session.user);
 
+useEffect(() => {
+  console.log(spot);
+  console.log(spot?.ownerId);
+  console.log(spot?.Owner?.id);
+  console.log(spot?.ownerId != spot?.Owner?.id);
+}, [spot]);
+
   useEffect(() => {
     fetchSpotDetail(spotId);
   }, [spotId]);
@@ -138,13 +145,13 @@ export default function SpotPage() {
         </div>
         <div className="review-count">{generateReviewLanguage()}</div>
         <div>
-          {sessionUser && canReview && spot.ownerId != spot.Owner.id && (
+          {sessionUser && canReview && spot.ownerId !== sessionUser.id && (
             <OpenModalButton
               buttonText="Post Your Review"
               modalComponent={<ReviewForm spotId={spot.id} />}
             />
           )}
-          {sessionUser && canReview && spot.hasReview == false && (
+          {sessionUser && canReview && !spot.hasReview && (
             <p>Be the first to post a review!</p>
           )}
         </div>
