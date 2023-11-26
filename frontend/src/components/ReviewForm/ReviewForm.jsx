@@ -1,220 +1,123 @@
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useModal } from '../../context/Modal';
 import * as spots from '../../store/spots';
 import './ReviewForm.css';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faStar } from "@fortawesome/free-solid-svg-icons";
+import { csrfFetch } from '../../store/csrf';
+import { SPOTS_ENDPOINT } from "../../api/endpoints.js";
+import { addNewReview } from '../../store/spots';
 
-const validForm = {
-  review: true,
-  stars: true,
 
-};
-function ReviewForm() {
+function ReviewForm(props) {
   const dispatch = useDispatch();
   const [review, setReview,] = useState("");
-  const [stars, setStars] = useState("");
+  const [stars, setStars] = useState(0);
   const [errors, setErrors] = useState({});
   const { closeModal } = useModal();
-  const [validation, setValidation] = useState(validForm);
+  const [enableSubmit, setEnableSubmit ] = useState(false)
+
+  const sessionUser = useSelector((state) => state.session.user);
+
+  const onStarChange = (value) => {
+    setStars(value)
+    setEnableSubmit(isValidForm())
+
+  }
+  const onReviewChange = (value) => {
+    setReview(value)
+    setEnableSubmit(isValidForm())
+
+  }
 
 
   const isValidForm = () => {
-    const checkForm = {
-      review: review.length > 30,
-      stars: stars.length,
-
-    };
-
-    setValidation(checkForm);
-    if (!Object.values(checkForm).some((value) => value === 0)) {
-      return true;
+    if(review.length < 30){
+      return false
     }
-
-    return false;
+    if(stars < 0){
+      return false
+    }
+    return true
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (isValidForm) {
+    if (isValidForm()) {
       setErrors({});
-      return dispatch(
-        spots.signup({
-          email,
-          username,
-          firstName,
-          lastName,
-          password
-        })
-      )
-        .then(closeModal)
-        .catch(async (res) => {
-          const data = await res.json();
-          if (data?.errors) {
-            setErrors(data.errors);
-          }
-        });
-    }
-    return setErrors({
-      confirmPassword: "Confirm Password field must be the same as the Password field"
-    });
+      addReview()
+
+     }
   };
+  const addReview = () => {
 
+    csrfFetch(`${SPOTS_ENDPOINT}/${props.spotId}/reviews`, {
+      method: "POST",
+      headers:{user: sessionUser},
+      body: JSON.stringify({
+        review: review, stars: stars
+      })
+    })
+    .then(resp => resp.json())
+
+    .then(async response => {
+console.log("in r3sp", response)
+      dispatch(addNewReview(response));
+
+      closeModal()
+    })
+    .catch(err => {
+      console.log("in err", err)
+      setErrors({server: err.statusText})
+    })
+  }
   return (
-    <>
+    <div className='review-submit-form'>
       <h1>How was your stay?</h1>
-       {errors.server && <p>{errors.server}</p>}
+       {errors.server && <p className='errors'>{errors.server}</p>}
       <form onSubmit={handleSubmit}>
-        <label>
 
-          <input
+      <div className='review-text'>
+      <textarea
             type="textArea"
+            rows={4}
+            cols={30}
             value={review}
-            onChange={(e) => setReview(e.target.value)}
+            placeholder='Leave your review here...'
+            onChange={(e) => onReviewChange(e.target.value)}
             required
           />
-        </label>
-        {errors.review && <p>{errors.review}</p>}
-        <label>
-          Username
-          <input
-            type="text"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            required
-          />
-        </label>
-        {errors.username && <p>{errors.username}</p>}
-        {/* <p>
-                <FontAwesomeIcon icon={faStar} /> {spot.avgRating}
-              </p> */}
+      </div>
 
+        <div className="star-rating">
+          <label>
 
+      {[...Array(5)].map((star, index) => {
+        index += 1;
+        return (
+          <button
+            type="button"
+            key={index}
+            className={index <= stars ? "star-on" : "star-off"}
+            onClick={() => onStarChange(index)}
+          >
+            <FontAwesomeIcon className="star-icon" icon={faStar} />
+          </button>
+        );
+      })}
+      Stars
+       </label>
+    </div>
         <button
         type="submit"
-        disabled={( password.length < 6 || confirmPassword.length < 1 || username.length < 4 || firstName.length < 1 || lastName.length < 1 )}
+        disabled={!enableSubmit}
+        className={enableSubmit ? "enable-submit" : ""}
 
-        >Sign Up</button>
+        >Submit Your Review</button>
       </form>
-    </>
+    </div>
   );
 }
 
 export default ReviewForm;
-
-
-// // frontend/src/components/SignupFormPage/SignupFormPage.jsx
-
-// import { useState } from 'react';
-// import { useDispatch, useSelector } from 'react-redux';
-// import { Navigate } from 'react-router-dom';
-// import * as sessionActions from '../../store/session';
-// import './SignupForm.css'
-
-// function SignupFormPage() {
-//   const dispatch = useDispatch();
-//   const sessionUser = useSelector((state) => state.session.user);
-//   const [email, setEmail] = useState("");
-//   const [username, setUsername] = useState("");
-//   const [firstName, setFirstName] = useState("");
-//   const [lastName, setLastName] = useState("");
-//   const [password, setPassword] = useState("");
-//   const [confirmPassword, setConfirmPassword] = useState("");
-//   const [errors, setErrors] = useState({});
-
-//   if (sessionUser) return <Navigate to="/" replace={true} />;
-
-//   const handleSubmit = (e) => {
-//     e.preventDefault();
-//     if (password === confirmPassword) {
-//       setErrors({});
-//       return dispatch(
-//         sessionActions.signup({
-//           email,
-//           username,
-//           firstName,
-//           lastName,
-//           password
-//         })
-//       ).catch(async (res) => {
-//         const data = await res.json();
-//         if (data?.errors) {
-//           setErrors(data.errors);
-//         }
-//       });
-//     }
-//     return setErrors({
-//       confirmPassword: "Confirm Password field must be the same as the Password field"
-//     });
-//   };
-
-//   return (
-//     <>
-//       <h1>Sign Up</h1>
-//       <form onSubmit={handleSubmit}>
-//         <label>
-//           Email
-//           <input
-//             type="text"
-//             value={email}
-//             onChange={(e) => setEmail(e.target.value)}
-//             required
-//           />
-//         </label>
-//         {errors.email && <p>{errors.email}</p>}
-//         <label>
-//           Username
-//           <input
-//             type="text"
-//             value={username}
-//             onChange={(e) => setUsername(e.target.value)}
-//             required
-//           />
-//         </label>
-//         {errors.username && <p>{errors.username}</p>}
-//         <label>
-//           First Name
-//           <input
-//             type="text"
-//             value={firstName}
-//             onChange={(e) => setFirstName(e.target.value)}
-//             required
-//           />
-//         </label>
-//         {errors.firstName && <p>{errors.firstName}</p>}
-//         <label>
-//           Last Name
-//           <input
-//             type="text"
-//             value={lastName}
-//             onChange={(e) => setLastName(e.target.value)}
-//             required
-//           />
-//         </label>
-//         {errors.lastName && <p>{errors.lastName}</p>}
-//         <label>
-//           Password
-//           <input
-//             type="password"
-//             value={password}
-//             onChange={(e) => setPassword(e.target.value)}
-//             required
-//           />
-//         </label>
-//         {errors.password && <p>{errors.password}</p>}
-//         <label>
-//           Confirm Password
-//           <input
-//             type="password"
-//             value={confirmPassword}
-//             onChange={(e) => setConfirmPassword(e.target.value)}
-//             required
-//           />
-//         </label>
-//         {errors.confirmPassword && <p>{errors.confirmPassword}</p>}
-//         <button type="submit">Sign Up</button>
-//       </form>
-//     </>
-//   );
-// }
-
-// export default SignupFormPage;

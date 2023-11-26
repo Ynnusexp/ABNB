@@ -4,7 +4,7 @@ import { csrfFetch } from './csrf';
 
 const GET_ALL_SPOTS = "spots/getAllSpots";
 const ADD_SPOT = "spots/addNewSpot";
-//const UPDATE_SPOT_IMG = "spots/updateSpot";
+const ADD_REVIEW = "spots/addNewReview ";
 
 const getAllSpots = (spots) => {
 
@@ -23,6 +23,16 @@ export const addNewSpot = (spot) => {
     }
 
 }
+
+export const addNewReview = (review) => {
+
+    return {
+        type: ADD_REVIEW,
+        review
+    }
+
+}
+
 
 // export const updateSpot = (spot) => {
 
@@ -48,57 +58,7 @@ export const getSpotsFetch = () => async (dispatch) => {
 
 }
 
-// export const getSpotFetch = (spotId) => async (dispatch) => {
 
-//     const res = await csrfFetch(`${SPOTS_ENDPOINT}/${spotId}`)
-
-//     if (res.ok) {
-
-//         const spot = await res.json()
-//         //console.log(allSpots)
-//         //dispatch(updateSpot(spot))
-//         return spot
-
-//     }
-
-// }
-// export const createSpot = (request) => async (dispatch) => {
-//     console.log("THIS IS CR3at")
-//     debugger;
-//     console.log(request)
-//     const res = await csrfFetch(SPOTS_ENDPOINT, {
-//       method: "POST",
-//       headers:{user: request.sessionUser},
-//       body: JSON.stringify(request.spot)
-//     })
-//     console.log(res)
-//     debugger;
-//     if (res.created) {
-
-//         const newSpot = await res.json()
-
-//         dispatch(addNewSpot(newSpot))
-//         return newSpot
-
-//     }
-//     console.log("THIS IS 3nd of m3thod")
-
-//     .then(resp => resp.json())
-//     .then(async response => {
-//         //TODO
-//       //once we have the record iD weneed to input pictures
-//       //if we have pictures add them in
-
-//       dispatch(getSpotsFetch()); //populates store with all spots
-//       if (picture){
-//         await addSpot3s(response.id);
-//       }
-//       navigate(`/spots/${response.id}`);
-//     })
-//     .catch(err => {
-//       alert(err)
-//     })
-  //}
 
 
 const initialState = {}
@@ -126,6 +86,21 @@ const spotsReducer = (state = initialState, action) => {
             return newState
 
                 }
+
+        case ADD_REVIEW: {
+        const newState = {...state}
+        const spot = newState[action.review.spotId]
+        if(spot.reviews){
+          spot.reviews.unshift(action.review)
+        } else {
+            spot.reviews = [action.review]
+        }
+
+            newState[action.review.spotId] = spot;
+
+            return newState
+
+                        }
 
         default:
 

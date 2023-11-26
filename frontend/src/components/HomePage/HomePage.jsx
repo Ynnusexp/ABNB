@@ -21,11 +21,11 @@ export default function HomePage () {
         name={spot.name}
         city={spot.city}
         state={spot.state}
-        avgRating={spot.avgRating}
+        //avgRating={spot.avgRating} -----------------------
         price={spot.price}
       />
     ))
-    // console.log(tiles)
+     console.log(tiles, "tiles")
 
     return (
 

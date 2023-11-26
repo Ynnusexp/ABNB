@@ -306,7 +306,7 @@ router.get('/:spotsId', async (req, res) => {
 
     })
 
-        let avgRating = await Review.findOne({
+        let avgRating = await Review.findAll({
 
             attribute: [
 
@@ -317,6 +317,23 @@ router.get('/:spotsId', async (req, res) => {
             where: {
 
                 spotId: spots.id
+
+            }
+
+        })
+
+        let myReview = await Review.findOne({
+
+            attribute: [
+
+                [sequelize.fn('AVG', sequelize.col('stars')), 'avgRating']
+
+            ],
+
+            where: {
+
+                spotId: spots.id,
+                userId: user.id
 
             }
 
@@ -378,7 +395,8 @@ router.get('/:spotsId', async (req, res) => {
             previewImage: previewImage ? previewImage.url : 'No preview image',
             SpotImages: spotImg,
             reviews,
-            Owner: owners[0]
+            Owner: owners[0],
+            hasReview: myReview? true : false
 
         }
 

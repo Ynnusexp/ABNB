@@ -16,6 +16,7 @@ export default function SpotPage() {
   const [loaded, setLoaded] = useState(false)
   const dispatch = useDispatch()
   const [spot, setSpot] = useState("");
+  const [canReview, setCanReview] = useState(false);
   const spots = useSelector((state) => {
     return state.spots;
   });
@@ -26,7 +27,7 @@ export default function SpotPage() {
 
   useEffect(() => {
     fetchSpotDetail(spotId)
-    // setSpot(spots[spotId]);
+
   }, [spotId]);
 
   const fetchSpotDetail = async (spotId) => {
@@ -35,6 +36,7 @@ export default function SpotPage() {
       headers:{user: sessionUser},
 
     })
+    
     .then(resp => resp.json())
     .then(response => {
       //once we have the record iD weneed to input pictures
@@ -103,7 +105,8 @@ export default function SpotPage() {
         <div className="rating">
           {spot.avgRating ? (
             <p>
-              <FontAwesomeIcon icon={faStar} size="xl" /> {spot.avgRating}
+              <FontAwesomeIcon icon={faStar} size="xl" />
+               {/* {spot.avgRating} fix should show d3cimals*/}
             </p>
           ) : (
             <p>new</p>
@@ -111,14 +114,15 @@ export default function SpotPage() {
         </div>
         <div className="review-count">{generateReviewLanguage()}</div>
         <div>
-          {sessionUser && <OpenModalButton
+          {sessionUser && canReview && <OpenModalButton
             buttonText="Post Review"
-            modalComponent={<ReviewForm />}
+            modalComponent={<ReviewForm spotId={spot.id} />}
           />}
         </div>
         <div>
             {spot.reviews && spot.reviews.length > 0 && spot.reviews.map((singleReview, index) => (
-              <ReviewTile key={`${index}-${singleReview.id}`} review={singleReview} />
+               <ReviewTile key={`${index}-${singleReview.id}`} review={singleReview} />
+
             ))}
         </div>
         <div className="box">
@@ -126,7 +130,7 @@ export default function SpotPage() {
           <div className="box-rating">
             {spot.avgRating ? (
               <p>
-                <FontAwesomeIcon icon={faStar} /> {spot.avgRating}
+                <FontAwesomeIcon icon={faStar} /> {/* fix avgating fom back, should pass back a dcmical*/}
               </p>
             ) : (
               <p>new</p>
