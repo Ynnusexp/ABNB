@@ -33,7 +33,6 @@ export const addNewReview = (review) => {
 
 }
 
-
 // export const updateSpot = (spot) => {
 
 //     return {
@@ -45,12 +44,10 @@ export const addNewReview = (review) => {
 
 export const getSpotsFetch = () => async (dispatch) => {
 
-    const res = await csrfFetch(SPOTS_ENDPOINT + "?page=2")
+    const res = await csrfFetch(SPOTS_ENDPOINT + "?page=1")
 
     if (res.ok) {
-
         const allSpots = await res.json()
-        //console.log(allSpots)
         dispatch(getAllSpots(allSpots))
         return allSpots
 
@@ -58,18 +55,52 @@ export const getSpotsFetch = () => async (dispatch) => {
 
 }
 
+export const getCurrentUserSpots = () => async (dispatch) => {
+    const res = await csrfFetch(SPOTS_ENDPOINT + "/current");
+    if (res.ok) {
 
+        const allSpots = await res.json()
+
+        dispatch(getAllSpots(allSpots))
+        return allSpots;
+
+    }
+}
+
+export const deleteSpot = (spotId) => async () => {
+    const res = await csrfFetch(SPOTS_ENDPOINT + "/" + spotId, {
+        method: "DELETE"
+    })
+    if (res.ok) {
+
+        const allSpots = await res.json()
+
+        return allSpots;
+
+    }
+}
+
+export const deleteReview = (reviewId) => async () => {
+    const res = await csrfFetch( "/api/reviews/" + reviewId, {
+        method: "DELETE"
+    })
+    if (res.ok) {
+
+        const allSpots = await res.json()
+
+        return allSpots;
+
+    }
+}
 
 
 const initialState = {}
 const spotsReducer = (state = initialState, action) => {
 
-
     switch (action.type) {
 
         case GET_ALL_SPOTS: {
-
-            //console.log(action.spots)
+            console.log(action.spots, "action spots")
             const newState = { ...state }
             action.spots.Spots.forEach(spot => newState[spot.id] = spot);
             console.log(newState)
@@ -101,6 +132,7 @@ const spotsReducer = (state = initialState, action) => {
             return newState
 
         }
+
 
         default:
 

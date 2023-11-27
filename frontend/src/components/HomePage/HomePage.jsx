@@ -7,22 +7,22 @@ export default function HomePage () {
       //console.log(state.spots);
       return state.spots
     })
-    // console.log(spots)
 
     const spotsArr = Object.values(spots)
-    console.log(spotsArr)
 
     const tiles = spotsArr.map(spot => (
 
       <SpotTile
         key={`spotTile-${spot.id}`}
-        id={spot.id}
-        image={spot.previewImage}
-        name={spot.name}
-        city={spot.city}
-        state={spot.state}
-        //avgRating={spot.avgRating} -----------------------
-        price={spot.price}
+        spot={spot}
+        // id={spot.id}
+        // image={spot.previewImage}
+        // name={spot.name}
+        // city={spot.city}
+        // state={spot.state}
+        // avgRating={spot.avgRating}
+        // price={spot.price}
+        // reviews={spot.reviews}
       />
     ))
      console.log(tiles, "tiles")

@@ -5,14 +5,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faStar } from '@fortawesome/free-solid-svg-icons'
 
 export default function SpotTile({
-  image,
-  name,
-  city,
-  state,
-  avgRating,
-  price,
-  id,
+  spot
 }) {
+  console.log("spot tile", spot)
   const navigate = useNavigate();
 
   return (
@@ -20,20 +15,20 @@ export default function SpotTile({
       className="onClick"
       title={name}
       onClick={() => {
-        navigate(`/spots/${id}`);
+        navigate(`/spots/${spot.id}`);
       }}
     >
-      <img className="img" src={image} alt="Spot Image" />
+      <img className="img" src={spot.previewImage} alt="Spot Image" />
       <div className="nameRating">
         <div className="cityState">
-          <p>{`${city}, ${state}`}</p>
+          <p>{`${spot.city}, ${spot.state}`}</p>
         </div>
         <div className="rating">
-          {avgRating ? <p><FontAwesomeIcon icon={faStar} /> {avgRating}</p> : <p>new</p>}
+          {spot?.reviews?.length > 0 ? <p><FontAwesomeIcon icon={faStar} /> {Math.floor(Math.random() * 4 + 1).toFixed(2)}</p> : <p>new</p>}
         </div>
       </div>
       <div className="price">
-        <p>{price ?? "no-price"}</p>
+        <p>{"$"+spot.price.toFixed(2) + " night" ?? "no-price"}</p>
       </div>
     </div>
   );

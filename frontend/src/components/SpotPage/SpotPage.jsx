@@ -26,10 +26,10 @@ export default function SpotPage() {
   const sessionUser = useSelector((state) => state.session.user);
 
 useEffect(() => {
-  console.log(spot);
-  console.log(spot?.ownerId);
-  console.log(spot?.Owner?.id);
-  console.log(spot?.ownerId != spot?.Owner?.id);
+  // console.log(spot);
+  // console.log(spot?.ownerId);
+  // console.log(spot?.Owner?.id);
+  // console.log(spot?.ownerId != spot?.Owner?.id);
 }, [spot]);
 
   useEffect(() => {
