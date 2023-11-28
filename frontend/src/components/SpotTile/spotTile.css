@@ -1,31 +1,65 @@
+.tiles {
+  text-align: center;
+}
+
 .img {
   display: inline-flex;
   width: 300px;
   height: 300px;
-  padding-right: 65px;
-  padding-left: 25px;
 }
 
 .onClick {
   display: inline-flex;
-  border: 1px solid black;
   width: fit-content;
   flex-direction: column;
+  margin: 0 10px 20px;
+  position: relative;
+}
+
+.onClick img {
+  cursor: pointer;
+  border: 1px solid black;
+}
+
+
+.onClick .tooltiptext {
+  visibility: hidden;
+  width: 120px;
+  background-color: #555;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+  position: absolute;
+  z-index: 1;
+  bottom: 80%;
+  left: 50%;
+  margin-left: -60px;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.onClick .tooltiptext::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #555 transparent transparent transparent;
+}
+
+.onClick:hover .tooltiptext {
+  visibility: visible;
+  opacity: 1;
+}
+
+.onClick p {
+  text-align: left;
+  font-size: 18px;
 }
 
 .nameRating {
   display: flex;
-  flex-direction: row;
-}
-
-.cityState {
-  padding-left: 15px;
-}
-
-.rating {
-  padding-left: 70px;
-}
-.price{
-padding-left: 20px;
-
 }

@@ -1,13 +1,16 @@
 import { useState } from "react";
 import DeleteReviewModal from "./DeleteReviewModal";
+import { useSelector } from "react-redux";
+import "./reviewTile.css"
 
 export default function ReviewTile(props) {
-  console.log("@#$@#$@#$#@", props);
 
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState({
     isOpen: false,
     reviewId: null,
   });
+
+  const sessionUser = useSelector((state) => state.session.user);
 
   const handleDelete = (reviewId) => {
     console.log(reviewId);
@@ -16,23 +19,23 @@ export default function ReviewTile(props) {
   };
   return (
     <div>
-      <div className="user-name">{props.owner.firstName}</div>
-      <div className="date">
+      <div className="user-name mb-2">{props?.owner?.firstName}</div>
+      <div className="date mb-2">
         {Intl.DateTimeFormat("en", { month: "long" }).format(
-          new Date(props.review.createdAt.split("-")[1])
+          new Date(props?.review?.createdAt.split("-")[1])
         )}{" "}
-        {props.review.createdAt.split("-")[0]}
+        {props?.review?.createdAt.split("-")[0]}
       </div>
-      <div className="review">
-        <p>{props.review.review}</p>
+      <div className="review mb-2">
+        <p>{props?.review?.review}</p>
       </div>
-      {props.review.userId == props.owner.id &&
-      <div className="button-container">
-        <button>Update</button>
-        <button onClick={() => handleDelete(props.review.id)}>Delete</button>
+      {props?.review?.userId == sessionUser?.id && sessionUser &&
+      <div className="button-container mb-2">
+        <button className="btn-secondary mr-2">Update</button>
+        <button className="btn-secondary" onClick={() => handleDelete(props?.review?.id)}>Delete</button>
       </div>
       }
-      {isDeleteModalOpen.isOpen && (
+      {isDeleteModalOpen.isOpen && props?.review?.userId == sessionUser.id && sessionUser && (
         <DeleteReviewModal
           isDeleteModalOpen={isDeleteModalOpen}
           setIsDeleteModalOpen={setIsDeleteModalOpen}

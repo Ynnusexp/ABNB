@@ -44,7 +44,7 @@ function SignupFormModal() {
   return (
     <>
       <h1>Sign Up</h1>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className='user-form'>
         <label>
           Email
           <input
@@ -64,7 +64,7 @@ function SignupFormModal() {
             required
           />
         </label>
-        {errors.username && <p>{errors.username}</p>}
+        {errors.username && <p style={{color: 'rgb(196, 75, 75)'}}>{errors.username}</p>}
         <label>
           First Name
           <input

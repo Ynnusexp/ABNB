@@ -7,8 +7,20 @@ import { faStar } from '@fortawesome/free-solid-svg-icons'
 export default function SpotTile({
   spot
 }) {
-  console.log("spot tile", spot)
   const navigate = useNavigate();
+
+
+  const calculateAverage = (reviews) => {
+    let average = 0;
+    let total = 0;
+    reviews.forEach((review) => {
+      total = total + review.stars
+    })
+
+    average = total / reviews.length;
+
+    return average.toFixed(1);
+  }
 
   return (
     <div
@@ -19,12 +31,15 @@ export default function SpotTile({
       }}
     >
       <img className="img" src={spot.previewImage} alt="Spot Image" />
-      <div className="nameRating">
+      <span className="tooltiptext">{spot?.name}</span>
+      <div className="nameRating justify-between">
         <div className="cityState">
           <p>{`${spot.city}, ${spot.state}`}</p>
         </div>
         <div className="rating">
-          {spot?.reviews?.length > 0 ? <p><FontAwesomeIcon icon={faStar} /> {Math.floor(Math.random() * 4 + 1).toFixed(2)}</p> : <p>new</p>}
+          {spot?.reviews?.length > 0 ? <p><FontAwesomeIcon icon={faStar} />
+          {calculateAverage(spot?.reviews)}
+          </p> : <p>new</p>}
         </div>
       </div>
       <div className="price">

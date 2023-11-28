@@ -1,123 +1,117 @@
-import { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useModal } from '../../context/Modal';
-import * as spots from '../../store/spots';
-import './ReviewForm.css';
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useModal } from "../../context/Modal";
+import * as spots from "../../store/spots";
+import "./ReviewForm.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
-import { csrfFetch } from '../../store/csrf';
+import { csrfFetch } from "../../store/csrf";
 import { SPOTS_ENDPOINT } from "../../api/endpoints.js";
-import { addNewReview } from '../../store/spots';
-
+import { addNewReview } from "../../store/spots";
 
 function ReviewForm(props) {
   const dispatch = useDispatch();
-  const [review, setReview,] = useState("");
+  const [review, setReview] = useState("");
   const [stars, setStars] = useState(0);
   const [errors, setErrors] = useState({});
   const { closeModal } = useModal();
-  const [enableSubmit, setEnableSubmit ] = useState(false)
+  const [enableSubmit, setEnableSubmit] = useState(false);
 
   const sessionUser = useSelector((state) => state.session.user);
 
   const onStarChange = (value) => {
-    setStars(value)
-    setEnableSubmit(isValidForm())
-
-  }
+    setStars(value);
+    setEnableSubmit(isValidForm());
+  };
   const onReviewChange = (value) => {
-    setReview(value)
-    setEnableSubmit(isValidForm())
-
-  }
-
+    setReview(value);
+    setEnableSubmit(isValidForm());
+  };
 
   const isValidForm = () => {
-    if(review.length <= 10){
-      return false
+    if (review.length <= 10) {
+      return false;
     }
-    if(stars < 0){
-      return false
+    if (stars < 0) {
+      return false;
     }
-    return true
+    return true;
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (isValidForm()) {
       setErrors({});
-      addReview()
-
-     }
+      addReview();
+    }
   };
   const addReview = () => {
-    console.log('BEFORE REVIEW SUBMIT')
+    console.log("BEFORE REVIEW SUBMIT");
     csrfFetch(`${SPOTS_ENDPOINT}/${props.spotId}/reviews`, {
       method: "POST",
-      headers:{user: sessionUser},
+      headers: { user: sessionUser },
       body: JSON.stringify({
-        review: review, stars: stars
+        review: review,
+        stars: stars,
+      }),
+    })
+      .then((resp) => {
+        console.log("RESP: ", resp);
+        return resp.json();
       })
-    })
-    .then(resp => {
-      console.log('RESP: ', resp);
-      return resp.json();
-    })
 
-    .then(async response => {
-console.log("in r3sp", response)
-      dispatch(addNewReview(response));
+      .then(async (response) => {
+        console.log("in r3sp", response);
+        dispatch(addNewReview(response));
 
-      closeModal()
-    })
-    .catch(err => {
-      console.log("in err", err)
-      setErrors({server: err.statusText})
-    })
-  }
+        closeModal();
+      })
+      .catch((err) => {
+        console.log("in err", err);
+        setErrors({ server: err.statusText });
+      });
+  };
   return (
-    <div className='review-submit-form'>
+    <div className="review-submit-form">
       <h1>How was your stay?</h1>
-       {errors.server && <p className='errors'>{errors.server}</p>}
+      {errors.server && <p className="errors">{errors.server}</p>}
       <form onSubmit={handleSubmit}>
-
-      <div className='review-text'>
-      <textarea
+        <div className="review-text w-100">
+          <textarea
+            className="w-100"
             type="textArea"
-            rows={4}
-            cols={30}
             value={review}
-            placeholder='Leave your review here...'
+            placeholder="Leave your review here..."
             onChange={(e) => onReviewChange(e.target.value)}
             required
           />
-      </div>
+        </div>
 
-        <div className="star-rating">
-          <label>
-
-      {[...Array(5)].map((star, index) => {
-        index += 1;
-        return (
-          <button
-            type="button"
-            key={index}
-            className={index <= stars ? "star-on" : "star-off"}
-            onClick={() => onStarChange(index)}
-          >
-            <FontAwesomeIcon className="star-icon" icon={faStar} />
-          </button>
-        );
-      })}
-      Stars
-       </label>
-    </div>
+        <div className="star-rating w-100 d-flex">
+          <label className="mr-2">
+            {[...Array(5)].map((star, index) => {
+              index += 1;
+              return (
+                <button
+                  type="button"
+                  key={index}
+                  className={index <= stars ? "star-on" : "star-off"}
+                  onClick={() => onStarChange(index)}
+                >
+                  <FontAwesomeIcon className="star-icon" icon={faStar} />
+                </button>
+              );
+            })}
+          </label>
+          <span>Stars</span>
+        </div>
         <button
-        type="submit"
-        disabled={!enableSubmit}
-        className={enableSubmit ? "enable-submit" : ""}
-
-        >Submit Your Review</button>
+          type="submit"
+          disabled={!enableSubmit}
+          className={enableSubmit ? "btn-primary w-100 p-5" : "submit-btn w-100 p-5"}
+        >
+          Submit Your Review
+        </button>
       </form>
     </div>
   );

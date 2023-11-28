@@ -5,16 +5,15 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import DeleteModal from "./DeleteModal";
+import "./ManageSpots.css";
 
 const ManageSpots = () => {
   const [currentUserSpots, setCurrentUserSpots] = useState([]);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState({
     isOpen: false,
-    spotId: null
+    spotId: null,
   });
   const dispatch = useDispatch();
-
-
 
   useEffect(() => {
     fetchUserSpots();
@@ -23,56 +22,72 @@ const ManageSpots = () => {
   const fetchUserSpots = async () => {
     let currentSpots = await dispatch(getCurrentUserSpots());
     setCurrentUserSpots(currentSpots.Spots);
-
-   
   };
 
   const calculateAverage = (reviews) => {
     let average = 0;
     let total = 0;
     reviews.forEach((review) => {
-      total = total + review.stars
-    })
+      total = total + review.stars;
+    });
 
     average = total / reviews.length;
 
-    return average;
-  }
+    return average.toFixed(1);
+  };
 
   const handleDelete = (spotId) => {
-    //show the deletemodal
-setIsDeleteModalOpen({isOpen: true, spotId: spotId});
-  }
+    setIsDeleteModalOpen({ isOpen: true, spotId: spotId });
+  };
 
   return (
     <div>
-      <h1>Manage your Spots</h1>
-      {currentUserSpots.length == 0 && <Link to="/spots/create">Create a New Spot</Link>}
-            <div className="current-user-spots">
+      <div className="mb-20">
+        <h1>Manage your Spots</h1>
+        {currentUserSpots.length == 0 && (
+          <Link to="/spots/create" className="btn-secondary">
+            Create a New Spot
+          </Link>
+        )}
+      </div>
+      <div className="current-user-spots">
         {currentUserSpots?.map((spot, index) => (
-            <div key={index}>
-                <Link to={`/spots/${spot.id}`}>
-                <img src={spot.previewImage} alt={spot.name} />
-                </Link>
-                <div className="current-user-header">
-                <div>
-                <h2>{spot.city}, {spot.state}</h2>
-              <h3>${spot.price} night</h3>
+          <div key={index}>
+            <Link to={`/spots/${spot.id}`}>
+              <img src={spot.previewImage} alt={spot.name} />
+            </Link>
+            <div className="current-user-header d-flex justify-between mb-5">
+              <div className="mb-2">
+                <h3>
+                  {spot.city}, {spot.state}
+                </h3>
               </div>
-
-              {spot.reviews && spot.reviews.length > 0 &&  <div className="review-count">
-              <FontAwesomeIcon icon={faStar} size="xl" />  {calculateAverage(spot.reviews)}</div>}
-                    </div>
-
-              <div className="button-container">
-                <button>Update</button>
-                <button onClick={() => handleDelete(spot.id)}>Delete</button>
+              {spot.reviews && spot.reviews.length > 0 ? (
+                <div className="review-count mb-2">
+                  <FontAwesomeIcon icon={faStar} size="xl" />{" "}
+                  {calculateAverage(spot.reviews)}
+                </div>
+              ) : (
+                <div className="review-count mb-2">
+                  <span> <FontAwesomeIcon icon={faStar} size="sm" /> New</span>
+                </div>
+              )}
             </div>
+            <h4 className="mb-2">${spot.price} night</h4>
+            <div className="button-container">
+              <Link to={`/spots/${spot.id}/edit`} className="btn-secondary mr-2">Update</Link>
+              <button onClick={() => handleDelete(spot.id)} className="btn-secondary">Delete</button>
             </div>
-          ))}
+          </div>
+        ))}
       </div>
 
-      {isDeleteModalOpen.isOpen && <DeleteModal isDeleteModalOpen={isDeleteModalOpen} setIsDeleteModalOpen={setIsDeleteModalOpen}/>}
+      {isDeleteModalOpen.isOpen && (
+        <DeleteModal
+          isDeleteModalOpen={isDeleteModalOpen}
+          setIsDeleteModalOpen={setIsDeleteModalOpen}
+        />
+      )}
     </div>
   );
 };

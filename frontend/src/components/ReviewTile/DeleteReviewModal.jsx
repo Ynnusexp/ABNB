@@ -11,11 +11,11 @@ const DeleteReviewModal = ({ isDeleteModalOpen, setIsDeleteModalOpen }) => {
     });
   };
   return (
-    <div>
-      <h2>Confirm Delete</h2>
-      <p>Are you sure you want to remove this review from the listings?</p>
-      <div className="buttons">
-        <button className="button-danger" onClick={handleDelete}>
+    <div className="center-item modal">
+      <h2 className="mb-2">Confirm Delete</h2>
+      <p className="mb-2">Are you sure you want to remove this review from the listings?</p>
+      <div className="modal-buttons">
+        <button className="btn-primary w-100" onClick={handleDelete}>
           Yes (Delete Review)
         </button>
         <button

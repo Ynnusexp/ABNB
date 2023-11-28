@@ -67,6 +67,16 @@ export const getCurrentUserSpots = () => async (dispatch) => {
     }
 }
 
+export const getSpotById = (spotId) =>  async () => {
+    const res = await csrfFetch(SPOTS_ENDPOINT + "/" + spotId);
+    if (res.ok) {
+
+        const spot = await res.json()
+
+        return spot;
+    }
+}
+
 export const deleteSpot = (spotId) => async () => {
     const res = await csrfFetch(SPOTS_ENDPOINT + "/" + spotId, {
         method: "DELETE"
@@ -90,6 +100,17 @@ export const deleteReview = (reviewId) => async () => {
 
         return allSpots;
 
+    }
+}
+
+export const updateSpotApi = (spot, spotId) => async () => {
+    const res = await csrfFetch(SPOTS_ENDPOINT + "/" + spotId, {
+        method: "PUT",
+        body: JSON.stringify(spot)
+    })
+    if (res.ok) {
+        const data = await res.json();
+return data;
     }
 }
 

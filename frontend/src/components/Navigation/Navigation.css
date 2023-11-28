@@ -5,13 +5,25 @@
 .nav-header {
     display: flex;
     justify-content: space-between;
-    padding-right: 20px;
+    margin-bottom: 20px;
 }
 
 .logo-img {
-    display: flex;
-    width: 6%;
-    height: 3%;
-    padding-left: 20px;
+    width: 100px;
     cursor: pointer
+}
+
+.list-wrapper {
+    list-style: none;
+}
+
+.list-wrapper li {
+    margin-bottom: 5px;
+}
+
+@media screen and (max-width: 576px) {
+    .logo-img {
+        width: 80px;
+    }
+
 }

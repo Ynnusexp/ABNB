@@ -1,37 +1,39 @@
-.review-submit-form{
-min-width: 30%;
-align-items: center;
-padding: 1em;
-margin: 1em;
+.review-submit-form {
+  padding: 1em;
 }
-.review-text{
-padding-top: 1em;
-padding-bottom: 1em;
+.review-text {
+  padding-top: 1em;
+  padding-bottom: 1em;
 }
-.star-rating{
-    padding-top: 1em;
-    padding-bottom: 1em;
+
+.review-text textarea {
+    height: 120px;
+    resize: none;
 }
-.star-on{
+.star-rating {
+  padding-top: 1em;
+  padding-bottom: 1em;
+  justify-content: center;
+}
+.star-on {
+  color: black;
+  border: none;
+  background-color: transparent;
+}
+.star-off {
+  color: lightblue;
+  border: none;
+  background-color: transparent;
+}
+.star-icon {
+  border: 1px;
+  border-color: black;
+}
+.submit-btn {
+    background-color: white;
     color: black;
-    /* border: 0;
-    background: white; */
+    border: 1px solid black;
 }
-.star-off{
-    color: white;
-    /* border: 0;
-    background: white; */
-
-
-}
-.star-icon{
-    border: 1px;
-    border-color: black;
-}
-.enable-submit{
-    background-color: red;
-    color: white;
-}
-.errors{
-    color: red
+.errors {
+  color: red;
 }

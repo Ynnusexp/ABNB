@@ -1,8 +1,8 @@
-import "./CreateForm.css";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import "./UpdateForm.css";
+import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { addNewSpot } from "../../store/spots.js";
+import { addNewSpot, getSpotById, updateSpotApi } from "../../store/spots.js";
 import { SPOTS_ENDPOINT } from "../../api/endpoints.js";
 import { csrfFetch } from "../../store/csrf.js";
 import { useDispatch } from "react-redux";
@@ -12,15 +12,13 @@ const validForm = {
   city: true,
   state: true,
   country: true,
-  latitude: true,
-  longitude: true,
   description: true,
   price: true,
   spotName: true,
   picture: true,
 };
 
-export default function CreateForm() {
+export default function UpdateForm() {
   const [streetAddress, setStreetAddress] = useState("");
   const [city, setCity] = useState("");
   const [state, setState] = useState("");
@@ -35,9 +33,27 @@ export default function CreateForm() {
   const [validation, setValidation] = useState(validForm);
 
   const navigate = useNavigate();
+  const { spotId } = useParams();
   const dispatch = useDispatch();
 
   const sessionUser = useSelector((state) => state.session.user);
+
+  useEffect(() => {
+    async function getSpot() {
+      let currentSpot = await dispatch(getSpotById(spotId));
+
+      setStreetAddress(currentSpot.Spots[0].address);
+      setCity(currentSpot.Spots[0].city);
+      setState(currentSpot.Spots[0].state);
+      setCountry(currentSpot.Spots[0].country);
+      setDescription(currentSpot.Spots[0].description);
+      setPrice(currentSpot.Spots[0].price);
+      setSpotName(currentSpot.Spots[0].name);
+      setPicture(currentSpot.Spots[0].previewImage);
+    }
+
+    getSpot();
+  }, []);
 
   const isValidForm = () => {
     const checkForm = {
@@ -53,7 +69,6 @@ export default function CreateForm() {
       picture: picture.length,
     };
 
-    console.log(checkForm);
 
     setValidation(checkForm);
     if (!Object.values(checkForm).some((value) => value === 0)) {
@@ -65,14 +80,14 @@ export default function CreateForm() {
 
   const validateAndSubmit = () => {
     if (isValidForm()) {
-      createSpot();
+      updateSpot();
     }
   };
 
-  const createSpot = () => {
-    csrfFetch(SPOTS_ENDPOINT, {
-      method: "POST",
-      headers: { user: sessionUser },
+  const updateSpot = async () => {
+    csrfFetch(SPOTS_ENDPOINT + "/" + spotId, {
+      method: "PUT",
+      headers:{user: sessionUser},
       body: JSON.stringify({
         address: streetAddress,
         city,
@@ -80,56 +95,23 @@ export default function CreateForm() {
         country,
         lat: latitude,
         lng: longitude,
-        name: spotName,
+        name:spotName,
         description,
-        price,
-      }),
-    })
-      .then((resp) => resp.json())
-      .then(async (response) => {
-        //once we have the record iD weneed to input pictures
-        //if we have pictures add them in
-        dispatch(addNewSpot(response)); //populates store with all spots
-        if (picture) {
-          await addSpotImages(response.id);
-        }
-        navigate(`/spots/${response.id}`);
+        price
       })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-
-  const addSpotImages = async (spotId) => {
-    await csrfFetch(`${SPOTS_ENDPOINT}/${spotId}/images`, {
-      method: "POST",
-      headers: { user: sessionUser },
-      body: JSON.stringify({
-        url: picture,
-        preview: true,
-      }),
     })
-      .then((resp) => resp.json())
-      .then((response) => {
-        //once we have the record iD weneed to input pictures
-        console.log("Successfully uploaded image");
-      })
-      .catch((err) => {
-        alert(err);
-      });
-  };
+    .then(resp => resp.json())
+    .then(data => {
+        console.log(data);
+        navigate(`/spots/${data.id}`);
 
-  /*
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    validate();
+    })
   };
-  */
 
   return (
     <div className="formBody">
       <div className="section">
-        <h1> Create a new Spot </h1>
+        <h1> Update your Spot </h1>
         <h2> Where's your place located? </h2>
         <h3>
           Guests will only get your exact address once they booked a
@@ -154,10 +136,11 @@ export default function CreateForm() {
         <div>
           <label>
             Street Address{" "}
-            {!validation.streetAddress && (
+
+          </label>
+          {!validation.streetAddress && (
               <span className="invalid"> Street Address is required </span>
             )}
-          </label>
           <input
             type="text"
             value={streetAddress}
@@ -167,48 +150,45 @@ export default function CreateForm() {
             required
           />
         </div>
-        <div className="cityState d-flex w-100">
-          <div className="form-group w-70 mr-2">
-            <label>
-              City
-              {!validation.city && (
-                <span className="invalid"> City is required </span>
-              )}
-            </label>
-            <input
-              type="text"
-              value={city}
-              placeholder="City"
-              onChange={(e) => setCity(e.target.value)}
-              className="city"
-              required
-            />
-          </div>
-          <div className="form-group w-30">
-            <label>
-              State{" "}
-              {!validation.state && (
-                <span className="invalid"> State is required </span>
-              )}
-            </label>
+        <div className="cityState">
+          <h3>City</h3>
+          <label>
+            City{" "}
 
-            <input
-              type="text"
-              value={state}
-              placeholder="STATE"
-              onChange={(e) => setState(e.target.value)}
-              className="state"
-              required
-            />
-          </div>
+          </label>
+          {!validation.city && (
+              <span className="invalid"> City is required </span>
+            )}
+          <input
+            type="text"
+            value={city}
+            placeholder="City"
+            onChange={(e) => setCity(e.target.value)}
+            className="city"
+            required
+          />
+
+          <label>
+            State{" "}
+
+          </label>
+          {!validation.state && (
+              <span className="invalid"> State is required </span>
+            )}
+          <input
+            type="text"
+            value={state}
+            placeholder="STATE"
+            onChange={(e) => setState(e.target.value)}
+            className="state"
+            required
+          />
         </div>
-        <div className="ll d-flex w-100">
-          <div className="form-group w-50 mr-2">
+        <div className="ll">
             <label>
-              Latitude
               {!validation.latitude && (
                 <span className="invalid"> Latitude is required </span>
-              )}
+               )}
             </label>
 
             <input
@@ -219,13 +199,11 @@ export default function CreateForm() {
               className="latitude"
               required
             />
-          </div>
-          <div className="form-group w-50">
+
             <label>
-              Longitude
               {!validation.longitude && (
                 <span className="invalid"> Longitude is required </span>
-              )}
+               )}
             </label>
             <input
               type="text"
@@ -236,7 +214,7 @@ export default function CreateForm() {
               required
             />
           </div>
-        </div>
+
       </div>
 
       <div className="section">
@@ -246,41 +224,46 @@ export default function CreateForm() {
           fast wifi or parking, and what you love about the neighborhood.
         </p>
         {!validation.description && (
-          <span className="invalid d-block">
+          <span className="invalid">
             {" "}
             Description needs a minimum of 30 characters{" "}
           </span>
         )}
-        <textarea
+        <input
+          type="text"
           placeholder="Please write at least 30 characters"
-          className="text1 w-100"
+          className="text1"
           value={description}
           onChange={(e) => setDescription(e.target.value)}
           required
-        ></textarea>
+        />
 
       </div>
 
       <div className="section">
-
         <label>
           {" "}
           Create a title for your spot{" "}
+
         </label>
         <p>
           Catch guests' attention with a spot title that highlights what makes
           your place special.
         </p>
-        {!validation.spotName && (
-            <span className="invalid d-block"> Name is required</span>
-          )}
+        <label>
+              {!validation.latitude && (
+                <span className="invalid"> Latitude is required </span>
+               )}
+            </label>
         <input
           type="text"
           placeholder="Name of your spot"
           className="text2"
+          value={spotName}
           onChange={(e) => setSpotName(e.target.value)}
           required
         />
+
       </div>
       <div className="section">
         <label>
@@ -292,38 +275,43 @@ export default function CreateForm() {
           search results.
         </p>
         {!validation.price && (
-            <span className="invalid d-block"> Price is required</span>
+            <span className="invalid"> Price is required</span>
           )}
-        <span className="d-flex align-center"><span className="d-block mr-2">$</span>
+        $
         <input
-          type="text"
+          type="Number"
           placeholder="Price per night (USD)"
           className="text3"
+          value={price}
           onChange={(e) => setPrice(e.target.value)}
           required
-        /></span>
+        />
+
       </div>
       <div className="section">
-        <h4>Liven up your spot with photos</h4>
         <p>Submit a link to at least one photo to publish your spot.</p>
-        <label>
-          {!validation.picture && (
-            <span className="invalid d-block"> Preview image is required</span>
-          )}
-        </label>
+        {!validation.picture && (
+            <span className="invalid"> Preview image is required</span>
+          )}{" "}
         <input
           type="text"
           placeholder="Preview Image URL"
           className="url1"
+          value={picture}
           onChange={(e) => setPicture(e.target.value)}
         />
+
+        <label>
+          Liven up your spot with photos
+
+        </label>
         <input type="text" placeholder="Image URL" className="url2" />
         <input type="text" placeholder="Image URL" className="url3" />
         <input type="text" placeholder="Image URL" className="url4" />
         <input type="text" placeholder="Image URL" className="url5" />
       </div>
-      <button type="button" className="btn-primary" onClick={validateAndSubmit}>
-        Create Spot
+      <button type="button" onClick={validateAndSubmit}>
+        Update your Spot
       </button>
     </div>
   );
