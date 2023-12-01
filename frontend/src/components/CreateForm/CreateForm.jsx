@@ -25,8 +25,8 @@ export default function CreateForm() {
   const [city, setCity] = useState("");
   const [state, setState] = useState("");
   const [country, setCountry] = useState("");
-  const [latitude, setLatitude] = useState("");
-  const [longitude, setLongitude] = useState("");
+  // const [latitude, setLatitude] = useState("");
+  // const [longitude, setLongitude] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
   const [spotName, setSpotName] = useState("");
@@ -45,8 +45,8 @@ export default function CreateForm() {
       city: city.length,
       state: state.length,
       country: country.length,
-      latitude: latitude.length,
-      longitude: longitude.length,
+      // latitude: latitude.length,
+      // longitude: longitude.length,
       description: description.length > 30,
       price: price.length,
       spotName: spotName.length,
@@ -78,8 +78,8 @@ export default function CreateForm() {
         city,
         state,
         country,
-        lat: latitude,
-        lng: longitude,
+        // lat: latitude,
+        // lng: longitude,
         name: spotName,
         description,
         price,
@@ -87,9 +87,7 @@ export default function CreateForm() {
     })
       .then((resp) => resp.json())
       .then(async (response) => {
-        //once we have the record iD weneed to input pictures
-        //if we have pictures add them in
-        dispatch(addNewSpot(response)); //populates store with all spots
+        dispatch(addNewSpot(response));
         if (picture) {
           await addSpotImages(response.id);
         }
@@ -111,7 +109,6 @@ export default function CreateForm() {
     })
       .then((resp) => resp.json())
       .then((response) => {
-        //once we have the record iD weneed to input pictures
         console.log("Successfully uploaded image");
       })
       .catch((err) => {
@@ -131,10 +128,10 @@ export default function CreateForm() {
       <div className="section">
         <h1> Create a new Spot </h1>
         <h2> Where's your place located? </h2>
-        <h3>
+        <p>
           Guests will only get your exact address once they booked a
           reservation.
-        </h3>
+        </p>
         <div>
           <label>
             Country{" "}
@@ -202,7 +199,7 @@ export default function CreateForm() {
             />
           </div>
         </div>
-        <div className="ll d-flex w-100">
+        {/* <div className="ll d-flex w-100">
           <div className="form-group w-50 mr-2">
             <label>
               Latitude
@@ -236,44 +233,38 @@ export default function CreateForm() {
               required
             />
           </div>
-        </div>
+        </div> */}
       </div>
 
       <div className="section">
-        <label>Describe your place to guests</label>
+        <h2>Describe your place to guests</h2>
         <p>
           Mention the best features of your space, any special amentities like
           fast wifi or parking, and what you love about the neighborhood.
         </p>
-        {!validation.description && (
-          <span className="invalid d-block">
-            {" "}
-            Description needs a minimum of 30 characters{" "}
-          </span>
-        )}
+
         <textarea
-          placeholder="Please write at least 30 characters"
+          placeholder=" Please write at least 30 characters"
           className="text1 w-100"
           value={description}
           onChange={(e) => setDescription(e.target.value)}
           required
         ></textarea>
 
+        {!validation.description && (
+          <span className="invalid d-block">
+            {" "}
+            Description needs a minimum of 30 characters{" "}
+          </span>
+        )}
       </div>
 
       <div className="section">
-
-        <label>
-          {" "}
-          Create a title for your spot{" "}
-        </label>
+        <h2>Create a title for your spot</h2>
         <p>
           Catch guests' attention with a spot title that highlights what makes
           your place special.
         </p>
-        {!validation.spotName && (
-            <span className="invalid d-block"> Name is required</span>
-          )}
         <input
           type="text"
           placeholder="Name of your spot"
@@ -281,42 +272,45 @@ export default function CreateForm() {
           onChange={(e) => setSpotName(e.target.value)}
           required
         />
+         {!validation.spotName && (
+          <span className="invalid d-block"> Name is required</span>
+        )}
       </div>
       <div className="section">
-        <label>
-          Set a base price for your spot{" "}
-
-        </label>
+        <h2>Set a base price for your spot</h2>
         <p>
           Competitive pricing can help your listing stand out and rank higher in
           search results.
         </p>
+
+        <span className="d-flex align-center">
+          <span className="d-block mr-2">$</span>
+          <input
+            type="text"
+            placeholder="Price per night (USD)"
+            className="text3"
+            onChange={(e) => setPrice(e.target.value)}
+            required
+          />
+        </span>
         {!validation.price && (
-            <span className="invalid d-block"> Price is required</span>
-          )}
-        <span className="d-flex align-center"><span className="d-block mr-2">$</span>
-        <input
-          type="text"
-          placeholder="Price per night (USD)"
-          className="text3"
-          onChange={(e) => setPrice(e.target.value)}
-          required
-        /></span>
+          <span className="invalid d-block"> Price is required</span>
+        )}
       </div>
       <div className="section">
-        <h4>Liven up your spot with photos</h4>
+        <h2>Liven up your spot with photos</h2>
         <p>Submit a link to at least one photo to publish your spot.</p>
-        <label>
-          {!validation.picture && (
-            <span className="invalid d-block"> Preview image is required</span>
-          )}
-        </label>
         <input
           type="text"
           placeholder="Preview Image URL"
           className="url1"
           onChange={(e) => setPicture(e.target.value)}
         />
+        <label>
+          {!validation.picture && (
+            <span className="invalid d-block"> Preview image is required</span>
+          )}
+        </label>
         <input type="text" placeholder="Image URL" className="url2" />
         <input type="text" placeholder="Image URL" className="url3" />
         <input type="text" placeholder="Image URL" className="url4" />

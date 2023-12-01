@@ -17,7 +17,7 @@ function Layout() {
   const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
-    dispatch(getSpotsFetch()); //populates store with all spots
+    dispatch(getSpotsFetch());
     dispatch(sessionActions.restoreUser()).then(() => {
       setIsLoaded(true);
     });

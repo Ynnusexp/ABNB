@@ -6,6 +6,7 @@
     display: flex;
     justify-content: space-between;
     margin-bottom: 20px;
+
 }
 
 .logo-img {
@@ -15,10 +16,13 @@
 
 .list-wrapper {
     list-style: none;
+
+
 }
 
 .list-wrapper li {
     margin-bottom: 5px;
+
 }
 
 @media screen and (max-width: 576px) {

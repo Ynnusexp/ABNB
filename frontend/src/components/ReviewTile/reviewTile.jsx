@@ -14,7 +14,7 @@ export default function ReviewTile(props) {
 
   const handleDelete = (reviewId) => {
     console.log(reviewId);
-    //show the deletemodal
+    
     setIsDeleteModalOpen({ isOpen: true, reviewId: reviewId });
   };
   return (

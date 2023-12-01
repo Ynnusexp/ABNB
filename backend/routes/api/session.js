@@ -87,15 +87,17 @@ router.get(
 router.get(
   '/demo',
   async (req, res) => {
-  const user =User.findByPk(1);
 
-  const safeUser = {
-    id: user.id,
-    firstName: user.firstName,
-    lastName: user.lastName,
-    email: user.email,
-    username: user.username,
-  };
+  const user = await User.unscoped().findOne({
+    where: {
+      [Op.or]: {
+        username: 'Demo-lition',
+        email: 'demo@user.io'
+      }
+    }
+  });
+
+  const safeUser = user;
 
   await setTokenCookie(res, safeUser);
 

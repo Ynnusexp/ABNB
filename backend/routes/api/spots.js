@@ -448,10 +448,11 @@ router.post('/', requireAuth, validateSpot, async (req, res, next) => {
             createdAt: spot.createdAt
 
         })
-
+        //console.log(error  ,  "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!111")
     } catch (error) {
-
+       //console.log(error , "1111111111111111111111111111111111111111111111111111111111")
         next(error)
+
     }
 });
 

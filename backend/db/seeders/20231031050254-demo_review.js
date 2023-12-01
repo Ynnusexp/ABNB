@@ -13,55 +13,55 @@ module.exports = {
       {
         spotId: 1,
         userId: 1,
-        review: "good",
+        review: "This is soooo good!!!! :)",
         stars: 4
       },
       {
         spotId: 2,
         userId: 2,
-        review: "okay",
+        review: "This is just okay :|",
         stars: 3
       },
       {
         spotId: 3,
         userId: 3,
-        review: "bad",
+        review: "This is very bad!!! >:[",
         stars: 1
       },
       {
         spotId: 4,
         userId: 4,
-        review: 'excellent',
+        review: 'This is very excellent, 10/10!!!!!',
         stars: 5,
       },
       {
         spotId: 5,
         userId: 5,
-        review: 'average',
+        review: ' This is average :|',
         stars: 3,
       },
       {
         spotId: 6,
         userId: 6,
-        review: 'terrible',
+        review: 'This is terrible!!!!!! 1/5 stars',
         stars: 1,
       },
       {
         spotId: 7,
         userId: 7,
-        review: 'great',
+        review: 'This is great, marvelous!!!!!! :D',
         stars: 5,
       },
       {
         spotId: 8,
         userId: 8,
-        review: 'mediocre',
+        review: 'This is mediocre, get out of town!!!!!!!!!!!!',
         stars: 3,
       },
       {
         spotId: 9,
         userId: 9,
-        review: 'horrible',
+        review: 'This is horrible, get out of town!!!! >:(',
         stars: 1,
       },
     ], options, { validate: true });

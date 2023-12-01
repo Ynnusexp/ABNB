@@ -31,7 +31,8 @@ export default function SpotTile({
       }}
     >
       <img className="img" src={spot.previewImage} alt="Spot Image" />
-      <span className="tooltiptext">{spot?.name}</span>
+      {/* <span className="tooltiptext">{spot?.name}</span> */}
+      <span className="tooltiptext">{spot?.ownerId}</span>
       <div className="nameRating justify-between">
         <div className="cityState">
           <p>{`${spot.city}, ${spot.state}`}</p>

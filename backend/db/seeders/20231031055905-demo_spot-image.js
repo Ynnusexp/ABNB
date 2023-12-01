@@ -12,7 +12,7 @@ module.exports = {
       {
         spotId: 1,
         url: "https://images.pexels.com/photos/106399/pexels-photo-106399.jpeg",
-        preview: false
+        preview: true
      },
      {
         spotId: 2,
@@ -32,7 +32,7 @@ module.exports = {
     {
       spotId: 5,
       url: "https://images.pexels.com/photos/106399/pexels-photo-106399.jpeg",
-      preview: false,
+      preview: true,
     },
     {
       spotId: 6,
@@ -42,7 +42,7 @@ module.exports = {
     {
       spotId: 7,
       url: "https://images.pexels.com/photos/106399/pexels-photo-106399.jpeg",
-      preview: false,
+      preview: true,
     },
     {
       spotId: 8,
@@ -52,7 +52,7 @@ module.exports = {
     {
       spotId: 9,
       url: "https://images.pexels.com/photos/106399/pexels-photo-106399.jpeg",
-      preview: false,
+      preview: true,
     },
 
     ], options, { validate: true });

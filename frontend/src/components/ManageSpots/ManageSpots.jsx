@@ -43,7 +43,7 @@ const ManageSpots = () => {
   return (
     <div>
       <div className="mb-20">
-        <h1>Manage your Spots</h1>
+        <h1>Manage Your Spots</h1>
         {currentUserSpots.length == 0 && (
           <Link to="/spots/create" className="btn-secondary">
             Create a New Spot
@@ -64,12 +64,12 @@ const ManageSpots = () => {
               </div>
               {spot.reviews && spot.reviews.length > 0 ? (
                 <div className="review-count mb-2">
-                  <FontAwesomeIcon icon={faStar} size="xl" />{" "}
+                  <FontAwesomeIcon icon={faStar}/>{" "}
                   {calculateAverage(spot.reviews)}
                 </div>
               ) : (
                 <div className="review-count mb-2">
-                  <span> <FontAwesomeIcon icon={faStar} size="sm" /> New</span>
+                  <span> <FontAwesomeIcon icon={faStar}  /> New</span>
                 </div>
               )}
             </div>

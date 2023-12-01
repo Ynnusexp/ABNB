@@ -117,14 +117,15 @@ export default function SpotPage() {
 
         <div className="spot-body d-flex">
           <div className="spot-content">
-            <h1> Hostcd by {spot.name}</h1>
+            {/* <h1> Hostcd by {spot.name}</h1> */}
+            <h1> Hostcd by {spot.ownerId}</h1>
             <p className="pb-2"> {spot.description} </p>
             <hr />
             <div className="reviews-wrapper d-flex align-center">
             <div className="rating mr-2">
               {spot.avgRating ? (
                 <p>
-                  <FontAwesomeIcon className="mr-2" icon={faStar} size="md" />
+                  <FontAwesomeIcon className="mr-2" icon={faStar} />
                   {calculateAverage(spot.reviews)}
                 </p>
               ) : (

@@ -15,10 +15,10 @@ function ProfileButton({ user }) {
   const navigate = useNavigate()
   const sessionUser = useSelector((state) => state.session.user);
 
-
   const toggleMenu = (e) => {
-    e.stopPropagation(); // Keep click from bubbling up to document and triggering closeMenu
-    // if (!showMenu) setShowMenu(true);
+    if (e) {
+      e.stopPropagation(); // Keep click from bubbling up to document and triggering closeMenu
+    }
     setShowMenu(!showMenu);
   };
 
@@ -38,11 +38,14 @@ function ProfileButton({ user }) {
 
   const logout = (e) => {
     e.preventDefault();
+    toggleMenu();
     dispatch(sessionActions.logout());
     navigate("/")
   };
 
   const ulClassName = "profile-dropdown" + (showMenu ? "" : " hidden");
+
+  console.log(user, "user")
 
   return (
     <>
@@ -52,11 +55,12 @@ function ProfileButton({ user }) {
       </button>
       {sessionUser ? <ul className={ulClassName} ref={ulRef}>
         <li>{user.username}</li>
-        <li> Hello, {user.firstName || "Demo User"}</li>
-        <li> email: {user.email || "demo@email.com" }</li>
+        <li> Hello, {user.firstName}</li>
+        <li> email: {user.email}</li>
         <li><Link to="/managespots">Manage Spots</Link> </li>
         <li>
           <button
+          // onClick={(e) => {e.preventDefault(); logout(); toggleMenu();}}
           onClick={logout}
           >Log Out
           </button>

@@ -32,6 +32,7 @@ function LoginFormModal() {
   return (
     <>
       <h1>Log In</h1>
+      {errors.credential && <p style={{color: 'rgb(196, 75, 75)'}}>{errors.credential}</p>}
       <form onSubmit={handleSubmit} className="user-form">
 
           <input
@@ -54,14 +55,13 @@ function LoginFormModal() {
             }}
             required
           />
-        {errors.credential && <p style={{color: 'rgb(196, 75, 75)'}}>{errors.credential}</p>}
+        {/* {errors.credential && <p style={{color: 'rgb(196, 75, 75)'}}>{errors.credential}</p>} */}
         <button
           type="submit"
           disabled={credential.length < 4 || password.length < 6}
         >
           Log In
         </button>
-        {/* create button for demo user login button. onClick should ping backend login route with demo user's credentials */}
 
       </form>
       <button className="demo-button"
@@ -70,7 +70,7 @@ function LoginFormModal() {
             closeModal();
         }}
         >
-        Demo User
+        Log in as Demo User
         </button>
     </>
   );
