@@ -3,6 +3,7 @@ import { deleteReview } from "../../store/spots";
 
 const DeleteReviewModal = ({ isDeleteModalOpen, setIsDeleteModalOpen }) => {
   const dispatch = useDispatch();
+
   const handleDelete = async () => {
     await dispatch(deleteReview(isDeleteModalOpen.reviewId));
     setIsDeleteModalOpen({
@@ -10,6 +11,7 @@ const DeleteReviewModal = ({ isDeleteModalOpen, setIsDeleteModalOpen }) => {
       isOpen: false,
     });
   };
+
   return (
     <div className="center-item modal">
       <h2 className="mb-2">Confirm Delete</h2>

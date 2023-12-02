@@ -31,8 +31,8 @@ export default function SpotTile({
       }}
     >
       <img className="img" src={spot.previewImage} alt="Spot Image" />
-      {/* <span className="tooltiptext">{spot?.name}</span> */}
-      <span className="tooltiptext">{spot?.ownerId}</span>
+      <span className="tooltiptext">{spot?.name}</span>
+      {/* <span className="tooltiptext">{spot?.ownerId}</span> */}
       <div className="nameRating justify-between">
         <div className="cityState">
           <p>{`${spot.city}, ${spot.state}`}</p>
@@ -40,7 +40,7 @@ export default function SpotTile({
         <div className="rating">
           {spot?.reviews?.length > 0 ? <p><FontAwesomeIcon icon={faStar} />
           {calculateAverage(spot?.reviews)}
-          </p> : <p>new</p>}
+          </p> : <p>New</p>}
         </div>
       </div>
       <div className="price">

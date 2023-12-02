@@ -25,8 +25,8 @@ export default function CreateForm() {
   const [city, setCity] = useState("");
   const [state, setState] = useState("");
   const [country, setCountry] = useState("");
-  // const [latitude, setLatitude] = useState("");
-  // const [longitude, setLongitude] = useState("");
+  const [latitude, setLatitude] = useState("");
+  const [longitude, setLongitude] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
   const [spotName, setSpotName] = useState("");
@@ -45,8 +45,8 @@ export default function CreateForm() {
       city: city.length,
       state: state.length,
       country: country.length,
-      // latitude: latitude.length,
-      // longitude: longitude.length,
+      latitude: latitude.length,
+      longitude: longitude.length,
       description: description.length > 30,
       price: price.length,
       spotName: spotName.length,
@@ -78,8 +78,8 @@ export default function CreateForm() {
         city,
         state,
         country,
-        // lat: latitude,
-        // lng: longitude,
+        lat: latitude,
+        lng: longitude,
         name: spotName,
         description,
         price,
@@ -199,7 +199,7 @@ export default function CreateForm() {
             />
           </div>
         </div>
-        {/* <div className="ll d-flex w-100">
+        <div className="ll d-flex w-100">
           <div className="form-group w-50 mr-2">
             <label>
               Latitude
@@ -233,7 +233,7 @@ export default function CreateForm() {
               required
             />
           </div>
-        </div> */}
+        </div>
       </div>
 
       <div className="section">

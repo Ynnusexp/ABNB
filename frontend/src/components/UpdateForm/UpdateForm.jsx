@@ -23,8 +23,8 @@ export default function UpdateForm() {
   const [city, setCity] = useState("");
   const [state, setState] = useState("");
   const [country, setCountry] = useState("");
-  // const [latitude, setLatitude] = useState("");
-  // const [longitude, setLongitude] = useState("");
+  const [latitude, setLatitude] = useState("");
+  const [longitude, setLongitude] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
   const [spotName, setSpotName] = useState("");
@@ -50,6 +50,9 @@ export default function UpdateForm() {
       setPrice(currentSpot.Spots[0].price);
       setSpotName(currentSpot.Spots[0].name);
       setPicture(currentSpot.Spots[0].previewImage);
+      setLongitude(currentSpot.Spots[0].lng);
+      setLatitude(currentSpot.Spots[0].lat);
+
     }
 
     getSpot();
@@ -61,8 +64,8 @@ export default function UpdateForm() {
       city: city.length,
       state: state.length,
       country: country.length,
-      // latitude: latitude.length,
-      // longitude: longitude.length,
+      latitude: latitude !=='',
+      longitude: longitude !=='',
       description: description.length > 30,
       price: price.length,
       spotName: spotName.length,
@@ -92,8 +95,8 @@ export default function UpdateForm() {
         city,
         state,
         country,
-        // lat: latitude,
-        // lng: longitude,
+        lat: latitude,
+        lng: longitude,
         name: spotName,
         description,
         price,
@@ -147,7 +150,7 @@ export default function UpdateForm() {
             required
           />
         </div>
-        {/* <div className="cityState">
+        <div className="cityState">
           <label>City
           {!validation.city && (
             <span className="invalid"> City is required </span>
@@ -175,8 +178,8 @@ export default function UpdateForm() {
             className="state"
             required
           />
-        </div> */}
-        <div className="cityState d-flex w-100">
+        </div>
+        {/* <div className="cityState d-flex w-100">
           <div className="form-group w-70 mr-2">
             <label>
               City
@@ -210,13 +213,15 @@ export default function UpdateForm() {
               required
             />
           </div>
-        </div>
-        {/* <div className="ll">
-          <label>
-            {!validation.latitude && (
-              <span className="invalid"> Latitude is required </span>
-            )}
-          </label>
+        </div> */}
+        <div className="ll">
+        <label>
+        Latitude  </label>
+        <label>
+        {!validation.latitude && latitude === '' && (
+          <span className="invalid"> Latitude is required </span>
+        )}
+      </label>
 
           <input
             type="text"
@@ -226,12 +231,13 @@ export default function UpdateForm() {
             className="latitude"
             required
           />
-
           <label>
-            {!validation.longitude && (
-              <span className="invalid"> Longitude is required </span>
-            )}
-          </label>
+          Longitude  </label>
+          <label>
+          {!validation.longitude && longitude === '' && (
+            <span className="invalid"> Longitude is required </span>
+          )}
+        </label>
           <input
             type="text"
             value={longitude}
@@ -240,7 +246,7 @@ export default function UpdateForm() {
             className="longitude"
             required
           />
-        </div>*/}
+        </div>
       </div>
 
       <div className="section">

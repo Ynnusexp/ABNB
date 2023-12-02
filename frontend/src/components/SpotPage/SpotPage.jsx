@@ -74,16 +74,19 @@ export default function SpotPage() {
   };
 
   const calculateAverage = (reviews) => {
-    let average = 0;
+    if (reviews.length === 0) {
+      return "New"; // or any default value you prefer when reviews are empty
+    }
+
     let total = 0;
     reviews.forEach((review) => {
-      total = total + review.stars
-    })
+      total = total + review.stars;
+    });
 
-    average = total / reviews.length;
-
+    const average = total / reviews.length;
     return average.toFixed(1);
-  }
+  };
+
 
   return (
     loaded &&
@@ -129,7 +132,7 @@ export default function SpotPage() {
                   {calculateAverage(spot.reviews)}
                 </p>
               ) : (
-                <p>new</p>
+                <p>New</p>
               )}
             </div>
             {spot.avgRating && <div className="dot mr-2">·</div>}
@@ -175,7 +178,7 @@ export default function SpotPage() {
                 </p>
               ) : (
                 <p>
-                  <FontAwesomeIcon icon={faStar} /> new
+                  <FontAwesomeIcon icon={faStar} /> New
                 </p>
               )}
             </div>
