@@ -67,7 +67,7 @@ function SignupFormModal() {
             required
           />
         </label>
-        {errors.firstName && <p>{errors.firstName}</p>}
+        {errors.firstName && <p style={{color: 'rgb(196, 75, 75)'}}>{errors.firstName}</p>}
         <label>
           First Name
           <input
@@ -78,7 +78,7 @@ function SignupFormModal() {
             required
           />
         </label>
-        {errors.lastName && <p>{errors.lastName}</p>}
+        {errors.lastName && <p style={{color: 'rgb(196, 75, 75)'}}>{errors.lastName}</p>}
         <label>
           Last Name
           <input
@@ -89,7 +89,7 @@ function SignupFormModal() {
             required
           />
         </label>
-        {errors.password && <p>{errors.password}</p>}
+        {errors.password && <p style={{color: 'rgb(196, 75, 75)'}}>{errors.password}</p>}
         <label>
           Password
           <input
@@ -111,9 +111,7 @@ function SignupFormModal() {
             required
           />
         </label>
-        {errors.confirmPassword && (
-          <p>{errors.confirmPassword}</p>
-        )}
+        {errors.confirmPassword && (<p style={{color: 'rgb(196, 75, 75)'}}>{errors.confirmPassword}</p>)}
         <button
         type="submit"
         disabled={( password.length < 6 || confirmPassword.length < 1 || username.length < 4 || firstName.length < 1 || lastName.length < 1 )}

@@ -85,7 +85,7 @@ export default function UpdateForm() {
       updateSpot();
     }
   };
-
+  let previewImage = picture
   const updateSpot = async () => {
     csrfFetch(SPOTS_ENDPOINT + "/" + spotId, {
       method: "PUT",
@@ -100,6 +100,7 @@ export default function UpdateForm() {
         name: spotName,
         description,
         price,
+        previewImage
       }),
     })
       .then((resp) => resp.json())

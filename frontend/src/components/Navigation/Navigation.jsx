@@ -23,9 +23,10 @@ function Navigation({ isLoaded }) {
         navigate("/")
       }} />
       <ul className='list-wrapper'>
-        <Link to="/spots/create" style={{marginRight: '10px'}}>
+        {sessionUser && (<Link to="/spots/create" style={{marginRight: '10px'}}>
           Create a New Spot
-        </Link>
+        </Link>)
+        }
         {isLoaded && sessionLinks}
       </ul>
     </div>

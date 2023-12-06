@@ -1,10 +1,11 @@
 import { useDispatch } from "react-redux";
-import { deleteSpot } from "../../store/spots";
+import { deleteSpot, getSpotsFetch } from "../../store/spots";
 
 const DeleteModal = ({ isDeleteModalOpen, setIsDeleteModalOpen }) => {
   const dispatch = useDispatch();
   const handleDelete = async () => {
-    await dispatch(deleteSpot(isDeleteModalOpen.spotId));
+    await dispatch(deleteSpot(isDeleteModalOpen.spotId))
+    await dispatch(getSpotsFetch())
     setIsDeleteModalOpen({
       ...isDeleteModalOpen,
       isOpen: false,

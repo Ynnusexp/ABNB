@@ -65,28 +65,29 @@ export default function SpotPage() {
   const generateReviewLanguage = () => {
     const reviewCount = spot?.reviews ? spot.reviews.length : 0;
     if (reviewCount == 1) {
-      return "1 Review";
+      return "·  1 Review";
     } else if (reviewCount > 1) {
-      return `${reviewCount} Reviews`;
+      return `·  ${reviewCount} Reviews`;
     } else {
       return;
     }
   };
+  let usersArr = []
 
   const calculateAverage = (reviews) => {
     if (reviews.length === 0) {
       return "New"; // or any default value you prefer when reviews are empty
     }
-
     let total = 0;
     reviews.forEach((review) => {
       total = total + review.stars;
+      usersArr.push(review.userId)
     });
 
     const average = total / reviews.length;
     return average.toFixed(1);
   };
-
+  console.log("spot: ", spot)
 
   return (
     loaded &&
@@ -121,7 +122,7 @@ export default function SpotPage() {
         <div className="spot-body d-flex">
           <div className="spot-content">
             {/* <h1> Hostcd by {spot.name}</h1> */}
-            <h1> Hostcd by {spot.ownerId}</h1>
+            <h1> Hosted by {`${spot.Owner.firstName} ${spot.Owner.lastName}`}</h1>
             <p className="pb-2"> {spot.description} </p>
             <hr />
             <div className="reviews-wrapper d-flex align-center">
@@ -135,35 +136,37 @@ export default function SpotPage() {
                 <p>New</p>
               )}
             </div>
-            {spot.avgRating && <div className="dot mr-2">·</div>}
+            {spot.avgRating && <div className="dot mr-2"></div>}
             <div className="review-count">{generateReviewLanguage()}</div>
             </div>
             <div className="mb-2">
               {sessionUser &&
-                spot?.ownerId !== sessionUser?.id && (
+                !spot.hasReview &&
+                spot?.reviews.length < 1 && sessionUser.id === spot.ownerId && (
+                  <p className="mb-2">Be the first to post a review!</p>
+                )}
+              {sessionUser &&
+                spot?.ownerId !== sessionUser?.id && !usersArr.includes(sessionUser.id) && (
                   <OpenModalButton
                     buttonText="Post Your Review"
                     modalComponent={<ReviewForm spotId={spot.id} />}
                   />
                 )}
-              {sessionUser &&
-                !spot.hasReview &&
-                spot?.reviews.length < 1 && (
-                  <p className="mb-2">Be the first to post a review!</p>
-                )}
             </div>
             <div className="mb-2">
-              {spot.reviews &&
-                spot.reviews.length > 0 &&
-                spot.reviews.map((singleReview, index) => (
-                  <ReviewTile
-                    key={`${index}-${singleReview.id}`}
-                    review={singleReview}
-                    owner={spot.Owner}
-                    spotId={spot.id}
-                  />
-                ))}
-            </div>
+  {spot.reviews &&
+    spot.reviews.length > 0 &&
+    spot.reviews
+      .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)) // Sort reviews by createdAt in descending order
+      .map((singleReview, index) => (
+        <ReviewTile
+          key={`${index}-${singleReview.id}`}
+          review={singleReview}
+          owner={spot.Owner}
+          spotId={spot.id}
+        />
+      ))}
+</div>
           </div>
           <div className="box">
           <p className="price">${spot.price} night</p>
@@ -182,7 +185,7 @@ export default function SpotPage() {
                 </p>
               )}
             </div>
-            {spot.reviews.length > 0 && <div className="box-dot">·</div>}
+            {spot.reviews.length > 0 && <div className="box-dot"></div>}
             <div className="box-reviews">{generateReviewLanguage()}</div>
           </div>
           <button
