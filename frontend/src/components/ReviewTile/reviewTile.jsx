@@ -51,6 +51,7 @@ export default function ReviewTile(props) {
         <DeleteReviewModal
           isDeleteModalOpen={isDeleteModalOpen}
           setIsDeleteModalOpen={setIsDeleteModalOpen}
+          spotId={props?.spotId}
         />
       )}
     </div>

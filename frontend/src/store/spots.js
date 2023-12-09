@@ -5,6 +5,8 @@ import { csrfFetch } from './csrf';
 const GET_ALL_SPOTS = "spots/getAllSpots";
 const ADD_SPOT = "spots/addNewSpot";
 const ADD_REVIEW = "spots/addNewReview ";
+const DELETE_REVIEW = 'spots/deleteReview'
+//onst DELETE_SPOT = `spot/deleteSpot`;
 
 const getAllSpots = (spots) => {
 
@@ -32,6 +34,22 @@ export const addNewReview = (review) => {
     }
 
 }
+
+export const actionDeleteReview = (reviewId, spotId) => {
+    return {
+        type: DELETE_REVIEW,
+        reviewId,
+        spotId
+    }
+}
+
+// export const actionDeleteSpot = (spot) => {
+//     return {
+//         type: DELETE_SPOT,
+//         spot
+//     }
+
+// }
 
 // export const updateSpot = (spot) => {
 
@@ -90,18 +108,20 @@ export const deleteSpot = (spotId) => async () => {
     }
 }
 
-export const deleteReview = (reviewId) => async () => {
+export const deleteReview = (reviewId, spotId) => async (dispatch) => {
     const res = await csrfFetch( "/api/reviews/" + reviewId, {
         method: "DELETE"
     })
     if (res.ok) {
 
         const allSpots = await res.json()
-
+        await dispatch(actionDeleteReview(reviewId, spotId))
+        await dispatch(getSpotById(spotId))
         return allSpots;
 
     }
 }
+
 
 export const updateSpotApi = (spot, spotId) => async () => {
     const res = await csrfFetch(SPOTS_ENDPOINT + "/" + spotId, {
@@ -153,6 +173,33 @@ const spotsReducer = (state = initialState, action) => {
             return newState
 
         }
+
+        case DELETE_REVIEW: {
+            const newState = {...state}
+            const allReviews = newState[action.spotId].reviews
+
+            for (let review in allReviews){
+                if (allReviews[review].id === action.reviewId){
+                    newState[action.spotId].reviews.splice(review, 1)
+                }
+            }
+
+            return newState
+        }
+
+        // case DELETE_SPOT: {
+        //     const newState = {...state}
+        //     const allSpots = newState[action.spotId].reviews
+
+        //     for (let review in allReviews){
+        //         if (allReviews[review].id === action.reviewId){
+        //             newState[action.spotId].reviews.splice(review, 1)
+        //         }
+        //     }
+
+        //     return newState
+        // }
+
 
 
         default:

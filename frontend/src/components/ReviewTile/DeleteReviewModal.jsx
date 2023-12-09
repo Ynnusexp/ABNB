@@ -1,11 +1,11 @@
 import { useDispatch } from "react-redux";
 import { deleteReview } from "../../store/spots";
 
-const DeleteReviewModal = ({ isDeleteModalOpen, setIsDeleteModalOpen }) => {
+const DeleteReviewModal = ({ isDeleteModalOpen, setIsDeleteModalOpen, spotId }) => {
   const dispatch = useDispatch();
 
   const handleDelete = async () => {
-    await dispatch(deleteReview(isDeleteModalOpen.reviewId));
+    await dispatch(deleteReview(isDeleteModalOpen.reviewId, spotId));
     setIsDeleteModalOpen({
       ...isDeleteModalOpen,
       isOpen: false,
@@ -37,4 +37,3 @@ const DeleteReviewModal = ({ isDeleteModalOpen, setIsDeleteModalOpen }) => {
 };
 
 export default DeleteReviewModal;
-

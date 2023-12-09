@@ -18,9 +18,9 @@ export default function SpotPage() {
   const dispatch = useDispatch();
   const [spot, setSpot] = useState("");
   const [canReview, setCanReview] = useState(true);
-  const spots = useSelector((state) => {
-    return state.spots;
-  });
+  // const spots = useSelector((state) => {
+  //   return state.spots;
+  // });
 
   let { spotId } = useParams();
 
@@ -177,8 +177,6 @@ export default function SpotPage() {
                 <p>
                   <FontAwesomeIcon icon={faStar} />
                   {calculateAverage(spot.reviews)}
-                  {/* <FontAwesomeIcon icon={faStar} /> */}
-                  {/* fix avgating fom back, should pass back a dcmical*/}
                 </p>
               ) : (
                 <p>

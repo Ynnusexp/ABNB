@@ -40,7 +40,7 @@ export default function SpotTile({
         <div className="rating">
           {spot?.reviews?.length > 0 ? <p><FontAwesomeIcon icon={faStar} />
           {calculateAverage(spot?.reviews)}
-          </p> : <p>New</p>}
+          </p> : <p> <FontAwesomeIcon icon={faStar} /> New</p>}
         </div>
       </div>
       <div className="price">
