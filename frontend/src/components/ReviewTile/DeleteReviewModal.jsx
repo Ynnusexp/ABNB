@@ -37,3 +37,4 @@ const DeleteReviewModal = ({ isDeleteModalOpen, setIsDeleteModalOpen }) => {
 };
 
 export default DeleteReviewModal;
+

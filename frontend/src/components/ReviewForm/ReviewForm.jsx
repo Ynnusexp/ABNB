@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useModal } from "../../context/Modal";
 import * as spots from "../../store/spots";
@@ -9,6 +9,7 @@ import { csrfFetch } from "../../store/csrf";
 import { SPOTS_ENDPOINT } from "../../api/endpoints.js";
 import { addNewReview } from "../../store/spots";
 
+
 function ReviewForm(props) {
   const dispatch = useDispatch();
   const [review, setReview] = useState("");
@@ -18,18 +19,26 @@ function ReviewForm(props) {
   const [enableSubmit, setEnableSubmit] = useState(false);
 
   const sessionUser = useSelector((state) => state.session.user);
+  useEffect(() => {
+    console.log(review, review.length);
+     setEnableSubmit(isValidForm());
+     }, [review])
 
   const onStarChange = (value) => {
     setStars(value);
     setEnableSubmit(isValidForm());
   };
-  const onReviewChange = (value) => {
-    setReview(value);
-    setEnableSubmit(isValidForm());
+  const onReviewChange = (e) => {
+    console.log(review)
+
+    setReview(e.target.value); //this is a non blocking call, may execute after line 28
+    //setEnableSubmit(isValidForm());
   };
 
   const isValidForm = () => {
-    if (review.length <= 10) {
+
+
+    if (review.length < 10) {
       return false;
     }
     if (stars < 0) {
@@ -82,7 +91,7 @@ function ReviewForm(props) {
             type="textArea"
             value={review}
             placeholder="Leave your review here..."
-            onChange={(e) => onReviewChange(e.target.value)}
+            onChange={onReviewChange}
             required
           />
         </div>

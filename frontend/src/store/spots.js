@@ -130,7 +130,7 @@ const spotsReducer = (state = initialState, action) => {
         }
 
         case ADD_SPOT: {
-            const newState = { ...state }   
+            const newState = { ...state }
             console.log(newState)
 
             newState[action.spot.id] = action.spot;

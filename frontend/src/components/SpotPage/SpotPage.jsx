@@ -11,6 +11,7 @@ import { csrfFetch } from "../../store/csrf";
 import { SPOTS_ENDPOINT } from "../../api/endpoints";
 import ReviewForm from "../ReviewForm/ReviewForm";
 import OpenModalButton from "../OpenModalButton/OpenModalButton";
+// import { useEffect } from "react";
 
 export default function SpotPage() {
   const [loaded, setLoaded] = useState(false);

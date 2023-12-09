@@ -23,7 +23,15 @@ export default function ReviewTile(props) {
 
   return (
     <div>
-      <div className="user-name mb-2">{}</div>
+      {/* <div className="user-name mb-2">{}</div> */}
+      <div className="user-name mb-2">{props?.owner?.firstName}</div>
+       <div className="date mb-2">
+        {Intl.DateTimeFormat("en", { month: "long" }).format(
+          new Date(props?.review?.createdAt.split("-")[1])
+        )}{" "}
+
+        {props?.review?.createdAt.split("-")[0]}
+      </div>
       {/* Other review details */}
       <div className="review mb-2">
         <p>{props?.review?.review}</p>
