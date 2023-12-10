@@ -18,9 +18,9 @@ export default function SpotPage() {
   const dispatch = useDispatch();
   const [spot, setSpot] = useState("");
   const [canReview, setCanReview] = useState(true);
-  // const spots = useSelector((state) => {
-  //   return state.spots;
-  // });
+  const spots = useSelector((state) => {
+    return state.spots;
+  });
 
   let { spotId } = useParams();
 
@@ -143,7 +143,7 @@ export default function SpotPage() {
             <div className="mb-2">
               {sessionUser &&
                 !spot.hasReview &&
-                spot?.reviews.length < 1 && sessionUser.id === spot.ownerId && (
+                spot?.reviews.length < 1 && sessionUser.id !== spot.ownerId && (
                   <p className="mb-2">Be the first to post a review!</p>
                 )}
               {sessionUser &&

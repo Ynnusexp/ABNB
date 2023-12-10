@@ -99,8 +99,8 @@ export default function UpdateForm() {
         lng: longitude,
         name: spotName,
         description,
-        price,
-        previewImage
+        price: Number(price).toFixed(2),
+        previewImage,
       }),
     })
       .then((resp) => resp.json())
@@ -222,6 +222,9 @@ export default function UpdateForm() {
         {!validation.latitude && latitude === '' && (
           <span className="invalid"> Latitude is required </span>
         )}
+        {+latitude < -90 || +latitude > 90 || Number.isNaN(Number(latitude)) && (
+          <span className='invalid'>Latitude must be between -90 and 90</span>
+        )}
       </label>
 
           <input
@@ -238,6 +241,9 @@ export default function UpdateForm() {
           {!validation.longitude && longitude === '' && (
             <span className="invalid"> Longitude is required </span>
           )}
+          {+longitude < -180 || +longitude > 180 || Number.isNaN(Number(longitude)) && (
+          <span className='invalid'>Longitude must be between -180 and 180</span>
+        )}
         </label>
           <input
             type="text"
@@ -309,18 +315,18 @@ export default function UpdateForm() {
             required
           />
         </span>
-        {!validation.price && (
+        {!validation?.price && (
           <span className="invalid"> Price is required</span>
         )}
       </div>
       <div className="section">
-        <h2>Liven up your spot with photos</h2>
-        <p>Submit a link to at least one photo to publish your spot.</p>
+        {/* <h2>Liven up your spot with photos</h2>
+        <p>Submit a link to at least one photo to publish your spot.</p> */}
         {/* {!validation.picture && (
           <span className="invalid"> Preview image is required</span>
         )}{" "} */}
 
-        <input
+        {/* <input
           type="text"
           placeholder="Preview Image URL"
           className="url1"
@@ -335,7 +341,7 @@ export default function UpdateForm() {
         <input type="text" placeholder="Image URL" className="url2" />
         <input type="text" placeholder="Image URL" className="url3" />
         <input type="text" placeholder="Image URL" className="url4" />
-        <input type="text" placeholder="Image URL" className="url5" />
+        <input type="text" placeholder="Image URL" className="url5" /> */}
       </div>
       <button type="button" onClick={validateAndSubmit}>
         Update your Spot

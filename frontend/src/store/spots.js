@@ -6,7 +6,7 @@ const GET_ALL_SPOTS = "spots/getAllSpots";
 const ADD_SPOT = "spots/addNewSpot";
 const ADD_REVIEW = "spots/addNewReview ";
 const DELETE_REVIEW = 'spots/deleteReview'
-//onst DELETE_SPOT = `spot/deleteSpot`;
+const DELETE_SPOT = `spot/deleteSpot`;
 
 const getAllSpots = (spots) => {
 
@@ -43,13 +43,13 @@ export const actionDeleteReview = (reviewId, spotId) => {
     }
 }
 
-// export const actionDeleteSpot = (spot) => {
-//     return {
-//         type: DELETE_SPOT,
-//         spot
-//     }
+export const actionDeleteSpot = (spotId) => {
+    return {
+        type: DELETE_SPOT,
+        spotId
+    }
 
-// }
+}
 
 // export const updateSpot = (spot) => {
 
@@ -95,14 +95,14 @@ export const getSpotById = (spotId) =>  async () => {
     }
 }
 
-export const deleteSpot = (spotId) => async () => {
+export const deleteSpot = (spotId) => async (dispatch) => {
     const res = await csrfFetch(SPOTS_ENDPOINT + "/" + spotId, {
         method: "DELETE"
     })
     if (res.ok) {
 
         const allSpots = await res.json()
-
+        await dispatch(actionDeleteSpot(spotId))
         return allSpots;
 
     }
@@ -187,19 +187,14 @@ const spotsReducer = (state = initialState, action) => {
             return newState
         }
 
-        // case DELETE_SPOT: {
-        //     const newState = {...state}
-        //     const allSpots = newState[action.spotId].reviews
+        case DELETE_SPOT: {
+            const newState = {...state}
 
-        //     for (let review in allReviews){
-        //         if (allReviews[review].id === action.reviewId){
-        //             newState[action.spotId].reviews.splice(review, 1)
-        //         }
-        //     }
+//console.log( "test!!!!!!!!!!!!!!!!!!!!" , newState)
 
-        //     return newState
-        // }
-
+            delete newState[action.spotId]
+            return newState
+   }
 
 
         default:

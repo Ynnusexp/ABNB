@@ -31,7 +31,7 @@ function ReviewForm(props) {
   const onReviewChange = (e) => {
     console.log(review)
 
-    setReview(e.target.value); //this is a non blocking call, may execute after line 28
+    setReview(e.target.value);
     //setEnableSubmit(isValidForm());
   };
 
@@ -77,7 +77,7 @@ function ReviewForm(props) {
       })
       .catch((err) => {
         console.log("in err", err);
-        setErrors({ server: err.statusText });
+        setErrors({ server: "user has already posted a review" });////// edge case, should never be happening
       });
   };
   return (

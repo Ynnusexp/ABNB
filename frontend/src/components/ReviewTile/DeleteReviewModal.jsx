@@ -21,7 +21,7 @@ const DeleteReviewModal = ({ isDeleteModalOpen, setIsDeleteModalOpen, spotId }) 
           Yes (Delete Review)
         </button>
         <button
-          className="button-secondary"
+          className="btn-secondary w-100"
           onClick={() =>
             setIsDeleteModalOpen({
               ...isDeleteModalOpen,

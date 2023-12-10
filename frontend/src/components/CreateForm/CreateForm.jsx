@@ -31,6 +31,10 @@ export default function CreateForm() {
   const [price, setPrice] = useState("");
   const [spotName, setSpotName] = useState("");
   const [picture, setPicture] = useState("");
+  const [url2, setUrl2] = useState("")
+  const [url3, setUrl3] = useState("")
+  const [url4, setUrl4] = useState("")
+  const [url5, setUrl5] = useState("")
 
   const [validation, setValidation] = useState(validForm);
 
@@ -38,6 +42,8 @@ export default function CreateForm() {
   const dispatch = useDispatch();
 
   const sessionUser = useSelector((state) => state.session.user);
+
+  let ending = [ ".jpg", ".jpeg", ".png"]
 
   const isValidForm = () => {
     const checkForm = {
@@ -50,7 +56,11 @@ export default function CreateForm() {
       description: description.length > 30,
       price: price.length,
       spotName: spotName.length,
-      picture: picture.length,
+      picture: picture.length && ending.some(extension => picture.endsWith(extension)),
+      url2: !url2.length || ending.some(extension => url2.endsWith(extension)),
+      url3: !url3.length || ending.some(extension => url3.endsWith(extension)),
+      url4: !url4.length || ending.some(extension => url4.endsWith(extension)),
+      url5: !url5.length || ending.some(extension => url5.endsWith(extension)),
     };
 
     console.log(checkForm);
@@ -82,7 +92,7 @@ export default function CreateForm() {
         lng: longitude,
         name: spotName,
         description,
-        price,
+        price: Number(price).toFixed(2),
       }),
     })
       .then((resp) => resp.json())
@@ -206,6 +216,7 @@ export default function CreateForm() {
               {!validation.latitude && (
                 <span className="invalid"> Latitude is required </span>
               )}
+
             </label>
 
             <input
@@ -216,6 +227,9 @@ export default function CreateForm() {
               className="latitude"
               required
             />
+             {+latitude < -90 || +latitude > 90  || Number.isNaN(Number(latitude)) && (
+          <div className='invalid'>Latitude must be between -90 and 90</div>
+        )}
           </div>
           <div className="form-group w-50">
             <label>
@@ -232,6 +246,9 @@ export default function CreateForm() {
               className="longitude"
               required
             />
+             {+longitude < -180 || +longitude > 180 && Number.isNaN(Number(longitude)) (
+          <div className='invalid'>Longitude must be between -180 and 180</div>
+        )}
           </div>
         </div>
       </div>
@@ -286,7 +303,7 @@ export default function CreateForm() {
         <span className="d-flex align-center">
           <span className="d-block mr-2">$</span>
           <input
-            type="text"
+            type="number"
             placeholder="Price per night (USD)"
             className="text3"
             onChange={(e) => setPrice(e.target.value)}
@@ -301,7 +318,7 @@ export default function CreateForm() {
         <h2>Liven up your spot with photos</h2>
         <p>Submit a link to at least one photo to publish your spot.</p>
         <input
-          type="text"
+          type="url"
           placeholder="Preview Image URL"
           className="url1"
           onChange={(e) => setPicture(e.target.value)}
@@ -310,11 +327,16 @@ export default function CreateForm() {
           {!validation.picture && (
             <span className="invalid d-block"> Preview image is required</span>
           )}
+           {picture&& !ending.some(extension => picture.endsWith(extension)) && <span className="invalid d-block"> image must end in .png, jpg, or jpeg </span> }
         </label>
-        <input type="text" placeholder="Image URL" className="url2" />
-        <input type="text" placeholder="Image URL" className="url3" />
-        <input type="text" placeholder="Image URL" className="url4" />
-        <input type="text" placeholder="Image URL" className="url5" />
+        <input type="url" placeholder="Image URL" className="url2" onChange={(e) => setUrl2(e.target.value)}/>
+        {url2 && !ending.some(extension => url2.endsWith(extension)) && <span className="invalid d-block"> image must end in .png, jpg, or jpeg </span> }
+        <input type="url" placeholder="Image URL" className="url3" onChange={(e) => setUrl3(e.target.value)}/>
+        {url3 && !ending.some(extension => url2.endsWith(extension)) && <span className="invalid d-block"> image must end in .png, jpg, or jpeg </span> }
+        <input type="url" placeholder="Image URL" className="url4" onChange={(e) => setUrl4(e.target.value)}/>
+        {url4 && !ending.some(extension => url2.endsWith(extension)) && <span className="invalid d-block"> image must end in .png, jpg, or jpeg </span> }
+        <input type="url" placeholder="Image URL" className="url5" onChange={(e) => setUrl5(e.target.value)}/>
+        {url5 && !ending.some(extension => url2.endsWith(extension)) && <span className="invalid d-block"> image must end in .png, jpg, or jpeg </span> }
       </div>
       <button type="button" className="btn-primary" onClick={validateAndSubmit}>
         Create Spot
