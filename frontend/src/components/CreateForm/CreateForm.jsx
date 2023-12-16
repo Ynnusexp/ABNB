@@ -8,7 +8,7 @@ import { csrfFetch } from "../../store/csrf.js";
 import { useDispatch } from "react-redux";
 
 export default function CreateForm() {
-  const [address, setAddress] = useState("");
+  const [streetAddress, setStreetAddress] = useState("");//
   const [city, setCity] = useState("");
   const [state, setState] = useState("");
   const [country, setCountry] = useState("");
@@ -18,41 +18,52 @@ export default function CreateForm() {
   const [price, setPrice] = useState("");
   const [spotName, setSpotName] = useState("");
   const [picture, setPicture] = useState("");
-  const [url2, setUrl2] = useState("")
-  const [url3, setUrl3] = useState("")
-  const [url4, setUrl4] = useState("")
-  const [url5, setUrl5] = useState("")
-  const [errors, setErrors] = useState([])
-
+  const [url2, setUrl2] = useState("");
+  const [url3, setUrl3] = useState("");
+  const [url4, setUrl4] = useState("");
+  const [url5, setUrl5] = useState("");
+  const [errors, setErrors] = useState([]);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const sessionUser = useSelector((state) => state.session.user);
 
-  let ending = [".jpg", ".jpeg", ".png"]
-  const errs = []
+  let ending = [".jpg", ".jpeg", ".png"];
+  const errs = [];
   const isValidForm = () => {
+    if (!country) errs.push("Country is required");
+    if (!streetAddress) errs.push("Street Address is required");
+    if (!city) errs.push("City is required");
+    if (!state) errs.push("State is required");
+    if (latitude < -90 || latitude > 90) errs.push("Invalid Latitude");
+    if (!latitude || isNaN(latitude)) errs.push("Valid Latitude is required");
+    if (longitude < -180 || longitude > 180) errs.push("Invalid Longitude");
+    if (!longitude || isNaN(longitude))
+      errs.push("Valid Longitude is required");
+    if (description.length < 30)
+      errs.push("Description must be at least 30 characters");
+    if (!spotName) errs.push("Name is required");
+    if (!price || price < 1) errs.push("Price is required");
+    if (
+      !picture.length &&
+      !ending.some((extension) => picture.endsWith(extension))
+    )
+      errs.push(
+        "Image must have a valid extension",
+        "Preview Image is required"
+      );
+    if (ending.some((extension) => url2.endsWith(extension)))
+      errs.push("Image must have a valid extension");
+    if (ending.some((extension) => url3.endsWith(extension)))
+      errs.push("Image must have a valid extension");
+    if (ending.some((extension) => url4.endsWith(extension)))
+      errs.push("Image must have a valid extension");
+    if (ending.some((extension) => url5.endsWith(extension)))
+      errs.push("Image must have a valid extension");
+    setErrors(errs);
 
-    if (!country) errs.push("Country is required")
-    if (!address) errs.push("Address is required")
-    if (!city) errs.push("City is required")
-    if (!state) errs.push("State is required")
-    if (latitude < -90 || latitude > 90) errs.push("Invalid Latitude")
-    if (!latitude || isNaN(latitude)) errs.push("Valid Latitude is required")
-    if (longitude < -180 || longitude > 180) errs.push("Invalid Longitude")
-    if (!longitude || isNaN(longitude)) errs.push("Valid Longitude is required")
-    if (description.length < 30) errs.push("Description must be at least 30 characters")
-    if (!spotName) errs.push("Name is required")
-    if (!price) errs.push("Price is required")
-    if (!picture.length && !ending.some(extension => picture.endsWith(extension))) errs.push("Image must have a valid extension", "Preview Image is required")
-    if (ending.some(extension => url2.endsWith(extension))) errs.push("Image must have a valid extension")
-    if (ending.some(extension => url3.endsWith(extension))) errs.push("Image must have a valid extension")
-    if (ending.some(extension => url4.endsWith(extension))) errs.push("Image must have a valid extension")
-    if (ending.some(extension => url5.endsWith(extension))) errs.push("Image must have a valid extension")
-    setErrors(errs)
-
-    return errs.length === 0
+    return errs.length === 0;
   };
 
   // const validateAndSubmit = async (e) => {
@@ -74,7 +85,7 @@ export default function CreateForm() {
       method: "POST",
       headers: { user: sessionUser },
       body: JSON.stringify({
-        address: address,
+        address: streetAddress,
         city,
         state,
         country,
@@ -134,9 +145,14 @@ export default function CreateForm() {
         </p>
         <div>
           <label>
-            Country{" "}
+            Country
+            {errors.includes("Country is required") && (
+              <span className="invalid"> Country is required </span>
+            )}
           </label>
-          <p className="invalid">{errors.find((error) => error && error.includes("Country"))}</p>
+          {/* <p className="invalid">
+            {errors.find((error) => error && error.includes("Country"))}
+          </p> */}
           <input
             type="text"
             value={country}
@@ -147,27 +163,33 @@ export default function CreateForm() {
           />
         </div>
         <div>
-          <label>
-            Street Address{" "}
-
+          <label>Street Address
+          {errors.includes("Street Address is required") && (
+              <span className="invalid"> Street Address is required </span>
+            )}
           </label>
-          <p className="invalid">{errors.find((error) => error.includes("Address"))}</p>
+          {/* <p className="invalid">
+            {errors.find((error) => error.includes("Street Address"))}
+          </p> */}
           <input
             type="text"
-            value={address}
+            value={streetAddress}
             placeholder="Address"
-            onChange={(e) => setAddress(e.target.value)}
+            onChange={(e) => setStreetAddress(e.target.value)}
             className="address"
             required
           />
         </div>
         <div className="cityState d-flex w-100">
           <div className="form-group w-70 mr-2">
-            <label>
-              City
-
+            <label>City
+            {errors.includes("City is required") && (
+              <span className="invalid"> City is required </span>
+            )}
             </label>
-            <p className="invalid">{errors.find((error) => error.includes("City"))}</p>
+            {/* <p className="invalid">
+              {errors.find((error) => error.includes("City"))}
+            </p> */}
             <input
               type="text"
               value={city}
@@ -177,11 +199,15 @@ export default function CreateForm() {
               required
             />
           </div>
-          <div className="form-group w-30">
-            <label>
-              State{" "}
+          <div className="form-group w-70 mr-2">
+            <label>State
+            {errors.includes("State is required") && (
+              <span className="invalid"> State is required </span>
+            )}
             </label>
-            <p className="invalid">{errors.find((error) => error.includes("State"))}</p>
+            {/* <p className="invalid">
+              {errors.find((error) => error.includes("State"))}
+            </p> */}
             <input
               type="text"
               value={state}
@@ -194,13 +220,20 @@ export default function CreateForm() {
         </div>
         <div className="ll d-flex w-100">
           <div className="form-group w-50 mr-2">
-            <label>
-              Latitude
-
-
+            <label>Latitude
+            {errors.includes("Valid Latitude is required") && (
+                <span className="invalid"> Valid Latitude is required </span>
+              )}
+              {errors.includes("Invalid Latitude") && (
+                <span className="invalid"> Invalid Latitude </span>
+              )}
             </label>
-            <p className="invalid">{errors.find((error) => error.includes("Invalid Latitude"))}</p>
-            <p className="invalid">{errors.find((error) => error.includes("Valid Latitude"))}</p>
+            {/* <p className="invalid">
+              {errors.find((error) => error.includes("Invalid Latitude"))}
+            </p>
+            <p className="invalid">
+              {errors.find((error) => error.includes("Valid Latitude"))}
+            </p> */}
             <input
               type="text"
               value={latitude}
@@ -209,15 +242,22 @@ export default function CreateForm() {
               className="latitude"
               required
             />
-
           </div>
           <div className="form-group w-50">
-            <label>
-              Longitude
-
+            <label>Longitude
+            {errors.includes("Valid Longitude is required") && (
+                <span className="invalid"> Valid Longitude is required </span>
+              )}
+              {errors.includes("Invalid Longitude") && (
+                <span className="invalid"> Invalid Longitude </span>
+              )}
             </label>
-            <p className="invalid">{errors.find((error) => error.includes("Invalid Longitude"))}</p>
-            <p className="invalid">{errors.find((error) => error.includes("Valid Longitude"))}</p>
+            {/* <p className="invalid">
+              {errors.find((error) => error.includes("Invalid Longitude"))}
+            </p>
+            <p className="invalid">
+              {errors.find((error) => error.includes("Valid Longitude"))}
+            </p> */}
             <input
               type="text"
               value={longitude}
@@ -226,7 +266,6 @@ export default function CreateForm() {
               className="longitude"
               required
             />
-
           </div>
         </div>
       </div>
@@ -246,7 +285,9 @@ export default function CreateForm() {
           required
         ></textarea>
 
-        <p className="invalid">{errors.find((error) => error.includes("Description"))}</p>
+        <p className="invalid">
+          {errors.find((error) => error.includes("Description"))}
+        </p>
       </div>
 
       <div className="section">
@@ -262,7 +303,9 @@ export default function CreateForm() {
           onChange={(e) => setSpotName(e.target.value)}
           required
         />
-        <p className='invalid'>{errors.find((error) => error.includes("Name"))}</p>
+        <p className="invalid">
+          {errors.find((error) => error.includes("Name"))}
+        </p>
       </div>
       <div className="section">
         <h2>Set a base price for your spot</h2>
@@ -281,7 +324,9 @@ export default function CreateForm() {
             required
           />
         </span>
-        <p className="invalid ">{errors.find((error) => error.includes("Price"))}</p>
+        <p className="invalid ">
+          {errors.find((error) => error.includes("Price"))}
+        </p>
       </div>
       <div className="section">
         <h2>Liven up your spot with photos</h2>
@@ -293,18 +338,68 @@ export default function CreateForm() {
           onChange={(e) => setPicture(e.target.value)}
         />
         <label>
-          <p className="invalid">{errors.find((error) => error.includes("Preview"))}</p>
-          <p className="invalid">{errors.find((error) => error.includes("Image"))}</p>
-          {picture && !ending.some(extension => picture.endsWith(extension)) && <span className="invalid d-block"> Image must end in .png, jpg, or jpeg </span>}
+          <p className="invalid">
+            {errors.find((error) => error.includes("Preview"))}
+          </p>
+          <p className="invalid">
+            {errors.find((error) => error.includes("Image"))}
+          </p>
+          {picture &&
+            !ending.some((extension) => picture.endsWith(extension)) && (
+              <span className="invalid d-block">
+                {" "}
+                Image must end in .png, jpg, or jpeg{" "}
+              </span>
+            )}
         </label>
-        <input type="url" placeholder="Image URL" className="url2" onChange={(e) => setUrl2(e.target.value)} />
-        {url2 && !ending.some(extension => url2.endsWith(extension)) && <span className="invalid d-block"> Image must end in .png, jpg, or jpeg </span>}
-        <input type="url" placeholder="Image URL" className="url3" onChange={(e) => setUrl3(e.target.value)} />
-        {url3 && !ending.some(extension => url2.endsWith(extension)) && <span className="invalid d-block"> Image must end in .png, jpg, or jpeg </span>}
-        <input type="url" placeholder="Image URL" className="url4" onChange={(e) => setUrl4(e.target.value)} />
-        {url4 && !ending.some(extension => url2.endsWith(extension)) && <span className="invalid d-block"> Image must end in .png, jpg, or jpeg </span>}
-        <input type="url" placeholder="Image URL" className="url5" onChange={(e) => setUrl5(e.target.value)} />
-        {url5 && !ending.some(extension => url2.endsWith(extension)) && <span className="invalid d-block"> Image must end in .png, jpg, or jpeg </span>}
+        <input
+          type="url"
+          placeholder="Image URL"
+          className="url2"
+          onChange={(e) => setUrl2(e.target.value)}
+        />
+        {url2 && !ending.some((extension) => url2.endsWith(extension)) && (
+          <span className="invalid d-block">
+            {" "}
+            Image must end in .png, jpg, or jpeg{" "}
+          </span>
+        )}
+        <input
+          type="url"
+          placeholder="Image URL"
+          className="url3"
+          onChange={(e) => setUrl3(e.target.value)}
+        />
+        {url3 && !ending.some((extension) => url2.endsWith(extension)) && (
+          <span className="invalid d-block">
+            {" "}
+            Image must end in .png, jpg, or jpeg{" "}
+          </span>
+        )}
+        <input
+          type="url"
+          placeholder="Image URL"
+          className="url4"
+          onChange={(e) => setUrl4(e.target.value)}
+        />
+        {url4 && !ending.some((extension) => url2.endsWith(extension)) && (
+          <span className="invalid d-block">
+            {" "}
+            Image must end in .png, jpg, or jpeg{" "}
+          </span>
+        )}
+        <input
+          type="url"
+          placeholder="Image URL"
+          className="url5"
+          onChange={(e) => setUrl5(e.target.value)}
+        />
+        {url5 && !ending.some((extension) => url2.endsWith(extension)) && (
+          <span className="invalid d-block">
+            {" "}
+            Image must end in .png, jpg, or jpeg{" "}
+          </span>
+        )}
       </div>
       <button type="button" className="btn-primary" onClick={validateAndSubmit}>
         Create Spot

@@ -45,7 +45,6 @@ export default function SpotPage() {
     })
       .then((resp) => resp.json())
       .then((response) => {
-        //once we have the record iD weneed to input pictures
 
         if (response && response.Spots && response.Spots[0]) {
           // console.log(response.Spots[0]);
@@ -170,9 +169,11 @@ export default function SpotPage() {
 </div>
           </div>
           <div className="box">
+          {/* <div className="star-header"> */}
           <p className="price">${spot.price} night</p>
+
           <div className="box-rating-wrapper">
-            <div className="box-rating">
+            <div className="box-rating pl-50">
               {spot.hasReview || spot?.reviews.length > 0 ? (
                 <p>
                   <FontAwesomeIcon icon={faStar} />
@@ -184,8 +185,10 @@ export default function SpotPage() {
                 </p>
               )}
             </div>
+
             {spot.reviews.length > 0 && <div className="box-dot"></div>}
             <div className="box-reviews">{generateReviewLanguage()}</div>
+          {/* </div> */}
           </div>
           <button
             className="reserve"

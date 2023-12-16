@@ -2,21 +2,10 @@ import "./UpdateForm.css";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { addNewSpot, getSpotById, updateSpotApi } from "../../store/spots.js";
+import { getSpotById, updateSpotApi } from "../../store/spots.js";
 import { SPOTS_ENDPOINT } from "../../api/endpoints.js";
 import { csrfFetch } from "../../store/csrf.js";
 import { useDispatch } from "react-redux";
-
-const validForm = {
-  streetAddress: true,
-  city: true,
-  state: true,
-  country: true,
-  description: true,
-  price: true,
-  spotName: true,
-  picture: true,
-};
 
 export default function UpdateForm() {
   const [streetAddress, setStreetAddress] = useState("");
@@ -30,7 +19,7 @@ export default function UpdateForm() {
   const [spotName, setSpotName] = useState("");
   const [picture, setPicture] = useState("");
 
-  const [validation, setValidation] = useState(validForm);
+  const [errors, setErrors] = useState([]);
 
   const navigate = useNavigate();
   const { spotId } = useParams();
@@ -52,32 +41,32 @@ export default function UpdateForm() {
       setPicture(currentSpot.Spots[0].previewImage);
       setLongitude(currentSpot.Spots[0].lng);
       setLatitude(currentSpot.Spots[0].lat);
-
     }
 
     getSpot();
   }, []);
 
   const isValidForm = () => {
-    const checkForm = {
-      streetAddress: streetAddress.length,
-      city: city.length,
-      state: state.length,
-      country: country.length,
-      latitude: latitude !=='',
-      longitude: longitude !=='',
-      description: description.length > 30,
-      price: price.length,
-      spotName: spotName.length,
-      picture: picture.length,
-    };
+    const errs = [];
 
-    setValidation(checkForm);
-    if (!Object.values(checkForm).some((value) => value === 0)) {
-      return true;
-    }
+    if (!country) errs.push("Country is required");
+    if (!streetAddress) errs.push("Street Address is required");
+    if (!city) errs.push("City is required");
+    if (!state) errs.push("State is required");
+    if (!latitude || isNaN(latitude)) errs.push("Valid Latitude is required");
+    if (latitude < -90 || latitude > 90) errs.push("Invalid Latitude");
+    if (!longitude || isNaN(longitude))
+      errs.push("Valid Longitude is required");
+    if (longitude < -180 || longitude > 180) errs.push("Invalid Longitude");
+    if (description.length < 30)
+      errs.push("Description must be at least 30 characters");
+    if (!spotName) errs.push("Title is required");
+    if (!price || price < 1) errs.push("Price is required");
+    if (!picture.length) errs.push("Preview Image is required");
 
-    return false;
+    setErrors(errs);
+
+    return errs.length === 0;
   };
 
   const validateAndSubmit = () => {
@@ -85,9 +74,10 @@ export default function UpdateForm() {
       updateSpot();
     }
   };
-  let previewImage = picture
+
   const updateSpot = async () => {
-    csrfFetch(SPOTS_ENDPOINT + "/" + spotId, {
+    const previewImage = picture;
+    csrfFetch(`${SPOTS_ENDPOINT}/${spotId}`, {
       method: "PUT",
       headers: { user: sessionUser },
       body: JSON.stringify({
@@ -111,7 +101,7 @@ export default function UpdateForm() {
   };
 
   return (
-    <div className="formBody">
+    <form className="formBody">
       <div className="section">
         <h1> Update your Spot </h1>
         <h2> Where's your place located? </h2>
@@ -122,7 +112,7 @@ export default function UpdateForm() {
         <div>
           <label>
             Country{" "}
-            {!validation.country && (
+            {errors.includes("Country is required") && (
               <span className="invalid"> Country is required </span>
             )}
           </label>
@@ -138,7 +128,7 @@ export default function UpdateForm() {
         <div>
           <label>
             Street Address{" "}
-            {!validation.streetAddress && (
+            {errors.includes("Street Address is required") && (
               <span className="invalid"> Street Address is required </span>
             )}
           </label>
@@ -151,11 +141,14 @@ export default function UpdateForm() {
             required
           />
         </div>
-        <div className="cityState">
-          <label>City
-          {!validation.city && (
-            <span className="invalid"> City is required </span>
-          )}
+
+        <div className="cityState  d-flex w-100">
+        <div className="form-group w-70 mr-2">
+          <label>
+            City{" "}
+            {errors.includes("City is required") && (
+              <span className="invalid"> City is required </span>
+            )}
           </label>
           <input
             type="text"
@@ -165,11 +158,13 @@ export default function UpdateForm() {
             className="city"
             required
           />
-
-          <label>State
-          {!validation.state && (
-            <span className="invalid"> State is required </span>
-          )}
+          </div>
+          <div className="form-group w-70 mr-2">
+          <label>
+            State{" "}
+            {errors.includes("State is required") && (
+              <span className="invalid"> State is required </span>
+            )}
           </label>
           <input
             type="text"
@@ -180,86 +175,54 @@ export default function UpdateForm() {
             required
           />
         </div>
-        {/* <div className="cityState d-flex w-100">
-          <div className="form-group w-70 mr-2">
+        </div>
+        <div className="ll d-flex w-100">
+          <div className="form-group w-50 mr-2">
             <label>
-              City
-              {!validation.city && (
-                <span className="invalid"> City is required </span>
+              Latitude{" "}
+              {errors.includes("Valid Latitude is required") && (
+                <span className="invalid"> Valid Latitude is required </span>
+              )}
+              {errors.includes("Invalid Latitude") && (
+                <span className="invalid"> Invalid Latitude </span>
               )}
             </label>
             <input
               type="text"
-              value={city}
-              placeholder="City"
-              onChange={(e) => setCity(e.target.value)}
-              className="city"
+              value={latitude}
+              placeholder="Latitude"
+              onChange={(e) => setLatitude(e.target.value)}
+              className="latitude"
               required
             />
           </div>
-
-          <div className="form-group w-30">
+          <div className="form-group w-50">
             <label>
-              State{" "}
-              {!validation.state && (
-                <span className="invalid"> State is required </span>
+              Longitude{" "}
+              {errors.includes("Valid Longitude is required") && (
+                <span className="invalid"> Valid Longitude is required </span>
+              )}
+              {errors.includes("Invalid Longitude") && (
+                <span className="invalid"> Invalid Longitude </span>
               )}
             </label>
             <input
               type="text"
-              value={state}
-              placeholder="STATE"
-              onChange={(e) => setState(e.target.value)}
-              className="state"
+              value={longitude}
+              placeholder="Longitude"
+              onChange={(e) => setLongitude(e.target.value)}
+              className="longitude"
               required
             />
           </div>
-        </div> */}
-        <div className="ll">
-        <label>
-        Latitude  </label>
-        <label>
-        {!validation.latitude && latitude === '' && (
-          <span className="invalid"> Latitude is required </span>
-        )}
-        {+latitude < -90 || +latitude > 90 || Number.isNaN(Number(latitude)) && (
-          <span className='invalid'>Latitude must be between -90 and 90</span>
-        )}
-      </label>
-
-          <input
-            type="text"
-            value={latitude}
-            placeholder="Latitude"
-            onChange={(e) => setLatitude(e.target.value)}
-            className="latitude"
-            required
-          />
-          <label>
-          Longitude  </label>
-          <label>
-          {!validation.longitude && longitude === '' && (
-            <span className="invalid"> Longitude is required </span>
-          )}
-          {+longitude < -180 || +longitude > 180 || Number.isNaN(Number(longitude)) && (
-          <span className='invalid'>Longitude must be between -180 and 180</span>
-        )}
-        </label>
-          <input
-            type="text"
-            value={longitude}
-            placeholder="Longitude"
-            onChange={(e) => setLongitude(e.target.value)}
-            className="longitude"
-            required
-          />
         </div>
       </div>
+      <div />
 
       <div className="section">
         <h2>Describe your place to guests</h2>
         <p>
-          Mention the best features of your space, any special amentities like
+          Mention the best features of your space, any special amenities like
           fast wifi or parking, and what you love about the neighborhood.
         </p>
         <textarea
@@ -270,7 +233,7 @@ export default function UpdateForm() {
           onChange={(e) => setDescription(e.target.value)}
           required
         ></textarea>
-        {!validation.description && (
+        {errors.includes("Description must be at least 30 characters") && (
           <span className="invalid">
             {" "}
             Description needs a minimum of 30 characters{" "}
@@ -292,11 +255,9 @@ export default function UpdateForm() {
           onChange={(e) => setSpotName(e.target.value)}
           required
         />
-        <label>
-          {!validation.spotName && (
-            <span className="invalid d-block"> Name is required</span>
-          )}
-        </label>
+        {errors.includes("Title is required") && (
+          <span className="invalid d-block"> Name is required</span>
+        )}
       </div>
       <div className="section">
         <h2>Set a base price for your spot </h2>
@@ -315,18 +276,14 @@ export default function UpdateForm() {
             required
           />
         </span>
-        {!validation?.price && (
+        {errors.includes("Price is required") && (
           <span className="invalid"> Price is required</span>
         )}
       </div>
-      <div className="section">
-        {/* <h2>Liven up your spot with photos</h2>
-        <p>Submit a link to at least one photo to publish your spot.</p> */}
-        {/* {!validation.picture && (
-          <span className="invalid"> Preview image is required</span>
-        )}{" "} */}
-
-        {/* <input
+      {/* <div className="section">
+        <h2>Liven up your spot with photos</h2>
+        <p>Submit a link to at least one photo to publish your spot.</p>
+        <input
           type="text"
           placeholder="Preview Image URL"
           className="url1"
@@ -334,18 +291,18 @@ export default function UpdateForm() {
           onChange={(e) => setPicture(e.target.value)}
         />
         <label>
-          {!validation.picture && (
+          {errors.includes("Preview Image is required") && (
             <span className="invalid d-block"> Preview image is required</span>
           )}
         </label>
         <input type="text" placeholder="Image URL" className="url2" />
         <input type="text" placeholder="Image URL" className="url3" />
         <input type="text" placeholder="Image URL" className="url4" />
-        <input type="text" placeholder="Image URL" className="url5" /> */}
-      </div>
-      <button type="button" onClick={validateAndSubmit}>
+        <input type="text" placeholder="Image URL" className="url5" />
+      </div> */}
+      <button type="button" className="btn-primary" onClick={validateAndSubmit}>
         Update your Spot
       </button>
-    </div>
+    </form>
   );
 }
