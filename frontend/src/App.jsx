@@ -5,7 +5,7 @@ import Navigation from "./components/Navigation/Navigation";
 import * as sessionActions from "./store/session";
 import { getSpotsFetch } from "./store/spots";
 //import SpotTile from './components/SpotTile/spotTile';
-import HomePage from "./components/HomePage/HomePage";
+import HomePage from "./components/HomePage/HomePage.jsx";
 import SpotPage from "./components/SpotPage/SpotPage";
 import CreateForm from "./components/CreateForm/CreateForm"
 import ManageSpots from "./components/ManageSpots/ManageSpots";
