@@ -34,6 +34,16 @@ module.exports = (sequelize, DataTypes) => {
             if (Validator.isEmail(value)) {
               throw new Error("Cannot be an email.");
             }
+          },
+          isUniq(value) {
+            return User.findOne({
+              where: {
+                username:value
+              }
+            }).then(name => {
+              if(name) throw new Error ("Username must be unique")
+            })
+
           }
         }
       },
@@ -56,8 +66,19 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         validate: {
           len: [3, 256],
-          isEmail: true
+          isEmail: true,
+          isUniq(value) {
+            return User.findOne({
+              where: {
+                email:value
+              }
+            }).then(name => {
+              if(name) throw new Error ("Email must be unique")
+            })
+
+          }
         }
+
       },
       hashedPassword: {
         type: DataTypes.STRING.BINARY,

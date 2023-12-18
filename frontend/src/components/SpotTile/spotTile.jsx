@@ -44,7 +44,7 @@ export default function SpotTile({
         </div>
       </div>
       <div className="price">
-        <p>{"$"+spot.price.toFixed(2) + " night" ?? "no-price"}</p>
+        <p>{"$"+spot?.price?.toFixed(2) + " night" ?? "no-price"}</p>
       </div>
     </div>
   );

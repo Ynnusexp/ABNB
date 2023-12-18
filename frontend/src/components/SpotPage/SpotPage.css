@@ -33,7 +33,7 @@ img {
 
 .box {
     position: relative;
-    width: 300px;
+    min-width: 300px;
     padding: 20px;
     border: 2px solid black;
     border-radius: 12px ;
@@ -80,10 +80,14 @@ img {
 .reviews-wrapper {
     padding: 10px 0;
 }
-/* .star-header {
+.star-header {
     display: flex;
 
 }
 .pl-50 {
     padding-left: 50px;
-} */
+}
+.name {
+line-height: 2;
+padding-left: 6px
+}

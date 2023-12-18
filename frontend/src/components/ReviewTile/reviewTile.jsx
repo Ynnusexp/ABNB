@@ -1,16 +1,22 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import DeleteReviewModal from "./DeleteReviewModal";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import "./reviewTile.css";
-import { useResolvedPath } from "react-router-dom";
+//import { useResolvedPath } from "react-router-dom";
+import { thunkGetReviews } from '../../store/spots'
 
 export default function ReviewTile(props) {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState({
     isOpen: false,
     reviewId: null,
   });
-  console.log("props: ", props)
+  const reviews = useSelector(state => state?.spots.Reviews)
   const sessionUser = useSelector((state) => state.session.user);
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(thunkGetReviews(props.spotId))
+  }, [dispatch, props.spotId])
 
   const handleDelete = (reviewId) => {
     setIsDeleteModalOpen({ isOpen: true, reviewId: reviewId });
@@ -24,7 +30,7 @@ export default function ReviewTile(props) {
   return (
     <div>
       {/* <div className="user-name mb-2">{}</div> */}
-      <div className="user-name mb-2">{props?.owner?.firstName}</div>
+      <div className="user-name mb-2">{reviews?.[props?.review?.id]?.User?.firstName}</div>
        <div className="date mb-2">
         {Intl.DateTimeFormat("en", { month: "long" }).format(
           new Date(props?.review?.createdAt.split("-")[1])

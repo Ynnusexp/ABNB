@@ -17,9 +17,12 @@ export default function HomePage () {
 
     const spotsArr = Object.values(spots)
 
-    const tiles = spotsArr.map(spot => (
+    const tiles = spotsArr.map(spot => {
+      if (spot.state == undefined) {
+        return
+      }
 
-      <SpotTile
+      return (<SpotTile
         key={`spotTile-${spot.id}`}
         spot={spot}
         // id={spot.id}
@@ -30,8 +33,8 @@ export default function HomePage () {
         // avgRating={spot.avgRating}
         // price={spot.price}
         // reviews={spot.reviews}
-      />
-    ))
+      />)
+})
      console.log(tiles, "tiles")
 
     return (

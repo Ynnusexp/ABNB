@@ -169,26 +169,26 @@ export default function SpotPage() {
 </div>
           </div>
           <div className="box">
-          {/* <div className="star-header"> */}
-          <p className="price">${spot.price} night</p>
+          <div className="star-header">
+          <span className="price">${spot.price} </span> <span className="name"> night </span>
 
           <div className="box-rating-wrapper">
             <div className="box-rating pl-50">
               {spot.hasReview || spot?.reviews.length > 0 ? (
-                <p>
+                <span>
                   <FontAwesomeIcon icon={faStar} />
                   {calculateAverage(spot.reviews)}
-                </p>
+                </span>
               ) : (
-                <p>
+                <span>
                   <FontAwesomeIcon icon={faStar} /> New
-                </p>
+                </span>
               )}
             </div>
 
             {spot.reviews.length > 0 && <div className="box-dot"></div>}
             <div className="box-reviews">{generateReviewLanguage()}</div>
-          {/* </div> */}
+          </div>
           </div>
           <button
             className="reserve"
