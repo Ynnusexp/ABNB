@@ -1,11 +1,11 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import SpotTile from "../SpotTile/spotTile";
-import { useEffect } from "react";
-import { getSpotsFetch } from "../../store/spots";
+//import { useEffect } from "react";
+//import { getSpotsFetch } from "../../store/spots";
 
 export default function HomePage () {
 
-    const dispatch = useDispatch()
+    //const dispatch = useDispatch()
     const spots = useSelector( (state) => {
       //console.log(state.spots);
       return state.spots

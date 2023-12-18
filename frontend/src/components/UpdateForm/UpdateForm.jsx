@@ -104,7 +104,7 @@ export default function UpdateForm() {
     <form className="formBody">
       <div className="section">
         <h1> Update your Spot </h1>
-        <h2> Where's your place located? </h2>
+        <h2> Where&apos;s your place located? </h2>
         <p>
           Guests will only get your exact address once they booked a
           reservation.
@@ -244,7 +244,7 @@ export default function UpdateForm() {
       <div className="section">
         <h2> Create a title for your spot </h2>
         <p>
-          Catch guests' attention with a spot title that highlights what makes
+          Catch guests&apos; attention with a spot title that highlights what makes
           your place special.
         </p>
         <input
