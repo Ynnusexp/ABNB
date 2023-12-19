@@ -9,7 +9,7 @@ export default function SpotTile({
 }) {
   const navigate = useNavigate();
 
-
+console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" , typeof spot.price)
   const calculateAverage = (reviews) => {
     let average = 0;
     let total = 0;
@@ -44,8 +44,9 @@ export default function SpotTile({
         </div>
       </div>
       <div className="price">
-        {/* <p>{"$"+spot?.price?.toFixed(2) + " night" ?? "no-price"}</p> */}
+        <p>{"$"+ Number(spot?.price).toFixed(2) + " night" ?? "no-price"}</p>
       </div>
+
     </div>
   );
 }
