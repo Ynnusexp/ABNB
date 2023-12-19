@@ -89,8 +89,7 @@ export default function SpotPage() {
     });
 
     const average = total / reviews.length;
-    return average
-    // .toFixed(1);
+    return average.toFixed(1);
   };
   console.log("spot: ", spot)
 

@@ -90,7 +90,7 @@ export default function UpdateForm() {
         lng: longitude,
         name: spotName,
         description,
-        // price: Number(price).toFixed(2),
+        price: Number(price).toFixed(2),
         previewImage,
       }),
     })
