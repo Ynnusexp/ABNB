@@ -154,7 +154,8 @@ router.get("/", queryFilters, async (req, res) => {
 
         if (count > 0) {
 
-            spot.avgRating = (sumRating / count).toFixed(2);;
+            // spot.avgRating = (sumRating / count).toFixed(2);
+             spot.avgRating =  Number(sumRating / count).toFixed(2);
 
           } else {
 
