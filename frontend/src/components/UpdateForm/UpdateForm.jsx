@@ -26,6 +26,7 @@ export default function UpdateForm() {
   const dispatch = useDispatch();
 
   const sessionUser = useSelector((state) => state.session.user);
+  console.log(updateSpotApi)
 
   useEffect(() => {
     async function getSpot() {

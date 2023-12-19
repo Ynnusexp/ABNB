@@ -22,6 +22,8 @@ export default function SpotPage() {
     return state.spots;
   });
 
+  console.log(spots)
+  
   let { spotId } = useParams();
 
   const sessionUser = useSelector((state) => state.session.user);
@@ -35,7 +37,9 @@ export default function SpotPage() {
       if (spotItem.userId == spot.Owner.id) {
         setCanReview(false);
       }
+
     });
+    console.log(canReview)
   }, []);
 
   const fetchSpotDetail = async (spotId) => {
