@@ -44,8 +44,8 @@ console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" , typeof spot.price)
         </div>
       </div>
       <div className="price">
-        <p>{"$"+ Number(spot?.price).toFixed(2) + " night" ?? "no-price"}</p>
-      </div>
+        <p>{"$"+ spot?.price.toFixed(2) + " night" ?? "no-price"}</p>
+</div>
 
     </div>
   );
