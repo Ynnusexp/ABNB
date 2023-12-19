@@ -23,7 +23,7 @@ export default function SpotPage() {
   });
 
   console.log(spots)
-  
+
   let { spotId } = useParams();
 
   const sessionUser = useSelector((state) => state.session.user);
@@ -89,7 +89,8 @@ export default function SpotPage() {
     });
 
     const average = total / reviews.length;
-    return average.toFixed(1);
+    return average
+    // .toFixed(1);
   };
   console.log("spot: ", spot)
 

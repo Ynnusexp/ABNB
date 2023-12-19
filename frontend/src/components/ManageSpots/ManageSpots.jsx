@@ -33,7 +33,8 @@ const ManageSpots = () => {
 
     average = total / reviews.length;
 
-    return average.toFixed(1);
+    return average
+    // .toFixed(1);
   };
 
   const handleDelete = (spotId) => {
