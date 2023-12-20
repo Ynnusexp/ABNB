@@ -5,6 +5,8 @@
 .user-form {
     width: 400px;
     padding: 20px;
+    
+    background-color: aquamarine;
 }
 
 .user-form *{

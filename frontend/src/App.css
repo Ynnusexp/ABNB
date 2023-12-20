@@ -2,10 +2,12 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+
 }
 
 body {
   padding: 0 20px;
+  background-color: aqua;
 }
 
 li {
@@ -79,6 +81,7 @@ input {
   display: block;
   text-decoration: none;
   font-size: 16px;
+  cursor: pointer;
 }
 
 .btn-secondary {
@@ -91,6 +94,7 @@ input {
   font-family: sans-serif;
   font-size: 16px;
   border: 1px solid black;
+  cursor: pointer;
 }
 
 .center-item {
@@ -104,4 +108,71 @@ input {
 button:disabled {
   background-color: transparent !important;
   color: grey !important;
+}
+
+.mt-10 {
+  margin-top: 10px;
+}
+
+.menu-btn {
+  border: solid 1px;
+  padding-left: 150px;
+
+}
+
+  /* .drop-btn {
+  position: relative;
+  display: inline-block;
+} */
+ /* Styling for the button that toggles the dropdown */
+    .drop-btn {
+      border-radius: 50%;
+      width: 60px;
+      height: 35px;
+      position: absolute;
+      top: -20px;
+      left: 160px;
+      background-color: aquamarine;
+      cursor: pointer;
+
+    }
+
+    /* Styling for the dropdown content */
+    .dropdown-content {
+      min-width: 160px;
+      /* border: solid 1px; */
+      z-index: 1;
+      margin: 5px 10px 10px 170px;
+      position: absolute;
+      right: -50px;
+      top: 10px;
+      border: solid 1px;
+
+    }
+    .gone {
+      border: none;
+    }
+    /* Styling for the individual dropdown items */
+    .dropdown-content {
+      color: rgb(22, 21, 21);
+      padding: 12px 16px;
+      text-decoration: none;
+      display: block;
+
+    }
+ .profile-container {
+  position: relative
+}
+ .pt-10 {
+  padding-top: 10px;
+}
+.logout-btn {
+  border-radius: 50px;
+  height: 35px;
+  width: 70px;
+  background-color:red;
+  color: blue;
+  font-size: 16px;
+  font-weight:bold;
+  cursor:pointer
 }

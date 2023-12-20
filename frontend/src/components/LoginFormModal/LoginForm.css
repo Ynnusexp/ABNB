@@ -1,5 +1,7 @@
 #modal-content {
     text-align: center;
+    background-color: aquamarine;
+    box-shadow: 5px 5px 5px black;
 }
 
 .user-form {
@@ -34,4 +36,5 @@
     color: blue;
     border: none;
     margin-bottom: 20px;
+    padding-top: 20px
 }

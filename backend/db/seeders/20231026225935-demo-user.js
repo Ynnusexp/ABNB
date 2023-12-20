@@ -5,7 +5,7 @@ const bcrypt = require("bcryptjs");
 
 let options = {};
 if (process.env.NODE_ENV === 'production') {
-  options.schema = process.env.SCHEMA;  // define your schema in options object 
+  options.schema = process.env.SCHEMA;  // define your schema in options object
 }
 
 module.exports = {
@@ -15,64 +15,64 @@ module.exports = {
         email: 'demo@user.io',
         username: 'Demo-lition',
         hashedPassword: bcrypt.hashSync('password'),
-        firstName: 'Demo',
-        lastName: 'User'
+        firstName: 'Spongebob',
+        lastName: 'Squarepants'
       },
       {
         email: 'user1@user.io',
         username: 'FakeUser1',
         hashedPassword: bcrypt.hashSync('password'),
-        firstName: 'Fake1',
-        lastName: 'User'
+        firstName: 'Patrick',
+        lastName: 'Star'
       },
       {
         email: 'user2@user.io',
         username: 'FakeUser2',
         hashedPassword: bcrypt.hashSync('password'),
-        firstName: 'Fake2',
-        lastName: 'User'
+        firstName: 'Squidward',
+        lastName: 'Tenticles'
       },
       {
         email: 'user3@user.io',
         username: 'FakeUser3',
         hashedPassword: bcrypt.hashSync('password'),
-        firstName: 'Fake3',
-        lastName: 'User'
+        firstName: 'Eugene',
+        lastName: 'Krabs'
       },
       {
         email: 'user4@user.io',
         username: 'FakeUser4',
         hashedPassword: bcrypt.hashSync('password'),
-        firstName: 'Fake4',
-        lastName: 'User'
+        firstName: 'Sandy',
+        lastName: 'Cheeks'
       },
       {
         email: 'user5@user.io',
         username: 'FakeUser5',
         hashedPassword: bcrypt.hashSync('password'),
-        firstName: 'Fake5',
-        lastName: 'User'
+        firstName: 'Sheldon J',
+        lastName: 'Plankton'
       },
       {
         email: 'user6@user.io',
         username: 'FakeUser6',
         hashedPassword: bcrypt.hashSync('password'),
-        firstName: 'Fake6',
-        lastName: 'User'
+        firstName: 'Mary Jo',
+        lastName: 'Puff'
       },
       {
         email: 'user7@user.io',
-        username: 'FakeUser7',
+        username: 'Pearl',
         hashedPassword: bcrypt.hashSync('password'),
         firstName: 'Fake7',
-        lastName: 'User'
+        lastName: 'Krabs'
       },
       {
         email: 'user8@user.io',
         username: 'FakeUser8',
         hashedPassword: bcrypt.hashSync('password'),
-        firstName: 'Fake8',
-        lastName: 'User'
+        firstName: 'Mermaid Man & Barnicle Boy',
+        lastName: 'no last name'
       },
     ], options, { validate: true });
   },

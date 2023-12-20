@@ -1,26 +1,24 @@
 // import { useDispatch } from 'react-redux';
 import "./spotTile.css";
 import { useNavigate } from "react-router-dom";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faStar } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faStar } from "@fortawesome/free-solid-svg-icons";
 
-export default function SpotTile({
-  spot
-}) {
+export default function SpotTile({ spot }) {
   const navigate = useNavigate();
 
-console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" , typeof spot.price)
+  console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!", typeof spot.price);
   const calculateAverage = (reviews) => {
     let average = 0;
     let total = 0;
     reviews.forEach((review) => {
-      total = total + review.stars
-    })
+      total = total + review.stars;
+    });
 
     average = total / reviews.length; //
 
     return average.toFixed(1);
-  }
+  };
 
   return (
     <div
@@ -33,21 +31,30 @@ console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" , typeof spot.price)
       <img className="img" src={spot.previewImage} alt="Spot Image" />
       <span className="tooltiptext">{spot?.name}</span>
       {/* <span className="tooltiptext">{spot?.ownerId}</span> */}
-      <div className="nameRating justify-between">
+      <div className=" nameRating justify-between pt-10">
         <div className="cityState">
           <p>{`${spot.city}, ${spot.state}`}</p>
         </div>
         <div className="rating">
-          {spot?.reviews?.length > 0 ? <p><FontAwesomeIcon icon={faStar} />
-          {calculateAverage(spot?.reviews)}
-          </p> : <p> <FontAwesomeIcon icon={faStar} /> New</p>}
+          {spot?.reviews?.length > 0 ? (
+            <p>
+              <FontAwesomeIcon icon={faStar} />
+              {calculateAverage(spot?.reviews)}
+            </p>
+          ) : (
+            <p>
+              {" "}
+              <FontAwesomeIcon icon={faStar} /> New
+            </p>
+          )}
         </div>
       </div>
       <div className="price">
-        <p>{"$"+ Number(spot?.price || 0).toFixed(2) + " night" ?? "no-price"}</p>
+        <p>
+          {"$" + Number(spot?.price || 0).toFixed(2) + " night" ?? "no-price"}
+        </p>
         {/* <p>{"$"+ Number(spot?.price).toFixed(2) + " night" ?? "no-price"}</p> */}
-</div>
-
+      </div>
     </div>
   );
 }

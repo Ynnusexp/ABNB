@@ -1,5 +1,6 @@
 .hidden {
-    display: none
+    display: none;
+    /* border:none */
 }
 
 .nav-header {
@@ -7,6 +8,7 @@
     justify-content: space-between;
     margin-bottom: 20px;
     min-height: 140px;
+    margin-top: 15px
 
 }
 
@@ -25,6 +27,11 @@
     margin-bottom: 5px;
 
 }
+.create-a-spot-btn {
+    text-decoration: none;
+    border-radius: 50px;
+}
+
 
 @media screen and (max-width: 576px) {
     .logo-img {

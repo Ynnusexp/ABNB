@@ -14,16 +14,19 @@
   padding-top: 1em;
   padding-bottom: 1em;
   justify-content: center;
+
 }
 .star-on {
   color: black;
   border: none;
   background-color: transparent;
+  cursor: pointer;
 }
 .star-off {
   color: lightblue;
   border: none;
   background-color: transparent;
+  cursor: pointer;
 }
 .star-icon {
   border: 1px;

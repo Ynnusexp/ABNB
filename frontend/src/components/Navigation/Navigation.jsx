@@ -19,16 +19,21 @@ function Navigation({ isLoaded }) {
   return (
 
     <div className='nav-header'>
+      <div>
       <img className='logo-img' src={download} onClick={() => {
         navigate("/")
       }} />
-      <ul className='list-wrapper'>
-        {sessionUser && (<Link to="/spots/create" style={{marginRight: '10px'}}>
+        </div>
+      <div>
+      <ul className= "list-wrapper">
+        {sessionUser && (<Link className="create-a-spot-btn" to="/spots/create" style={{marginRight: '140px'}}>
           Create a New Spot
         </Link>)
         }
         {isLoaded && sessionLinks}
       </ul>
+      </div>
+
     </div>
   )
 }
