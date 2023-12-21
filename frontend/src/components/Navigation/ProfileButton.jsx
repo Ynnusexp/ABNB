@@ -46,9 +46,13 @@ function ProfileButton({ user }) {
   const ulClassName = "profile-dropdown" + (showMenu ? "" : " hidden");
 
   console.log(user, "user");
-  const dropDownContentClassName = "dropdown-content" + (showMenu ? "" : " gone");
+  const dropDownContentClassName = "dropdown-content" + (showMenu ? "" : " hidden");
   return (
     <div className="profile-container">
+       {sessionUser && (<Link className="create-a-spot-btn" to="/spots/create">
+          Create a New Spot
+        </Link>)
+        }
       <button className="drop-btn" onClick={toggleMenu}>
         <i className="fas fa-bars" style={{ marginRight: "5px" }} />
         <i className="fas fa-user-circle" />
@@ -57,11 +61,11 @@ function ProfileButton({ user }) {
       <div className= {dropDownContentClassName}>
         {sessionUser ? (
           <ul className={ulClassName} ref={ulRef}>
-            <li>{user.username}</li>
-            <li> Hello, {user.firstName}</li>
+            {/* <li>{user.username}</li> */}
+            <li> Hello, {user.firstName}!</li>
             <li> email: {user.email}</li>
             <li>
-              <Link to="/managespots">Manage Spots</Link>{" "}
+              <Link className="managespots-btn" to="/managespots">Manage Spots</Link>{" "}
             </li>
             <li>
               <button className="logout-btn"
@@ -78,12 +82,14 @@ function ProfileButton({ user }) {
               <li>
                 <OpenModalButton
                   buttonText="Log In"
+
                   modalComponent={<LoginFormModal />}
                 />
               </li>
               <li>
                 <OpenModalButton
                   buttonText="Sign Up"
+
                   modalComponent={<SignupFormModal />}
                 />
               </li>

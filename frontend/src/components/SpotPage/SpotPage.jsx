@@ -96,115 +96,118 @@ export default function SpotPage() {
   return (
     loaded &&
     spot && (
+      <div className="body-container">
       <div className="spotPageMain">
-        <div className="spotHeading">
-          <h1 className=" spotName">{spot.name}</h1>
-          <h3 className="subHeading">
-            {spot.city}, {spot.state}, {spot.country}
-          </h3>
-        </div>
-        <div className="picBody">
-          <div className="banner-image-wrapper">
-            <img className="bannerImage" src={spot.previewImage} />
-          </div>
-          <div className="spot-images">
-            <div className="smallPic">
-              <img className="smallImgs" src={spot.previewImage} />
-            </div>
-            <div className="smallPic">
-              <img className="smallImgs" src={spot.previewImage} />
-            </div>
-            <div className="smallPic">
-              <img className="smallImgs" src={spot.previewImage} />
-            </div>
-            <div className="smallPic">
-              <img className="smallImgs" src={spot.previewImage} />
-            </div>
-          </div>
-        </div>
-
-        <div className="spot-body d-flex">
-          <div className="spot-content">
-            {/* <h1> Hostcd by {spot.name}</h1> */}
-            <h1> Hosted by {`${spot.Owner.firstName} ${spot.Owner.lastName}`}</h1>
-            <p className="pb-2"> {spot.description} </p>
-            <hr />
-            <div className="reviews-wrapper d-flex align-center">
-            <div className="rating mr-2">
-              {spot.avgRating ? (
-                <p>
-                  <FontAwesomeIcon className="mr-2" icon={faStar} />
-                  {calculateAverage(spot.reviews)}
-                </p>
-              ) : (
-                <p>New</p>
-              )}
-            </div>
-            {spot.avgRating && <div className="dot mr-2"></div>}
-            <div className="review-count">{generateReviewLanguage()}</div>
-            </div>
-            <div className="mb-2">
-              {sessionUser &&
-                !spot.hasReview &&
-                spot?.reviews.length < 1 && sessionUser.id !== spot.ownerId && (
-                  <p className="mb-2">Be the first to post a review!</p>
-                )}
-              {sessionUser &&
-                spot?.ownerId !== sessionUser?.id && !usersArr.includes(sessionUser.id) && (
-                  <OpenModalButton
-                    buttonText="Post Your Review"
-                    modalComponent={<ReviewForm spotId={spot.id} />}
-                  />
-                )}
-            </div>
-            <div className="mb-2">
-  {spot.reviews &&
-    spot.reviews.length > 0 &&
-    spot.reviews
-      .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)) // Sort reviews by createdAt in descending order
-      .map((singleReview, index) => (
-        <ReviewTile
-          key={`${index}-${singleReview.id}`}
-          review={singleReview}
-          owner={spot.Owner}
-          spotId={spot.id}
-        />
-      ))}
-</div>
-          </div>
-          <div className="box">
-          <div className="star-header">
-          <span className="price">${spot.price} </span> <span className="name"> night </span>
-
-          <div className="box-rating-wrapper">
-            <div className="box-rating pl-50">
-              {spot.hasReview || spot?.reviews.length > 0 ? (
-                <span>
-                  <FontAwesomeIcon icon={faStar} />
-                  {calculateAverage(spot.reviews)}
-                </span>
-              ) : (
-                <span>
-                  <FontAwesomeIcon icon={faStar} /> New
-                </span>
-              )}
-            </div>
-
-            {spot.reviews.length > 0 && <div className="box-dot"></div>}
-            <div className="box-reviews">{generateReviewLanguage()}</div>
-          </div>
-          </div>
-          <button
-            className="reserve"
-            onClick={() => alert("Feature coming soon")}
-          >
-            Reserve
-          </button>
-          </div>
-        </div>
-
-
+      <div className="spotHeading">
+        <h1 className=" spotName">{spot.name}</h1>
+        <h3 className="subHeading">
+          {spot.city}, {spot.state}, {spot.country}
+        </h3>
       </div>
+      <div className="picBody">
+        <div className="banner-image-wrapper">
+          <img className="bannerImage" src={spot.previewImage} />
+        </div>
+        <div className="spot-images">
+          <div className="smallPic">
+            <img className="smallImgs" src={spot.previewImage} />
+          </div>
+          <div className="smallPic">
+            <img className="smallImgs" src={spot.previewImage} />
+          </div>
+          <div className="smallPic">
+            <img className="smallImgs" src={spot.previewImage} />
+          </div>
+          <div className="smallPic">
+            <img className="smallImgs" src={spot.previewImage} />
+          </div>
+        </div>
+      </div>
+
+      <div className="spot-body d-flex">
+        <div className="spot-content">
+          {/* <h1> Hostcd by {spot.name}</h1> */}
+          <h1> Hosted by {`${spot.Owner.firstName} ${spot.Owner.lastName}`}</h1>
+          <p className="pb-2"> {spot.description} </p>
+          <hr />
+          <div className="reviews-wrapper d-flex align-center">
+          <div className="rating mr-2">
+            {spot.avgRating ? (
+              <p>
+                <FontAwesomeIcon className="mr-2" icon={faStar} />
+                {calculateAverage(spot.reviews)}
+              </p>
+            ) : (
+              <p>New</p>
+            )}
+          </div>
+          {spot.avgRating && <div className="dot mr-2"></div>}
+          <div className="review-count">{generateReviewLanguage()}</div>
+          </div>
+          <div className="mb-2">
+            {sessionUser &&
+              !spot.hasReview &&
+              spot?.reviews.length < 1 && sessionUser.id !== spot.ownerId && (
+                <p className="mb-2">Be the first to post a review!</p>
+              )}
+            {sessionUser &&
+              spot?.ownerId !== sessionUser?.id && !usersArr.includes(sessionUser.id) && (
+                <OpenModalButton
+                  buttonText="Post Your Review"
+                  modalComponent={<ReviewForm spotId={spot.id} />}
+                />
+              )}
+          </div>
+          <div className="mb-2">
+{spot.reviews &&
+  spot.reviews.length > 0 &&
+  spot.reviews
+    .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)) // Sort reviews by createdAt in descending order
+    .map((singleReview, index) => (
+      <ReviewTile
+        key={`${index}-${singleReview.id}`}
+        review={singleReview}
+        owner={spot.Owner}
+        spotId={spot.id}
+      />
+    ))}
+</div>
+        </div>
+        <div className="box">
+        <div className="star-header">
+        <span className="price">${spot.price} </span> <span className="name"> night </span>
+
+        <div className="box-rating-wrapper">
+          <div className="box-rating pl-50">
+            {spot.hasReview || spot?.reviews.length > 0 ? (
+              <span>
+                <FontAwesomeIcon icon={faStar} />
+                {calculateAverage(spot.reviews)}
+              </span>
+            ) : (
+              <span>
+                <FontAwesomeIcon icon={faStar} /> New
+              </span>
+            )}
+          </div>
+
+          {spot.reviews.length > 0 && <div className="box-dot"></div>}
+          <div className="box-reviews">{generateReviewLanguage()}</div>
+        </div>
+        </div>
+        <button
+          className="reserve"
+          onClick={() => alert("Feature coming soon")}
+        >
+          Reserve
+        </button>
+        </div>
+      </div>
+
+
+    </div>
+      </div>
+
     )
   );
 }

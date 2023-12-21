@@ -5,8 +5,8 @@
 .user-form {
     width: 400px;
     padding: 20px;
-    
-    background-color: aquamarine;
+
+    background-color: papayawhip;
 }
 
 .user-form *{
@@ -29,4 +29,5 @@
 .user-form button[type="submit"] {
     background-color: rgb(196, 75, 75);
     color: white;
+    cursor: pointer;
 }

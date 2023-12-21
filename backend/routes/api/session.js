@@ -91,8 +91,8 @@ router.get(
   const user = await User.unscoped().findOne({
     where: {
       [Op.or]: {
-        username: 'Demo-lition',
-        email: 'demo@user.io'
+        username: 'user1',
+        email: 'ssquarepants@gmail.com'
       }
     }
   });

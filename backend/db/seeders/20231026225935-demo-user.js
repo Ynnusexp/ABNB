@@ -12,66 +12,66 @@ module.exports = {
   async up (queryInterface, Sequelize) {
     await User.bulkCreate([
       {
-        email: 'demo@user.io',
-        username: 'Demo-lition',
+        email: 'ssqaurepants@gmail.com',
+        username: 'user1',
         hashedPassword: bcrypt.hashSync('password'),
         firstName: 'Spongebob',
         lastName: 'Squarepants'
       },
       {
-        email: 'user1@user.io',
-        username: 'FakeUser1',
+        email: 'pstar@gmail.com',
+        username: 'user2',
         hashedPassword: bcrypt.hashSync('password'),
         firstName: 'Patrick',
         lastName: 'Star'
       },
       {
-        email: 'user2@user.io',
-        username: 'FakeUser2',
+        email: 'stenticles@gmail.com',
+        username: 'user3',
         hashedPassword: bcrypt.hashSync('password'),
         firstName: 'Squidward',
         lastName: 'Tenticles'
       },
       {
-        email: 'user3@user.io',
-        username: 'FakeUser3',
+        email: 'ekrabs@ymail.com',
+        username: 'user4',
         hashedPassword: bcrypt.hashSync('password'),
         firstName: 'Eugene',
         lastName: 'Krabs'
       },
       {
-        email: 'user4@user.io',
-        username: 'FakeUser4',
+        email: 'scheeks@gmail.com',
+        username: 'user5',
         hashedPassword: bcrypt.hashSync('password'),
         firstName: 'Sandy',
         lastName: 'Cheeks'
       },
       {
-        email: 'user5@user.io',
-        username: 'FakeUser5',
+        email: 'splankton@ymail.com',
+        username: 'user6',
         hashedPassword: bcrypt.hashSync('password'),
         firstName: 'Sheldon J',
         lastName: 'Plankton'
       },
       {
-        email: 'user6@user.io',
-        username: 'FakeUser6',
+        email: 'mpuff@ymail.com',
+        username: 'user7',
         hashedPassword: bcrypt.hashSync('password'),
         firstName: 'Mary Jo',
         lastName: 'Puff'
       },
       {
-        email: 'user7@user.io',
-        username: 'Pearl',
+        email: 'pkrabs@gmail.com',
+        username: 'user8',
         hashedPassword: bcrypt.hashSync('password'),
-        firstName: 'Fake7',
+        firstName: 'Pearl',
         lastName: 'Krabs'
       },
       {
-        email: 'user8@user.io',
-        username: 'FakeUser8',
+        email: 'mermaidman@ymail.com',
+        username: 'user9',
         hashedPassword: bcrypt.hashSync('password'),
-        firstName: 'Mermaid Man & Barnicle Boy',
+        firstName: 'Mermaid Man',
         lastName: 'no last name'
       },
     ], options, { validate: true });
@@ -81,7 +81,7 @@ module.exports = {
     options.tableName = 'Users';
     const Op = Sequelize.Op;
     return queryInterface.bulkDelete(options, {
-      username: { [Op.in]: ['Demo-lition', 'FakeUser1', 'FakeUser2'] }
+      username: { [Op.in]: ['user1', 'user2', 'user3'] }
     }, {});
   }
 };

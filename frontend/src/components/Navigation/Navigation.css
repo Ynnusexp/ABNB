@@ -6,14 +6,16 @@
 .nav-header {
     display: flex;
     justify-content: space-between;
+    /* justify-content: space-around; */
     margin-bottom: 20px;
     min-height: 140px;
-    margin-top: 15px
+    align-items: center;
+    border-bottom: solid 1px blue;
 
 }
 
 .logo-img {
-    width: 100px;
+    width: 60px;
     cursor: pointer
 }
 
@@ -29,9 +31,24 @@
 }
 .create-a-spot-btn {
     text-decoration: none;
-    border-radius: 50px;
+    /* border-radius: 50px; */
+    font-weight: bold;
+    font-size: 16px;
+    color: blue;
 }
 
+.logo-title {
+    display: flex;
+    text-decoration: none;
+    font-size: 35px;
+    /* padding-right: 1800px ;
+    padding-top: 55px; */
+    /* font-family: cursive, fantasy; */
+    font-family: sans-serif;
+    font-weight: bold;
+    color: blue
+
+}
 
 @media screen and (max-width: 576px) {
     .logo-img {

@@ -2,8 +2,9 @@
 import { useSelector } from 'react-redux';
 import ProfileButton from './ProfileButton';
 import './Navigation.css';
-import { Link, useNavigate } from 'react-router-dom';
-import download from '../../img/download.png';
+import {useNavigate } from 'react-router-dom';
+import download from '../../img/pineapp.png';
+import { NavLink } from 'react-router-dom';
 
 function Navigation({ isLoaded }) {
   const sessionUser = useSelector((state) => state.session.user);
@@ -19,19 +20,17 @@ function Navigation({ isLoaded }) {
   return (
 
     <div className='nav-header'>
-      <div>
+      <div className="nav-container">
       <img className='logo-img' src={download} onClick={() => {
         navigate("/")
       }} />
         </div>
+        <>
+        <NavLink to="/" className='logo-title' > GOO LAGOON </NavLink>
+        </>
       <div>
-      <ul className= "list-wrapper">
-        {sessionUser && (<Link className="create-a-spot-btn" to="/spots/create" style={{marginRight: '140px'}}>
-          Create a New Spot
-        </Link>)
-        }
-        {isLoaded && sessionLinks}
-      </ul>
+      {isLoaded && sessionLinks}
+
       </div>
 
     </div>

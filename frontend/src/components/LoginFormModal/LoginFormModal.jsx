@@ -57,6 +57,7 @@ function LoginFormModal() {
           />
         {/* {errors.credential && <p style={{color: 'rgb(196, 75, 75)'}}>{errors.credential}</p>} */}
         <button
+        className="Login-btn"
           type="submit"
           disabled={credential.length < 4 || password.length < 6}
         >

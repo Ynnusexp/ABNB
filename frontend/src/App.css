@@ -7,11 +7,12 @@
 
 body {
   padding: 0 20px;
-  background-color: aqua;
+  background-color:paleturquoise
 }
 
 li {
   list-style: none;
+
 }
 
 label,
@@ -95,6 +96,7 @@ input {
   font-size: 16px;
   border: 1px solid black;
   cursor: pointer;
+  /* width: 150px; */
 }
 
 .center-item {
@@ -103,6 +105,7 @@ input {
     left: 50%;
     transform: translate(-50%, -50%);
     border-radius: 10px;
+    background-color: papayawhip;
 }
 
 button:disabled {
@@ -111,7 +114,9 @@ button:disabled {
 }
 
 .mt-10 {
-  margin-top: 10px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  margin-left: 50px;
 }
 
 .menu-btn {
@@ -129,39 +134,42 @@ button:disabled {
       border-radius: 50%;
       width: 60px;
       height: 35px;
-      position: absolute;
-      top: -20px;
-      left: 160px;
-      background-color: aquamarine;
+      /* position: absolute; */
+      /* top: -20px; */
+      /* left: 160px; */
+      background-color: papayawhip ;
       cursor: pointer;
 
     }
 
     /* Styling for the dropdown content */
     .dropdown-content {
-      min-width: 160px;
+      min-width: 260px;
       /* border: solid 1px; */
       z-index: 1;
       margin: 5px 10px 10px 170px;
       position: absolute;
-      right: -50px;
-      top: 10px;
+      right: -10px;
+      top: 40px;
       border: solid 1px;
-
-    }
-    .gone {
-      border: none;
-    }
-    /* Styling for the individual dropdown items */
-    .dropdown-content {
+      background-color: papayawhip;
+      box-shadow: 5px 5px 5px black;
       color: rgb(22, 21, 21);
       padding: 12px 16px;
       text-decoration: none;
       display: block;
 
+
     }
+.hidden {
+  display: none;
+}
  .profile-container {
-  position: relative
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
 }
  .pt-10 {
   padding-top: 10px;
@@ -169,10 +177,20 @@ button:disabled {
 .logout-btn {
   border-radius: 50px;
   height: 35px;
-  width: 70px;
+  width: 80px;
   background-color:red;
   color: blue;
   font-size: 16px;
   font-weight:bold;
-  cursor:pointer
+  cursor:pointer;
+
 }
+.managespots-btn {
+  font-weight: bold;
+  color: blue;
+  text-decoration: none;
+  font-size: 16px;
+}
+/* .log-in-btn{
+  width: 60px;
+} */
