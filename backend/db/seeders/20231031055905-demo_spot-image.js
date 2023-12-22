@@ -15,6 +15,26 @@ module.exports = {
         preview: true
      },
      {
+      spotId: 1,
+      url: "https://www.abirthdayplace.com/cdn/shop/products/ABPID51171_1200x1200.jpg",
+      preview: true
+   },
+   {
+    spotId: 1,
+    url: "https://www.abirthdayplace.com/cdn/shop/products/ABPID51171_1200x1200.jpg",
+    preview: true
+ },
+ {
+  spotId: 1,
+  url: "https://www.abirthdayplace.com/cdn/shop/products/ABPID51171_1200x1200.jpg",
+  preview: true
+},
+{
+  spotId: 1,
+  url: "https://www.abirthdayplace.com/cdn/shop/products/ABPID51171_1200x1200.jpg",
+  preview: true
+},
+     {
         spotId: 2,
         url: "https://static.wikia.nocookie.net/spongebob/images/f/f0/Patrick%27s_house.png",
         preview: true

@@ -20,12 +20,14 @@ img {
    box-shadow: 5px 5px 5px black;
    gap: 50px;
    aspect-ratio: 1;
+   border-radius: 25px;
 }
 .banner-image-wrapper{
     overflow: hidden;
     /* max-width: 800px;
     max-height: 400px; */
     box-shadow: 5px 5px 5px black;
+    border-radius: 25px;
 
 }
 .bannerImage{
@@ -36,6 +38,7 @@ img {
     max-width: 140px; */
     aspect-ratio: 1;
     gap: 5px;
+
 }
 .spot-images{
     display: grid;
@@ -46,6 +49,7 @@ img {
     align-items: center; */
     /* aspect-ratio: 3.4; */
 
+
 }
 
 .spotPageMain{
@@ -55,19 +59,19 @@ img {
     /* align-items: between; */
     /* margin-left: 100px;
     margin-right: 120px; */
-    background-color:paleturquoise;
+    /* background-color:paleturquoise; */
     /* max-width: 1800px */
     /* max-height: ; */
 
 }
 
-/*
+
 .smallPic{
-    max-height: 100%;
-    max-width: 1000px;
+    /* max-height: 100%;
+    max-width: 1000px; */
 
 
-} */
+}
 
 .spot-body {
     justify-content: space-between;

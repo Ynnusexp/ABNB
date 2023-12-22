@@ -7,7 +7,10 @@
 
 body {
   padding: 0 20px;
-  background-color:paleturquoise
+  /* background-color:paleturquoise */
+  background-image: url('https://1.bp.blogspot.com/-psumUuqEnPI/YBXDpZYoGQI/AAAAAAAAejo/uU9skjDQd2QVomg5RFM-42zS0VnkkodNACLcBGAsYHQ/w1200-h675-p-k-no-nu/SpongeBob%2BSquarePants%2BMobile%2BWallpaper.png');
+  background-size: cover;
+
 }
 
 li {
