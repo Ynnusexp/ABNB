@@ -15,3 +15,8 @@
 .modal-buttons button {
     margin-bottom: 5px;
 }
+
+.review-details {
+    word-wrap: break-word;
+    max-width: 600px;
+}

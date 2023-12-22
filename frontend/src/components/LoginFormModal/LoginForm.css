@@ -1,12 +1,14 @@
 #modal-content {
     text-align: center;
     background-color: papayawhip;
-    box-shadow: 5px 5px 5px black;
+    box-shadow: 5px 5px 5px paleturquoise;
+    border-radius: 25px;
 }
 
 .user-form {
     width: 400px;
     padding: 20px;
+    border-radius: 25px;
 }
 
 .user-form *{

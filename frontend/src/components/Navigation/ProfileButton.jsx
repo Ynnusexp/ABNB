@@ -79,14 +79,14 @@ function ProfileButton({ user }) {
         ) : (
           <ul className={ulClassName} ref={ulRef}>
             <div className="mt-10">
-              <li>
+              <li className="buttn">
                 <OpenModalButton
                   buttonText="Log In"
 
                   modalComponent={<LoginFormModal />}
                 />
               </li>
-              <li>
+              <li className="buttn">
                 <OpenModalButton
                   buttonText="Sign Up"
 

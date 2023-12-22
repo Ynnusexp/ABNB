@@ -95,10 +95,11 @@ export const getCurrentUserSpots = () => async (dispatch) => {
 
 export const getSpotById = (spotId) =>  async () => {
     const res = await csrfFetch(SPOTS_ENDPOINT + "/" + spotId);
+    console.log("!!!!!!!!!!!!!!!!!!!!!!!! im here")
     if (res.ok) {
 
         const spot = await res.json()
-
+            console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" , spot , "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
         return spot;
     }
 }

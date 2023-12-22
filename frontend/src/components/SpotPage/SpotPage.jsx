@@ -11,7 +11,7 @@ import { csrfFetch } from "../../store/csrf";
 import { SPOTS_ENDPOINT } from "../../api/endpoints";
 import ReviewForm from "../ReviewForm/ReviewForm";
 import OpenModalButton from "../OpenModalButton/OpenModalButton";
-// import { useEffect } from "react";
+
 
 export default function SpotPage() {
   const [loaded, setLoaded] = useState(false);
@@ -51,7 +51,7 @@ export default function SpotPage() {
       .then((response) => {
 
         if (response && response.Spots && response.Spots[0]) {
-          // console.log(response.Spots[0]);
+          console.log(response.Spots[0]);
           dispatch(addNewSpot(response.Spots[0]));
           setSpot(response.Spots[0]);
         }
@@ -91,7 +91,7 @@ export default function SpotPage() {
     const average = total / reviews.length;
     return average.toFixed(1);
   };
-  console.log("spot: ", spot)
+  console.log("!!!!!!!!!!!!!spot: ", spot)
 
   return (
     loaded &&
@@ -110,16 +110,16 @@ export default function SpotPage() {
         </div>
         <div className="spot-images">
           <div className="smallPic">
-            <img className="smallImgs" src={spot.previewImage} />
+            <img className="smallImgs" src={spot.SpotImages[1].url} />
           </div>
           <div className="smallPic">
-            <img className="smallImgs" src={spot.previewImage} />
+            <img className="smallImgs" src={spot.SpotImages[2].url} />
           </div>
           <div className="smallPic">
-            <img className="smallImgs" src={spot.previewImage} />
+            <img className="smallImgs" src={spot.SpotImages[3].url} />
           </div>
           <div className="smallPic">
-            <img className="smallImgs" src={spot.previewImage} />
+            <img className="smallImgs" src={spot.SpotImages[4].url} />
           </div>
         </div>
       </div>

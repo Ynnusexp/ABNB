@@ -40,7 +40,7 @@ export default function ReviewTile(props) {
       </div>
       {/* Other review details */}
       <div className="review mb-2">
-        <p>{props?.review?.review}</p>
+        <p className="review-details">{props?.review?.review}</p>
       </div>
       {reviewExists && isUserReviewOwner && (
         <div className="button-container mb-2">
