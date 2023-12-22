@@ -80,7 +80,7 @@ export default function SpotPage() {
 
   const calculateAverage = (reviews) => {
     if (reviews.length === 0) {
-      return "New"; // or any default value you prefer when reviews are empty
+      return "New"; 
     }
     let total = 0;
     reviews.forEach((review) => {
