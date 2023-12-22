@@ -9,6 +9,7 @@
 .review-text textarea {
     height: 120px;
     resize: none;
+
 }
 .star-rating {
   padding-top: 1em;
