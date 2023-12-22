@@ -10,21 +10,23 @@ img {
     max-width: 1000px;
     max-height:100%;
     align-items: center;
-    margin-left: 200px
+    /* margin-left: 200px */
 
 
 }
 .smallImgs{
-    max-height: 300px;
-    max-width: 500px;
+    /* max-height: 300px;
+    max-width: 500px; */
    box-shadow: 5px 5px 5px black;
-   gap: 50px
+   gap: 50px;
+   aspect-ratio: 1;
 }
 .banner-image-wrapper{
     overflow: hidden;
-    max-width: 800px;
-    max-height: 400px;
+    /* max-width: 800px;
+    max-height: 400px; */
     box-shadow: 5px 5px 5px black;
+
 }
 .bannerImage{
     /* min-height: 100%;
@@ -32,7 +34,7 @@ img {
     /* box-shadow: 5px 5px 5px black; */
     /* max-height: 140px;
     max-width: 140px; */
-    aspect-ratio: 1.21;
+    aspect-ratio: 1;
     gap: 5px;
 }
 .spot-images{
@@ -42,8 +44,8 @@ img {
     /* max-width: 80rem;
     max-height: 40rem;
     align-items: center; */
-    aspect-ratio: 3.4;
-    gap: 5px;
+    /* aspect-ratio: 3.4; */
+
 }
 
 .spotPageMain{
@@ -53,22 +55,26 @@ img {
     /* align-items: between; */
     /* margin-left: 100px;
     margin-right: 120px; */
-    background-color:red;
-    max-width: 1000px;
+    background-color:paleturquoise;
+    /* max-width: 1800px */
+    /* max-height: ; */
 
 }
 
-
+/*
 .smallPic{
     max-height: 100%;
     max-width: 1000px;
 
 
-}
+} */
 
 .spot-body {
     justify-content: space-between;
     /* background-color: aquamarine; */
+    width: 100%;
+    margin-bottom: 100px;
+
 }
 
 .box {
@@ -81,6 +87,7 @@ img {
     align-items: baseline;
     box-shadow: 5px 5px 5px black;
     background-color: papayawhip;
+
 }
 
 .price {
@@ -119,6 +126,7 @@ img {
 
 .spot-content {
     padding-bottom: 10px;
+    max-width: 60%;
 }
 
 .reviews-wrapper {

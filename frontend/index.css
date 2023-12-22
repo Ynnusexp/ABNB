@@ -1,5 +1,7 @@
-/* body{
+ /* body{
     max-width: 1024px;
     background-color: #FFFFF0;
-    display: inline;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
   } */

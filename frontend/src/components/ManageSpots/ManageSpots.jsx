@@ -54,7 +54,7 @@ const ManageSpots = () => {
         {currentUserSpots?.map((spot, index) => (
           <div key={index}>
             <Link to={`/spots/${spot.id}`}>
-              <img src={spot.previewImage} alt={spot.name} />
+              <img  className="prev-img" src={spot.previewImage} alt={spot.name} />
             </Link>
             <div className="current-user-header d-flex justify-between mb-5">
               <div className="mb-2">

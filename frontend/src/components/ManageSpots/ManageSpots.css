@@ -44,3 +44,7 @@ justify-content: space-between;
 .modal-buttons button {
     margin-bottom: 5px;
 }
+
+.prev-img {
+    aspect-ratio: 1;
+}
