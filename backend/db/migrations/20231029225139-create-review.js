@@ -29,7 +29,7 @@ module.exports = {
         allowNull: false
       },
       review: {
-        type: Sequelize.TEXT,
+        type: Sequelize.STRING,
         allowNull: false
       },
       stars: {
