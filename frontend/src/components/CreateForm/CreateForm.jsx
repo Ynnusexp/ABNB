@@ -83,7 +83,7 @@ export default function CreateForm() {
   const createSpot = () => {
     csrfFetch(SPOTS_ENDPOINT, {
       method: "POST",
-      headers: { user: sessionUser },
+      headers: { "Content-Type" : "application/json" },
       body: JSON.stringify({
         address: streetAddress,
         city,
@@ -112,7 +112,7 @@ export default function CreateForm() {
           await addSpotImages(response.id,  {url: url4, preview: false});
         }
         if (url5) {
-          await addSpotImages(response.id),  {url: url5, preview: false};
+          await addSpotImages(response.id,  {url: url5, preview: false});
         }
 
         navigate(`/spots/${response.id}`);
@@ -125,11 +125,8 @@ export default function CreateForm() {
   const addSpotImages = async (spotId, picture) => {
     await csrfFetch(`${SPOTS_ENDPOINT}/${spotId}/images`, {
       method: "POST",
-      headers: { user: sessionUser },
-      body: JSON.stringify({
-        url: picture.url,
-        preview: picture.preview,
-      }),
+      headers: { "Content-Type" : "application/json" },
+      body: JSON.stringify(picture),
     })
       .then((resp) => resp.json())
       // .then((response) => {
@@ -314,6 +311,7 @@ export default function CreateForm() {
           placeholder="Name of your spot"
           className="text2"
           onChange={(e) => setSpotName(e.target.value)}
+          maxLength={2} //
           required
         />
         <p className="invalid">
