@@ -80,7 +80,7 @@ export default function SpotPage() {
 
   const calculateAverage = (reviews) => {
     if (reviews.length === 0) {
-      return "New"; 
+      return "New";
     }
     let total = 0;
     reviews.forEach((review) => {
@@ -110,16 +110,16 @@ export default function SpotPage() {
         </div>
         <div className="spot-images">
           <div className="smallPic">
-            <img className="smallImgs" src={spot.SpotImages[1].url} />
+            <img className="smallImgs" src={spot.SpotImages[1]?.url} />
           </div>
           <div className="smallPic">
-            <img className="smallImgs" src={spot.SpotImages[2].url} />
+            <img className="smallImgs" src={spot.SpotImages[2]?.url} />
           </div>
           <div className="smallPic">
-            <img className="smallImgs" src={spot.SpotImages[3].url} />
+            <img className="smallImgs" src={spot.SpotImages[3]?.url} />
           </div>
           <div className="smallPic">
-            <img className="smallImgs" src={spot.SpotImages[4].url} />
+            <img className="smallImgs" src={spot.SpotImages[4]?.url} />
           </div>
         </div>
       </div>
@@ -129,7 +129,7 @@ export default function SpotPage() {
           {/* <h1> Hostcd by {spot.name}</h1> */}
           <h1> Hosted by {`${spot.Owner.firstName} ${spot.Owner.lastName}`}</h1>
           <p className="pb-2"> {spot.description} </p>
-          <hr />
+
           <div className="reviews-wrapper d-flex align-center">
           <div className="rating mr-2">
             {spot.avgRating ? (

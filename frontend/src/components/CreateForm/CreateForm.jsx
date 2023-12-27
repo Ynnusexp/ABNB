@@ -53,14 +53,14 @@ export default function CreateForm() {
         "Image must have a valid extension",
         "Preview Image is required"
       );
-    if (ending.some((extension) => url2.endsWith(extension)))
-      errs.push("Image must have a valid extension");
-    if (ending.some((extension) => url3.endsWith(extension)))
-      errs.push("Image must have a valid extension");
-    if (ending.some((extension) => url4.endsWith(extension)))
-      errs.push("Image must have a valid extension");
-    if (ending.some((extension) => url5.endsWith(extension)))
-      errs.push("Image must have a valid extension");
+    if (url2.length && !ending.some((extension) => url2.endsWith(extension)))
+      errs.push("1Image must have a valid extension");
+    if (url3.length && !ending.some((extension) => url3.endsWith(extension)))
+      errs.push("2Image must have a valid extension");
+    if (url4.length && !ending.some((extension) => url4.endsWith(extension)))
+      errs.push("3Image must have a valid extension");
+    if (url5.length && !ending.some((extension) => url5.endsWith(extension)))
+      errs.push("4Image must have a valid extension");
     setErrors(errs);
 
     return errs.length === 0;
@@ -100,8 +100,21 @@ export default function CreateForm() {
       .then(async (response) => {
         dispatch(addNewSpot(response));
         if (picture) {
-          await addSpotImages(response.id);
+          await addSpotImages(response.id, {url: picture, preview: true});
         }
+        if (url2) {
+          await addSpotImages(response.id, {url: url2, preview: false});
+        }
+        if (url3) {
+          await addSpotImages(response.id,  {url: url3, preview: false});
+        }
+        if (url4) {
+          await addSpotImages(response.id,  {url: url4, preview: false});
+        }
+        if (url5) {
+          await addSpotImages(response.id),  {url: url5, preview: false};
+        }
+
         navigate(`/spots/${response.id}`);
       })
       .catch((err) => {
@@ -109,13 +122,13 @@ export default function CreateForm() {
       });
   };
 
-  const addSpotImages = async (spotId) => {
+  const addSpotImages = async (spotId, picture) => {
     await csrfFetch(`${SPOTS_ENDPOINT}/${spotId}/images`, {
       method: "POST",
       headers: { user: sessionUser },
       body: JSON.stringify({
-        url: picture,
-        preview: true,
+        url: picture.url,
+        preview: picture.preview,
       }),
     })
       .then((resp) => resp.json())
@@ -407,3 +420,4 @@ export default function CreateForm() {
     </form>
   );
 }
+/////////////////////////////////////////////////
