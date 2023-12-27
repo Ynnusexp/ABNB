@@ -1,7 +1,7 @@
 import "./CreateForm.css";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+//import { useSelector } from "react-redux";
 import { addNewSpot } from "../../store/spots.js";
 import { SPOTS_ENDPOINT } from "../../api/endpoints.js";
 import { csrfFetch } from "../../store/csrf.js";
@@ -27,7 +27,7 @@ export default function CreateForm() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const sessionUser = useSelector((state) => state.session.user);
+  //const sessionUser = useSelector((state) => state.session.user);
 
   let ending = [".jpg", ".jpeg", ".png"];
   const errs = [];
