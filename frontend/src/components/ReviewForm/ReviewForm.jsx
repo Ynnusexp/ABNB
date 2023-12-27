@@ -116,7 +116,8 @@ function ReviewForm(props) {
         </div>
         <button
           type="submit"
-          disabled={!enableSubmit || stars === 0 || review.length > 255}
+          disabled={!enableSubmit || stars === 0 }
+          // disabled={!enableSubmit || stars === 0 || review.length > 255}
           className={enableSubmit ? "btn-primary w-100 p-5" : "submit-btn w-100 p-5"}
         >
           Submit Your Review
