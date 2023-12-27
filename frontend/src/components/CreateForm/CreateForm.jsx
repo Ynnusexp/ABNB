@@ -42,7 +42,7 @@ export default function CreateForm() {
     if (!longitude || isNaN(longitude))
       errs.push("Valid Longitude is required");
     if (description.length < 30)
-      errs.push("Description must be at least 30 characters");
+      errs.push("Description must be at least 30 characters"); //
     if (!spotName) errs.push("Name is required");
     if (!price || price < 1) errs.push("Price is required");
     if (
