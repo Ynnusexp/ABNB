@@ -123,6 +123,7 @@ export default function UpdateForm() {
             placeholder="Country"
             onChange={(e) => setCountry(e.target.value)}
             className="country"
+            maxLength={30}
             required
           />
         </div>
@@ -139,6 +140,7 @@ export default function UpdateForm() {
             placeholder="Address"
             onChange={(e) => setStreetAddress(e.target.value)}
             className="address"
+            maxLength={30} //
             required
           />
         </div>
@@ -157,6 +159,7 @@ export default function UpdateForm() {
             placeholder="City"
             onChange={(e) => setCity(e.target.value)}
             className="city"
+            maxLength={20} //
             required
           />
           </div>
@@ -173,6 +176,7 @@ export default function UpdateForm() {
             placeholder="STATE"
             onChange={(e) => setState(e.target.value)}
             className="state"
+            maxLength={20} //
             required
           />
         </div>
@@ -232,6 +236,7 @@ export default function UpdateForm() {
           className="text1 w-100"
           value={description}
           onChange={(e) => setDescription(e.target.value)}
+          maxLength={200} //
           required
         ></textarea>
         {errors.includes("Description must be at least 30 characters") && (
@@ -254,6 +259,7 @@ export default function UpdateForm() {
           className="text2"
           value={spotName}
           onChange={(e) => setSpotName(e.target.value)}
+          maxLength={20} //
           required
         />
         {errors.includes("Title is required") && (

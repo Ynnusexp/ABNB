@@ -169,6 +169,7 @@ export default function CreateForm() {
             placeholder="Country"
             onChange={(e) => setCountry(e.target.value)}
             className="country"
+            maxLength={30} //
             required
           />
         </div>
@@ -187,6 +188,7 @@ export default function CreateForm() {
             placeholder="Address"
             onChange={(e) => setStreetAddress(e.target.value)}
             className="address"
+            maxLength={30}
             required
           />
         </div>
@@ -206,6 +208,7 @@ export default function CreateForm() {
               placeholder="City"
               onChange={(e) => setCity(e.target.value)}
               className="city"
+              maxLength={20} //
               required
             />
           </div>
@@ -224,6 +227,7 @@ export default function CreateForm() {
               placeholder="STATE"
               onChange={(e) => setState(e.target.value)}
               className="state"
+              maxLength={20} //
               required
             />
           </div>
@@ -292,6 +296,7 @@ export default function CreateForm() {
           className="text1 w-100"
           value={description}
           onChange={(e) => setDescription(e.target.value)}
+          maxLength={200} //
           required
         ></textarea>
 
@@ -311,7 +316,7 @@ export default function CreateForm() {
           placeholder="Name of your spot"
           className="text2"
           onChange={(e) => setSpotName(e.target.value)}
-          maxLength={2} //
+          maxLength={20} //
           required
         />
         <p className="invalid">

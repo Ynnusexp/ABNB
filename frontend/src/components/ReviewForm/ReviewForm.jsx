@@ -77,7 +77,7 @@ function ReviewForm(props) {
       })
       .catch((err) => {
         console.log("in err", err);
-        setErrors(err);////// edge case, should never be happening
+        setErrors(err.message);////// edge case, should never be happening, change to hard code or fix it to be dynamic
       });
   };
   return (
@@ -92,6 +92,7 @@ function ReviewForm(props) {
             value={review}
             placeholder="Leave your review here..."
             onChange={onReviewChange}
+            // maxLength={200}
             required
           />
         </div>
