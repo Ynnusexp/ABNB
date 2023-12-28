@@ -23,11 +23,9 @@ img {
    border-radius: 25px;
 }
 .banner-image-wrapper{
-    overflow: hidden;
+    /* overflow: hidden; */
     /* max-width: 800px;
-    max-height: 400px; */
-    box-shadow: 5px 5px 5px black;
-    border-radius: 25px;
+    max-height: 400px; *
 
 }
 .bannerImage{

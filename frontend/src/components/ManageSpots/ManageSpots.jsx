@@ -52,7 +52,7 @@ const ManageSpots = () => {
       </div>
       <div className="current-user-spots">
         {currentUserSpots?.map((spot, index) => (
-          <div key={index}>
+          <div key={index} className="manageSpotContainer">
             <Link to={`/spots/${spot.id}`}>
               <img  className="prev-img" src={spot.previewImage} alt={spot.name} />
             </Link>

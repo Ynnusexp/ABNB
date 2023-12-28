@@ -77,7 +77,7 @@ function ReviewForm(props) {
       })
       .catch((err) => {
         console.log("in err", err);
-        setErrors({ server: "user has already posted a review" });////// edge case, should never be happening
+        setErrors(err);////// edge case, should never be happening
       });
   };
   return (
