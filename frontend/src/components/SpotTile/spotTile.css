@@ -5,6 +5,14 @@
   align-items: center;
   justify-content: center;
 }
+.cityState {
+  display: flex;
+  inline-size: 150px;
+  overflow-wrap: break-word;
+  overflow: hidden;
+
+  background-color: red;
+}
 
 .img {
   /* display: inline-flex; */
@@ -21,7 +29,7 @@
   flex-direction: column;
   margin: 0 10px 20px;
   position: relative;
- 
+
 }
 
 .onClick img {
