@@ -54,13 +54,13 @@ export default function CreateForm() {
         "Preview Image is required"
       );
     if (url2.length && !ending.some((extension) => url2.endsWith(extension)))
-      errs.push("1Image must have a valid extension");
+      errs.push("Image must have a valid extension");
     if (url3.length && !ending.some((extension) => url3.endsWith(extension)))
-      errs.push("2Image must have a valid extension");
+      errs.push("Image must have a valid extension");
     if (url4.length && !ending.some((extension) => url4.endsWith(extension)))
-      errs.push("3Image must have a valid extension");
+      errs.push("Image must have a valid extension");
     if (url5.length && !ending.some((extension) => url5.endsWith(extension)))
-      errs.push("4Image must have a valid extension");
+      errs.push("Image must have a valid extension");
     setErrors(errs);
 
     return errs.length === 0;

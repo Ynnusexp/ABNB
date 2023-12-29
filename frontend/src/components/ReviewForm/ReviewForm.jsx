@@ -92,7 +92,7 @@ function ReviewForm(props) {
             value={review}
             placeholder="Leave your review here..."
             onChange={onReviewChange}
-            // maxLength={200}
+            maxLength={200}
             required
           />
         </div>
