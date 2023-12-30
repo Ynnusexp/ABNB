@@ -10,12 +10,15 @@ img {
  grid-template-columns: repeat(auto-fit, minmax(min-content, 350px)); */
 /* grid-template-columns: repeat(4,minmax(min-content, 1fr)); */
 gap: 50px;
-margin: 20px 0;
+/* margin: 20px 0; */
+justify-content: center;
+/* align-items:center */
+
 
 }
 
 .manageSpotContainer{
-height:400px;
+height:450px;
 width: 350px;
 }
 .current-user-header {
@@ -71,9 +74,11 @@ justify-content: space-between;
     aspect-ratio: 1;
     box-shadow: 5px 5px 5px black;
     border-radius: 25px ;
-    width: 350px;
-    height: 300px;
-    /* border: px; */
+    /* width: 350px;
+    height: 300px; */
+    min-width: 350px;
+    min-height: 350px;
+    border: 1px solid black;
 }
 /* Default grid with 4 rows and dynamic columns */
  /* .current-user-spots {

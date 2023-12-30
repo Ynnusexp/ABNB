@@ -159,7 +159,7 @@ export default function UpdateForm() {
             placeholder="City"
             onChange={(e) => setCity(e.target.value)}
             className="city"
-            maxLength={20} //
+            maxLength={15} //
             required
           />
           </div>
@@ -173,10 +173,10 @@ export default function UpdateForm() {
           <input
             type="text"
             value={state}
-            placeholder="STATE"
+            placeholder="State (must be abbreviated)"
             onChange={(e) => setState(e.target.value)}
             className="state"
-            maxLength={20} //
+            maxLength={2} //
             required
           />
         </div>

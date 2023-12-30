@@ -33,7 +33,7 @@ export default function SpotTile({ spot }) {
       {/* <span className="tooltiptext">{spot?.ownerId}</span> */}
       <div className=" nameRating justify-between pt-10">
         <div className="cityState">
-          <p>{`${spot.city}, ${spot.state}`}</p>
+          <p className="city-state-text">{`${spot.city}, ${spot.state}`}</p>
         </div>
         <div className="rating">
           {spot?.reviews?.length > 0 ? (

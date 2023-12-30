@@ -8,10 +8,13 @@
 .cityState {
   display: flex;
   inline-size: 150px;
-  overflow-wrap: break-word;
-  overflow: hidden;
+  /* overflow-wrap: break-word;
+  overflow: hidden; */
 
-  background-color: red;
+  /* background-color: red; */
+}
+.city-state-text {
+  text-wrap: nowrap;
 }
 
 .img {
