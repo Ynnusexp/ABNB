@@ -265,7 +265,7 @@ export default function CreateForm() {
               {errors.find((error) => error.includes("Valid Latitude"))}
             </p> */}
             <input
-              type="text"
+              type="number"
               value={latitude}
               placeholder="Latitude"
               onChange={(e) => setLatitude(e.target.value)}
@@ -292,7 +292,7 @@ export default function CreateForm() {
               {errors.find((error) => error.includes("Valid Longitude"))}
             </p> */}
             <input
-              type="text"
+              type="number"
               value={longitude}
               placeholder="Longitude"
               onChange={(e) => setLongitude(e.target.value)}

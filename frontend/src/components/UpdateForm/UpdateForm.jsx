@@ -30,7 +30,7 @@ export default function UpdateForm() {
 
   useEffect(() => {
     async function getSpot() {
-      let currentSpot = await dispatch(getSpotById(spotId));
+      let currentSpot = await dispatch(getSpotById(spotId)); //
 
       setStreetAddress(currentSpot.Spots[0].address);
       setCity(currentSpot.Spots[0].city);
@@ -197,7 +197,7 @@ export default function UpdateForm() {
               )}
             </label>
             <input
-              type="text"
+              type="number"
               value={latitude}
               placeholder="Latitude"
               onChange={(e) => setLatitude(e.target.value)}
@@ -217,7 +217,7 @@ export default function UpdateForm() {
               )}
             </label>
             <input
-              type="text"
+              type="number"
               value={longitude}
               placeholder="Longitude"
               onChange={(e) => setLongitude(e.target.value)}
@@ -288,10 +288,6 @@ export default function UpdateForm() {
             className="text3"
             value={price <= 9999999 ? price >=0 ? price : 0 : 9999999}
             onChange={(e) => setPrice(e.target.value)}
-            // onChange={e => {
-            //   if (price.length <= 6) {setPrice(e.target.value)}
-            //   else setPrice(e.target.value.substring(0,6))}
-            //   }
             required
           />
         </span>
