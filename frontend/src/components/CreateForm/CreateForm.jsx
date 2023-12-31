@@ -179,7 +179,7 @@ export default function CreateForm() {
             maxLength={30} //
             required
           />
-          {country.length === 30 && <p className="invalid d-block" > Max: 30 characters </p>}
+          {country.length === 30 && <p className="invalid d-block" > Max Length: 30 characters </p>}
         </div>
         <div>
           <label>Street Address
@@ -200,7 +200,7 @@ export default function CreateForm() {
             maxLength={30}
             required
           />
-           {streetAddress.length === 30 && <p className="invalid d-block" > Max: 30 characters </p>}
+           {streetAddress.length === 30 && <p className="invalid d-block" >  Length: 30 characters </p>}
         </div>
         <div className="cityState d-flex w-100">
 
@@ -223,7 +223,7 @@ export default function CreateForm() {
               maxLength={15} //
               required
             />
-             {city.length === 15 && <p className="invalid d-block" > Max: 15 characters </p>}
+             {city.length === 15 && <p className="invalid d-block" > Max Length: 15 characters </p>}
           </div>
           <div className="form-group w-70 mr-2">
             <label>State
@@ -244,7 +244,7 @@ export default function CreateForm() {
               maxLength={2} //
               required
             />
-             {state.length === 2 && <p className="invalid d-block" > Max: 2 characters  </p>}
+             {state.length === 2 && <p className="invalid d-block" > Max Length: 2 characters  </p>}
           </div>
         </div>
         <div className="ll d-flex w-100">
@@ -324,7 +324,7 @@ export default function CreateForm() {
         <p className="invalid">
           {errors.find((error) => error.includes("Description"))}
         </p>
-        {description.length >=200 && <p className="invalid d-block"> Max: 200 Characters </ p>}
+        {description.length >=200 && <p className="invalid d-block"> Max Length: 200 Characters </ p>}
       </div>
 
       <div className="section">
@@ -344,7 +344,7 @@ export default function CreateForm() {
         <p className="invalid">
           {errors.find((error) => error.includes("Name"))}
         </p>
-         {spotName.length >=20 && <p className="invalid d-block"> Max: 20 Characters </ p>}
+         {spotName.length >=20 && <p className="invalid d-block"> Max Length: 20 Characters </ p>}
 
       </div>
       <div className="section">
