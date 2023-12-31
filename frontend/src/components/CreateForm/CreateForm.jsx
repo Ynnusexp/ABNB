@@ -179,7 +179,7 @@ export default function CreateForm() {
             maxLength={30} //
             required
           />
-          {country.length === 30 && <p className="invalid d-block" > Max Length: 30 characters </p>}
+          {country.length === 30 && <p className="yellow d-block" > You have reached the Max Length: 30 characters </p>}
         </div>
         <div>
           <label>Street Address
@@ -200,7 +200,7 @@ export default function CreateForm() {
             maxLength={30}
             required
           />
-           {streetAddress.length === 30 && <p className="invalid d-block" >  Length: 30 characters </p>}
+           {streetAddress.length === 30 && <p className="yellow d-block" > You have reached the Max Length: 30 characters </p>}
         </div>
         <div className="cityState d-flex w-100">
 
@@ -223,7 +223,7 @@ export default function CreateForm() {
               maxLength={15} //
               required
             />
-             {city.length === 15 && <p className="invalid d-block" > Max Length: 15 characters </p>}
+             {city.length === 15 && <p className="yellow d-block" > You have reached the Max Length: 15 characters </p>}
           </div>
           <div className="form-group w-70 mr-2">
             <label>State
@@ -244,7 +244,7 @@ export default function CreateForm() {
               maxLength={2} //
               required
             />
-             {state.length === 2 && <p className="invalid d-block" > Max Length: 2 characters  </p>}
+             {state.length === 2 && <p className="yellow d-block" > You have reached the Max Length: 2 characters  </p>}
           </div>
         </div>
         <div className="ll d-flex w-100">
@@ -266,14 +266,15 @@ export default function CreateForm() {
             </p> */}
             <input
               type="number"
-              value={latitude}
+              // value={latitude}
+              value={latitude >= -90 ? (latitude <= 90 ? latitude : 90) : -90}
               placeholder="Latitude"
               onChange={(e) => setLatitude(e.target.value)}
               className="latitude"
               required
             />
              {/* {latitude > 90 || latitude <  -90 && <p className="invalid d-block" > Must be between -90 and 90</p>} */}
-             {(latitude > 90 || latitude < -90) && <p className="invalid d-block" > Must be between -90 and 90</p>}
+             {(latitude > 90 || latitude < -90) && <p className="yellow d-block" > Input must be between -90 and 90</p>}
           </div>
           <div className="form-group w-50">
             <label>Longitude
@@ -293,14 +294,16 @@ export default function CreateForm() {
             </p> */}
             <input
               type="number"
-              value={longitude}
+              // value={longitude}
+              value={longitude > -180 ? (longitude < 180 ? longitude : 180) : -180}
+
               placeholder="Longitude"
               onChange={(e) => setLongitude(e.target.value)}
               className="longitude"
               required
             />
             {/* { longitude > 180 || longitude < -180 && <p className="invalid d-block" > Must be between -180 and 180</p>} */}
-            {(longitude > 180 || longitude < -180) && <p className="invalid d-block" > Must be between -180 and 180</p>}
+            {(longitude > 180 || longitude < -180) && <p className="yellow d-block" > Input must be between -180 and 180</p>}
           </div>
         </div>
       </div>
@@ -324,7 +327,7 @@ export default function CreateForm() {
         <p className="invalid">
           {errors.find((error) => error.includes("Description"))}
         </p>
-        {description.length >=200 && <p className="invalid d-block"> Max Length: 200 Characters </ p>}
+        {description.length >=200 && <p className="yellow d-block">  You have reached the Max Length: 200 Characters </ p>}
       </div>
 
       <div className="section">
@@ -344,7 +347,7 @@ export default function CreateForm() {
         <p className="invalid">
           {errors.find((error) => error.includes("Name"))}
         </p>
-         {spotName.length >=20 && <p className="invalid d-block"> Max Length: 20 Characters </ p>}
+         {spotName.length >=20 && <p className="yellow d-block"> You have reached the Max Length: 20 Characters </ p>}
 
       </div>
       <div className="section">
@@ -376,7 +379,7 @@ export default function CreateForm() {
         <p className="invalid ">
           {errors.find((error) => error.includes("Price"))}
         </p>
-        {price < 0 && <p className="invalid d-block"> Price cannot be negative or exceed $9,999,999 USD </ p>}
+        {(price < 0 || price > 9999999) && <p className="yellow d-block"> Price cannot be negative, cannot be 0, or cannot exceed $9,999,999 USD </ p>}
       </div>
       <div className="section">
         <h2>Liven up your spot with photos</h2>
