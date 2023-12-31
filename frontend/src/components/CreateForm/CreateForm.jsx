@@ -28,6 +28,11 @@ export default function CreateForm() {
   const dispatch = useDispatch();
 
   //const sessionUser = useSelector((state) => state.session.user);
+  // useEffect(() => {
+  //   console.log(price)
+  //   if(price > 1000000) setPrice(1000000)
+  // }, [price])
+
 
   let ending = [".jpg", ".jpeg", ".png"];
   const errs = [];
@@ -144,6 +149,7 @@ export default function CreateForm() {
   };
   */
 
+
   return (
     <form className="formBody" onSubmit={validateAndSubmit}>
       <div className="section">
@@ -159,6 +165,7 @@ export default function CreateForm() {
             {errors.includes("Country is required") && (
               <span className="invalid"> Country is required </span>
             )}
+            {/* {country.length === 30 && <p className="invalid d-block" > Max: 30 characters </p>} */}
           </label>
           {/* <p className="invalid">
             {errors.find((error) => error && error.includes("Country"))}
@@ -172,12 +179,14 @@ export default function CreateForm() {
             maxLength={30} //
             required
           />
+          {country.length === 30 && <p className="invalid d-block" > Max: 30 characters </p>}
         </div>
         <div>
           <label>Street Address
           {errors.includes("Street Address is required") && (
               <span className="invalid"> Street Address is required </span>
             )}
+            {/* {streetAddress.length === 30 && <p className="invalid d-block" > Max: 30 characters </p>} */}
           </label>
           {/* <p className="invalid">
             {errors.find((error) => error.includes("Street Address"))}
@@ -191,13 +200,16 @@ export default function CreateForm() {
             maxLength={30}
             required
           />
+           {streetAddress.length === 30 && <p className="invalid d-block" > Max: 30 characters </p>}
         </div>
         <div className="cityState d-flex w-100">
+
           <div className="form-group w-70 mr-2">
             <label>City
             {errors.includes("City is required") && (
               <span className="invalid"> City is required </span>
             )}
+            {/* {city.length === 15 && <p className="invalid d-block" > Max: 15 characters </p>} */}
             </label>
             {/* <p className="invalid">
               {errors.find((error) => error.includes("City"))}
@@ -211,12 +223,14 @@ export default function CreateForm() {
               maxLength={15} //
               required
             />
+             {city.length === 15 && <p className="invalid d-block" > Max: 15 characters </p>}
           </div>
           <div className="form-group w-70 mr-2">
             <label>State
             {errors.includes("State is required") && (
               <span className="invalid"> State is required </span>
             )}
+            {/* {state.length === 2 && <p className="invalid d-block" > Max: 2 characters  </p>} */}
             </label>
             {/* <p className="invalid">
               {errors.find((error) => error.includes("State"))}
@@ -230,6 +244,7 @@ export default function CreateForm() {
               maxLength={2} //
               required
             />
+             {state.length === 2 && <p className="invalid d-block" > Max: 2 characters  </p>}
           </div>
         </div>
         <div className="ll d-flex w-100">
@@ -241,6 +256,7 @@ export default function CreateForm() {
               {errors.includes("Invalid Latitude") && (
                 <span className="invalid"> Invalid Latitude </span>
               )}
+              {/* {latitude > 90 || latitude < -90 && <p className="invalid d-block" > Must be between -90 and 90</p>} */}
             </label>
             {/* <p className="invalid">
               {errors.find((error) => error.includes("Invalid Latitude"))}
@@ -256,6 +272,8 @@ export default function CreateForm() {
               className="latitude"
               required
             />
+             {/* {latitude > 90 || latitude <  -90 && <p className="invalid d-block" > Must be between -90 and 90</p>} */}
+             {(latitude > 90 || latitude < -90) && <p className="invalid d-block" > Must be between -90 and 90</p>}
           </div>
           <div className="form-group w-50">
             <label>Longitude
@@ -265,6 +283,7 @@ export default function CreateForm() {
               {errors.includes("Invalid Longitude") && (
                 <span className="invalid"> Invalid Longitude </span>
               )}
+              {/* { longitude > 180 || longitude < -180 && <p className="invalid d-block" > Must be between -180 and 180</p>} */}
             </label>
             {/* <p className="invalid">
               {errors.find((error) => error.includes("Invalid Longitude"))}
@@ -280,6 +299,8 @@ export default function CreateForm() {
               className="longitude"
               required
             />
+            {/* { longitude > 180 || longitude < -180 && <p className="invalid d-block" > Must be between -180 and 180</p>} */}
+            {(longitude > 180 || longitude < -180) && <p className="invalid d-block" > Must be between -180 and 180</p>}
           </div>
         </div>
       </div>
@@ -303,6 +324,7 @@ export default function CreateForm() {
         <p className="invalid">
           {errors.find((error) => error.includes("Description"))}
         </p>
+        {description.length >=200 && <p className="invalid d-block"> Max: 200 Characters </ p>}
       </div>
 
       <div className="section">
@@ -322,6 +344,8 @@ export default function CreateForm() {
         <p className="invalid">
           {errors.find((error) => error.includes("Name"))}
         </p>
+         {spotName.length >=20 && <p className="invalid d-block"> Max: 20 Characters </ p>}
+
       </div>
       <div className="section">
         <h2>Set a base price for your spot</h2>
@@ -336,15 +360,23 @@ export default function CreateForm() {
             type="number"
             placeholder="Price per night (USD)"
             className="text3"
-            onChange={(e) => setPrice(e.target.value)}
-            // max={10000}
-            // maxLength={8}
+            value={price <= 9999999 ? price >=0 ? price : 0 : 9999999}
+          //   onChange={(e) =>
+          //     {if(price > 10000000) setPrice(10000000)}
+          //   {if(price < 0) setPrice(0)}
+          //   {else{
+          //     setPrice(e.target.value)
+          //   }}
+          //  }
+          onChange={(e) => setPrice(e.target.value)}
+
             required
           />
         </span>
         <p className="invalid ">
           {errors.find((error) => error.includes("Price"))}
         </p>
+        {price < 0 && <p className="invalid d-block"> Price cannot be negative or exceed $9,999,999 USD </ p>}
       </div>
       <div className="section">
         <h2>Liven up your spot with photos</h2>
@@ -388,7 +420,7 @@ export default function CreateForm() {
           className="url3"
           onChange={(e) => setUrl3(e.target.value)}
         />
-        {url3 && !ending.some((extension) => url2.endsWith(extension)) && (
+        {url3 && !ending.some((extension) => url3.endsWith(extension)) && (
           <span className="invalid d-block">
             {" "}
             Image must end in .png, jpg, or jpeg{" "}
@@ -400,7 +432,7 @@ export default function CreateForm() {
           className="url4"
           onChange={(e) => setUrl4(e.target.value)}
         />
-        {url4 && !ending.some((extension) => url2.endsWith(extension)) && (
+        {url4 && !ending.some((extension) => url4.endsWith(extension)) && (
           <span className="invalid d-block">
             {" "}
             Image must end in .png, jpg, or jpeg{" "}
@@ -412,7 +444,7 @@ export default function CreateForm() {
           className="url5"
           onChange={(e) => setUrl5(e.target.value)}
         />
-        {url5 && !ending.some((extension) => url2.endsWith(extension)) && (
+        {url5 && !ending.some((extension) => url5.endsWith(extension)) && (
           <span className="invalid d-block">
             {" "}
             Image must end in .png, jpg, or jpeg{" "}

@@ -280,6 +280,10 @@ export default function UpdateForm() {
             className="text3"
             value={price}
             onChange={(e) => setPrice(e.target.value)}
+            // onChange={e => {
+            //   if (price.length <= 6) {setPrice(e.target.value)}
+            //   else setPrice(e.target.value.substring(0,6))}
+            //   }
             required
           />
         </span>
