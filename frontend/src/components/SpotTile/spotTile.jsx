@@ -15,7 +15,7 @@ export default function SpotTile({ spot }) {
       total = total + review.stars;
     });
 
-    average = total / reviews.length; //
+    average = total / reviews.length; 
 
     return average.toFixed(1);
   };
