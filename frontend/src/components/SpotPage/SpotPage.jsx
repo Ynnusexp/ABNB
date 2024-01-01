@@ -1,7 +1,7 @@
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faStar } from "@fortawesome/free-solid-svg-icons";
+// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+// import { faStar } from "@fortawesome/free-solid-svg-icons";
 import "./SpotPage.css";
 import { useState, useEffect } from "react";
 import ReviewTile from "../ReviewTile/reviewTile";
@@ -134,7 +134,8 @@ export default function SpotPage() {
           <div className="rating mr-2">
             {spot.avgRating ? (
               <p>
-                <FontAwesomeIcon className="mr-2" icon={faStar} />
+                {/* <FontAwesomeIcon className="mr-2" icon={faStar} /> */}
+                <i className="fa-solid fa-sun mr-2" ></i>
                 {calculateAverage(spot.reviews)}
               </p>
             ) : (
@@ -181,12 +182,12 @@ export default function SpotPage() {
           <div className="box-rating pl-50">
             {spot.hasReview || spot?.reviews.length > 0 ? (
               <span>
-                <FontAwesomeIcon icon={faStar} />
+                <i className="fa-solid fa-sun mr-2" ></i>
                 {calculateAverage(spot.reviews)}
               </span>
             ) : (
               <span>
-                <FontAwesomeIcon icon={faStar} /> New
+                <i className="fa-solid fa-sun mr-2" ></i> New
               </span>
             )}
           </div>

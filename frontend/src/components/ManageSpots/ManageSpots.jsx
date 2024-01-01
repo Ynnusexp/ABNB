@@ -1,8 +1,8 @@
 import  { useEffect, useState } from "react";
 import { useDispatch} from "react-redux";
 import { getCurrentUserSpots } from "../../store/spots";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faStar } from "@fortawesome/free-solid-svg-icons";
+// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+// import { faStar } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import DeleteModal from "./DeleteModal";
 import "./ManageSpots.css";
@@ -64,12 +64,15 @@ const ManageSpots = () => {
               </div>
               {spot.reviews && spot.reviews.length > 0 ? (
                 <div className="review-count mb-2">
-                  <FontAwesomeIcon icon={faStar}/>{" "}
+                  {/* <FontAwesomeIcon icon={faStar}/>{" "} */}
+                  <i className="fa-solid fa-sun mr-2" ></i>
                   {calculateAverage(spot.reviews)}
                 </div>
               ) : (
                 <div className="review-count mb-2">
-                  <span> <FontAwesomeIcon icon={faStar}  /> New</span>
+                  {/* <span> <FontAwesomeIcon icon={faStar}  /> New</span> */}
+                  <span> <i className="fa-solid fa-sun mr-2" ></i> New</span>
+
                 </div>
               )}
             </div>

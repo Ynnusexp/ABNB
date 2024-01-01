@@ -1,8 +1,8 @@
 // import { useDispatch } from 'react-redux';
 import "./spotTile.css";
 import { useNavigate } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faStar } from "@fortawesome/free-solid-svg-icons";
+// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+// import { faStar } from "@fortawesome/free-solid-svg-icons";
 
 export default function SpotTile({ spot }) {
   const navigate = useNavigate();
@@ -38,13 +38,13 @@ export default function SpotTile({ spot }) {
         <div className="rating">
           {spot?.reviews?.length > 0 ? (
             <p>
-              <FontAwesomeIcon icon={faStar} />
+              <i className="fa-solid fa-sun mr-2" ></i>
               {calculateAverage(spot?.reviews)}
             </p>
           ) : (
             <p>
               {" "}
-              <FontAwesomeIcon icon={faStar} /> New
+              <i className="fa-solid fa-sun mr-2" ></i> New
             </p>
           )}
         </div>

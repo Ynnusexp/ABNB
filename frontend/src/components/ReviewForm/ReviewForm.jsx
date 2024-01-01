@@ -3,8 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { useModal } from "../../context/Modal";
 //import * as spots from "../../store/spots";
 import "./ReviewForm.css";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faStar } from "@fortawesome/free-solid-svg-icons";
+// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+// import { faStar } from "@fortawesome/free-solid-svg-icons";
 import { csrfFetch } from "../../store/csrf";
 import { SPOTS_ENDPOINT } from "../../api/endpoints.js";
 import { addNewReview } from "../../store/spots";
@@ -85,7 +85,7 @@ function ReviewForm(props) {
       <h1>How was your stay?</h1>
       {errors.server && <p className="errors">{errors.server}</p>}
       {review.length >= 200 && <p className="blue d-block" > You have reached the Max Length: 200 character </p>}
-      {/* {review.length === 200 && <p>Must be no more than 200 characters</p>}  */}
+      {/* {review.length === 200 && <p> Must be no more than 200 characters</p>}  */}
       <form onSubmit={handleSubmit}>
         <div className="review-text w-100">
           <textarea
@@ -110,7 +110,8 @@ function ReviewForm(props) {
                   className={index <= stars ? "star-on" : "star-off"}
                   onClick={() => onStarChange(index)}
                 >
-                  <FontAwesomeIcon className="star-icon" icon={faStar} />
+                  {/* <FontAwesomeIcon className="star-icon" icon={faStar} /> */}
+                  <i className="fa-solid fa-sun star-icon mr-2" ></i>
                 </button>
               );
             })}
