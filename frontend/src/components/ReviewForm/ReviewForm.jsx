@@ -3,8 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { useModal } from "../../context/Modal";
 //import * as spots from "../../store/spots";
 import "./ReviewForm.css";
-// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-// import { faStar } from "@fortawesome/free-solid-svg-icons";
 import { csrfFetch } from "../../store/csrf";
 import { SPOTS_ENDPOINT } from "../../api/endpoints.js";
 import { addNewReview } from "../../store/spots";
