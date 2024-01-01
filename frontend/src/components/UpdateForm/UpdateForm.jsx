@@ -201,11 +201,12 @@ export default function UpdateForm() {
               value={latitude}
               // value={latitude > -90 ? (latitude < 90 ? latitude : 90) : -90}
               placeholder="Latitude"
-              onChange={(e) => setLatitude(e.target.value)}
+              // onChange={(e) => setLatitude(e.target.value)}
+              onChange={(e) => setLatitude(e.target.value <= 90 ? (e.target.value >= -90 ? e.target.value : -90): 90)}
               className="latitude"
               required
             />
-            {(latitude > 90 || latitude < -90) && <p className="yellow d-block" > Input must be between -90 and 90</p>}
+            {(latitude >= 90 || latitude <= -90) && <p className="yellow d-block" > Input must be between -90 and 90</p>}
           </div>
           <div className="form-group w-50">
             <label>
@@ -222,11 +223,12 @@ export default function UpdateForm() {
               value={longitude}
               // value={longitude > -180 ? (longitude < 180 ? longitude : 180) : -180}
               placeholder="Longitude"
-              onChange={(e) => setLongitude(e.target.value)}
+              // onChange={(e) => setLongitude(e.target.value)}
+              onChange={(e) => setLongitude(e.target.value <= 180 ? (e.target.value >= -180 ? e.target.value : -180): 180)}
               className="longitude"
               required
             />
-            {(longitude > 180 || longitude < -180) && <p className="yellow d-block" > Input must be between -180 and 180</p>}
+            {(longitude >= 180 || longitude <= -180) && <p className="yellow d-block" > Input must be between -180 and 180</p>}
           </div>
         </div>
       </div>
@@ -288,15 +290,17 @@ export default function UpdateForm() {
             type="Number"
             placeholder="Price per night (USD)"
             className="text3"
-            value={price <= 9999999 ? (price >=0 ? price : 0) : 9999999}
-            onChange={(e) => setPrice(e.target.value)}
+            value={price}
+            // value={price <= 9999999 ? (price >=0 ? price : 0) : 9999999}
+            // onChange={(e) => setPrice(e.target.value)}
+            onChange={(e) => setPrice(e.target.value <= 9999999 ? e.target.value >=0 ? e.target.value : 0 : 9999999)}
             required
           />
         </span>
         {errors.includes("Price is required") && (
           <span className="invalid"> Price is required</span>
         )}
-         {(price < 0 || price > 9999999) && <p className="yellow d-block"> Price cannot be negative, cannot be 0, or cannot exceed $9,999,999 USD </ p>}
+         {(price <= 0 || price >= 9999999) && <p className="yellow d-block"> Price cannot be negative, cannot be 0, or cannot exceed $9,999,999 USD </ p>}
       </div>
       {/* <div className="section">
         <h2>Liven up your spot with photos</h2>

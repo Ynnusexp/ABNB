@@ -11,6 +11,7 @@ import CreateForm from "./components/CreateForm/CreateForm"
 import ManageSpots from "./components/ManageSpots/ManageSpots";
 import UpdateForm from "./components/UpdateForm/UpdateForm";
 import "./App.css"
+import { Modal, ModalProvider } from './context/Modal'; //
 
 function Layout() {
   const dispatch = useDispatch();
@@ -24,10 +25,19 @@ function Layout() {
   }, [dispatch]);
 
   return (
-    <div>
-      <Navigation isLoaded={isLoaded} />
-      {isLoaded && <Outlet />}
-    </div>
+    // <div>
+    //   <Navigation isLoaded={isLoaded} />
+    //   {isLoaded && <Outlet />}
+    // </div>
+/////////////////////////////////
+    <>
+      <ModalProvider>
+        <Navigation isLoaded={isLoaded} />
+        {isLoaded && <Outlet />}
+        <Modal />
+      </ModalProvider>
+    </>
+///////////////////////////////////////
   );
 }
 

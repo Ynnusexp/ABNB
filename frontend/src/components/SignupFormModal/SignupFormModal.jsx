@@ -1,12 +1,13 @@
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { useModal } from '../../context/Modal';
+import { useDispatch, useSelector } from 'react-redux';
+import { Navigate } from 'react-router-dom';
 import * as sessionActions from '../../store/session';
+import { useModal } from '../../context/Modal';
 import './SignupForm.css';
-// import { useNavigate } from 'react-router-dom';
 
 function SignupFormModal() {
   const dispatch = useDispatch();
+  const sessionUser = useSelector((state) => state.session.user);
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
   const [firstName, setFirstName] = useState("");
@@ -15,7 +16,28 @@ function SignupFormModal() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errors, setErrors] = useState({});
   const { closeModal } = useModal();
-  // const navigate = useNavigate();
+
+  if (sessionUser) return <Navigate to="/" replace={true} />;
+
+
+// import { useState } from 'react';
+// import { useDispatch } from 'react-redux';
+// import { useModal } from '../../context/Modal';
+// import * as sessionActions from '../../store/session';
+// import './SignupForm.css';
+// // import { useNavigate } from 'react-router-dom';
+
+// function SignupFormModal() {
+//   const dispatch = useDispatch();
+//   const [email, setEmail] = useState("");
+//   const [username, setUsername] = useState("");
+//   const [firstName, setFirstName] = useState("");
+//   const [lastName, setLastName] = useState("");
+//   const [password, setPassword] = useState("");
+//   const [confirmPassword, setConfirmPassword] = useState("");
+//   const [errors, setErrors] = useState({});
+//   const { closeModal } = useModal();
+//   // const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -40,7 +62,7 @@ function SignupFormModal() {
         });
 
    }
-  //  navigate("/");
+ 
     return setErrors({
       confirmPassword: "Confirm Password field must be the same as the Password field"
     });

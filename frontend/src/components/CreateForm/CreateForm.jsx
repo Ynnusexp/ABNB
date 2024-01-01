@@ -269,14 +269,14 @@ export default function CreateForm() {
               value={latitude}
               // value={latitude >= -90 ? (latitude <= 90 ? latitude : 90) : -90}
               placeholder="Latitude"
-              onChange={(e) => setLatitude(e.target.value)} //////////////////////
-              // onChange={(e) => setLatitude(e.target.value <= 90 ? (e.target.value >= -90 ? e.target.value : -90): 90)}
+              // onChange={(e) => setLatitude(e.target.value)} //////////////////////
+              onChange={(e) => setLatitude(e.target.value <= 90 ? (e.target.value >= -90 ? e.target.value : -90): 90)}
 
               className="latitude"
               required
             />
              {/* {latitude > 90 || latitude <  -90 && <p className="invalid d-block" > Must be between -90 and 90</p>} */}
-             {(latitude > 90 || latitude < -90) && <p className="yellow d-block" > Input must be between -90 and 90</p>}
+             {(latitude >= 90 || latitude <= -90) && <p className="yellow d-block" > Input must be between -90 and 90</p>}
           </div>
           <div className="form-group w-50">
             <label>Longitude
@@ -300,13 +300,13 @@ export default function CreateForm() {
               // value={longitude > -180 ? (longitude < 180 ? longitude : 180) : -180}
 
               placeholder="Longitude"
-              onChange={(e) => setLongitude(e.target.value)} ////
-              // onChange={(e) => setLongitude(e.target.value <= 180 ? (e.target.value >= -180 ? e.target.value : -180): 180)}
+              // onChange={(e) => setLongitude(e.target.value)} ////
+              onChange={(e) => setLongitude(e.target.value <= 180 ? (e.target.value >= -180 ? e.target.value : -180): 180)}
               className="longitude"
               required
             />
             {/* { longitude > 180 || longitude < -180 && <p className="invalid d-block" > Must be between -180 and 180</p>} */}
-            {(longitude > 180 || longitude < -180) && <p className="yellow d-block" > Input must be between -180 and 180</p>}
+            {(longitude >= 180 || longitude <= -180) && <p className="yellow d-block" > Input must be between -180 and 180</p>}
           </div>
         </div>
       </div>
@@ -366,7 +366,8 @@ export default function CreateForm() {
             type="number"
             placeholder="Price per night (USD)"
             className="text3"
-            value={price <= 9999999 ? price >=0 ? price : 0 : 9999999}
+            // value={price <= 9999999 ? price >=0 ? price : 0 : 9999999}
+            value={price}
           //   onChange={(e) =>
           //     {if(price > 10000000) setPrice(10000000)}
           //   {if(price < 0) setPrice(0)}
@@ -374,7 +375,7 @@ export default function CreateForm() {
           //     setPrice(e.target.value)
           //   }}
           //  }
-          onChange={(e) => setPrice(e.target.value)}
+          onChange={(e) => setPrice(e.target.value <= 9999999 ? e.target.value >=0 ? e.target.value : 0 : 9999999)}
 
             required
           />
@@ -382,7 +383,7 @@ export default function CreateForm() {
         <p className="invalid ">
           {errors.find((error) => error.includes("Price"))}
         </p>
-        {(price < 0 || price > 9999999) && <p className="yellow d-block"> Price cannot be negative, cannot be 0, or cannot exceed $9,999,999 USD </ p>}
+        {(price <= 0 || price >= 9999999) && <p className="yellow d-block"> Price cannot be negative, cannot be 0, or cannot exceed $9,999,999 USD </ p>}
       </div>
       <div className="section">
         <h2>Liven up your spot with photos</h2>
