@@ -85,7 +85,6 @@ function ReviewForm(props) {
       <h1>How was your stay?</h1>
       {errors.server && <p className="errors">{errors.server}</p>}
       {review.length >= 200 && <p className="blue d-block" > You have reached the Max Length: 200 character </p>}
-      {/* {review.length === 200 && <p> Must be no more than 200 characters</p>}  */}
       <form onSubmit={handleSubmit}>
         <div className="review-text w-100">
           <textarea
