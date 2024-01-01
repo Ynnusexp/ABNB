@@ -43,6 +43,7 @@ function LoginFormModal() {
               //setIsDisabled(e.target.value.length < 4)
               setCredential(e.target.value);
             }}
+            maxLength={30}
             required
           />
           <input
@@ -53,6 +54,7 @@ function LoginFormModal() {
               //setIsDisabled(e.target.value.length < 6)
               setPassword(e.target.value);
             }}
+            maxLength={30}
             required
           />
         {/* {errors.credential && <p style={{color: 'rgb(196, 75, 75)'}}>{errors.credential}</p>} */}

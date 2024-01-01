@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import { useModal } from '../../context/Modal';
 import * as sessionActions from '../../store/session';
 import './SignupForm.css';
+// import { useNavigate } from 'react-router-dom';
 
 function SignupFormModal() {
   const dispatch = useDispatch();
@@ -14,6 +15,7 @@ function SignupFormModal() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errors, setErrors] = useState({});
   const { closeModal } = useModal();
+  // const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -34,12 +36,17 @@ function SignupFormModal() {
           if (data?.errors) {
             setErrors(data.errors);
           }
+
         });
-    }
+
+   }
+  //  navigate("/");
     return setErrors({
       confirmPassword: "Confirm Password field must be the same as the Password field"
     });
+
   };
+
 
   return (
     <>
@@ -53,6 +60,7 @@ function SignupFormModal() {
             value={email}
             placeholder='Email'
             onChange={(e) => setEmail(e.target.value)}
+            maxLength={30}
             required
           />
         </label>
@@ -64,6 +72,7 @@ function SignupFormModal() {
             value={username}
             placeholder='Username'
             onChange={(e) => setUsername(e.target.value)}
+            maxLength={30}
             required
           />
         </label>
@@ -75,6 +84,7 @@ function SignupFormModal() {
             value={firstName}
             placeholder='First Name'
             onChange={(e) => setFirstName(e.target.value)}
+            maxLength={30}
             required
           />
         </label>
@@ -86,6 +96,7 @@ function SignupFormModal() {
             value={lastName}
             placeholder='Last Name'
             onChange={(e) => setLastName(e.target.value)}
+            maxLength={30}
             required
           />
         </label>
@@ -97,6 +108,7 @@ function SignupFormModal() {
             value={password}
             placeholder='Password'
             onChange={(e) => setPassword(e.target.value)}
+            maxLength={30}
             required
           />
         </label>
@@ -108,6 +120,7 @@ function SignupFormModal() {
             value={confirmPassword}
             placeholder='Confirm Password'
             onChange={(e) => setConfirmPassword(e.target.value)}
+            maxLength={30}
             required
           />
         </label>

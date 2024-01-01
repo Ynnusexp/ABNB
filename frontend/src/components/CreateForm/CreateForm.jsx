@@ -266,10 +266,12 @@ export default function CreateForm() {
             </p> */}
             <input
               type="number"
-              // value={latitude}
-              value={latitude >= -90 ? (latitude <= 90 ? latitude : 90) : -90}
+              value={latitude}
+              // value={latitude >= -90 ? (latitude <= 90 ? latitude : 90) : -90}
               placeholder="Latitude"
-              onChange={(e) => setLatitude(e.target.value)}
+              onChange={(e) => setLatitude(e.target.value)} //////////////////////
+              // onChange={(e) => setLatitude(e.target.value <= 90 ? (e.target.value >= -90 ? e.target.value : -90): 90)}
+
               className="latitude"
               required
             />
@@ -294,11 +296,12 @@ export default function CreateForm() {
             </p> */}
             <input
               type="number"
-              // value={longitude}
-              value={longitude > -180 ? (longitude < 180 ? longitude : 180) : -180}
+              value={longitude}
+              // value={longitude > -180 ? (longitude < 180 ? longitude : 180) : -180}
 
               placeholder="Longitude"
-              onChange={(e) => setLongitude(e.target.value)}
+              onChange={(e) => setLongitude(e.target.value)} ////
+              // onChange={(e) => setLongitude(e.target.value <= 180 ? (e.target.value >= -180 ? e.target.value : -180): 180)}
               className="longitude"
               required
             />
