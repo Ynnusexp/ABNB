@@ -38,13 +38,16 @@ export default function SpotTile({ spot }) {
         <div className="rating">
           {spot?.reviews?.length > 0 ? (
             <p>
-              <i className="fa-solid fa-sun mr-2" ></i>
+              {/* <i className="fa-solid fa-sun mr-2" ></i> */}
+              <i className="fa-solid fa-face-grin-stars mr-2"></i>
               {calculateAverage(spot?.reviews)}
             </p>
           ) : (
             <p>
               {" "}
-              <i className="fa-solid fa-sun mr-2" ></i> New
+              {/* <i className="fa-solid fa-sun mr-2" ></i> New */}
+              <i className="fa-solid fa-face-grin-stars mr-2"></i> New
+
             </p>
           )}
         </div>

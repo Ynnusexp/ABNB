@@ -108,7 +108,8 @@ function ReviewForm(props) {
                   onClick={() => onStarChange(index)}
                 >
                   {/* <FontAwesomeIcon className="star-icon" icon={faStar} /> */}
-                  <i className="fa-solid fa-sun star-icon mr-2" ></i>
+                  {/* <i className="fa-solid fa-sun star-icon mr-2" ></i> */}
+                  <i className="fa-solid fa-face-grin-stars mr-2"></i>
                 </button>
               );
             })}

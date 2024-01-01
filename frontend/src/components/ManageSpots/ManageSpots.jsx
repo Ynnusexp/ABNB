@@ -65,13 +65,16 @@ const ManageSpots = () => {
               {spot.reviews && spot.reviews.length > 0 ? (
                 <div className="review-count mb-2">
                   {/* <FontAwesomeIcon icon={faStar}/>{" "} */}
-                  <i className="fa-solid fa-sun mr-2" ></i>
+                  {/* <i className="fa-solid fa-sun mr-2" ></i> */}
+                  <i className="fa-solid fa-face-grin-stars mr-2"></i>
                   {calculateAverage(spot.reviews)}
                 </div>
               ) : (
                 <div className="review-count mb-2">
                   {/* <span> <FontAwesomeIcon icon={faStar}  /> New</span> */}
-                  <span> <i className="fa-solid fa-sun mr-2" ></i> New</span>
+                  {/* <span> <i className="fa-solid fa-sun mr-2" ></i> New</span> */}
+                  <span> <i className="fa-solid fa-face-grin-stars mr-2"></i> New</span>
+
 
                 </div>
               )}
