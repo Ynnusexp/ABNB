@@ -198,8 +198,8 @@ export default function UpdateForm() {
             </label>
             <input
               type="number"
-              // value={latitude}
-              value={latitude > -90 ? (latitude < 90 ? latitude : 90) : -90}
+              value={latitude}
+              // value={latitude > -90 ? (latitude < 90 ? latitude : 90) : -90}
               placeholder="Latitude"
               onChange={(e) => setLatitude(e.target.value)}
               className="latitude"
@@ -219,8 +219,8 @@ export default function UpdateForm() {
             </label>
             <input
               type="number"
-              // value={longitude}
-              value={longitude > -180 ? (longitude < 180 ? longitude : 180) : -180}
+              value={longitude}
+              // value={longitude > -180 ? (longitude < 180 ? longitude : 180) : -180}
               placeholder="Longitude"
               onChange={(e) => setLongitude(e.target.value)}
               className="longitude"
