@@ -75,7 +75,7 @@ function ReviewForm(props) {
       })
       .catch((err) => {
         console.log("in err", err);
-        setErrors(err);////// edge case, should never be happening, change to hard code or fix it to be dynamic
+        setErrors(err);// edge case, should never be happening, change to hard code or fix it to be dynamic
       });
   };
   return (
