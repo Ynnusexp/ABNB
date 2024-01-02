@@ -362,7 +362,7 @@ export default function CreateForm() {
 
         <span className="d-flex align-center">
           <span className="d-block mr-2">$</span>
-          <input min="0" max="9999999"
+          <input min="0" max="1000000"
             type="number"
             placeholder="Price per night (USD)"
             className="text3"
@@ -375,7 +375,8 @@ export default function CreateForm() {
           //     setPrice(e.target.value)
           //   }}
           //  }
-          onChange={(e) => setPrice(e.target.value <= 9999999 ? e.target.value >=0 ? e.target.value : 0 : 9999999)}
+          onChange={(e) => setPrice(e.target.value <= 1000000 ? e.target.value >=0 ? e.target.value : 0 : 1000000)}
+          // onChange={(e) => setPrice(e.target.value)}
 
             required
           />
@@ -384,7 +385,7 @@ export default function CreateForm() {
         <p className="invalid ">
           {errors.find((error) => error.includes("Price"))}
         </p>
-        {(price <= 0 || price >= 9999999) && <p className="yellow d-block"> Price cannot be negative, cannot be 0, or cannot exceed $9,999,999 USD </ p>}
+        {(price <= 0 || price >= 1000000) && <p className="yellow d-block"> Price cannot be negative, cannot be 0, or cannot exceed $1,000,000 USD </ p>}
       </div>
       <div className="section">
         <h2>Liven up your spot with photos</h2>

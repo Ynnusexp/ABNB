@@ -12,7 +12,7 @@ const queryFilters = async (req, res, next) => {
     const validateRange = (value, min, max, errorMessage) => {
 
         if (value && (value < min || value > max)) {
-            
+
             info.errors[errorMessage] = errorMessage;
             return true;
 
@@ -80,7 +80,7 @@ const queryFilters = async (req, res, next) => {
 
             lat: {
 
-                [Op.between]: [minLat || -180.1, maxLat || 180.1],
+                [Op.between]: [minLat || -90.1, maxLat || 90.1],
 
             },
             lng: {
