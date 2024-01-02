@@ -136,7 +136,8 @@ export default function SpotPage() {
               <p>
                 {/* <FontAwesomeIcon className="mr-2" icon={faStar} /> */}
                 {/* <i className="fa-solid fa-sun mr-2" ></i> */}
-                <i className="fa-solid fa-face-grin-stars mr-2"></i>
+                {/* <i className="fa-solid fa-face-grin-stars mr-2"></i> */}
+                <i className="fa-solid fa-star mr-2"></i>
                 {calculateAverage(spot.reviews)}
               </p>
             ) : (
@@ -184,13 +185,16 @@ export default function SpotPage() {
             {spot.hasReview || spot?.reviews.length > 0 ? (
               <span>
                 {/* <i className="fa-solid fa-sun mr-2" ></i> */}
-                <i className="fa-solid fa-face-grin-stars mr-2"></i>
+                {/* <i className="fa-solid fa-face-grin-stars mr-2"></i> */}
+                <i className="fa-solid fa-star mr-2"></i>
                 {calculateAverage(spot.reviews)}
               </span>
             ) : (
               <span>
                 {/* <i className="fa-solid fa-sun mr-2" ></i> New */}
-                <i className="fa-solid fa-face-grin-stars mr-2"></i> New
+                {/* <i className="fa-solid fa-face-grin-stars mr-2"></i> New */}
+                <i className="fa-solid fa-star mr-2"></i> New
+
 
               </span>
             )}

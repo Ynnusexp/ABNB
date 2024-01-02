@@ -15,7 +15,7 @@ export default function SpotTile({ spot }) {
       total = total + review.stars;
     });
 
-    average = total / reviews.length; 
+    average = total / reviews.length;
 
     return average.toFixed(1);
   };
@@ -39,14 +39,18 @@ export default function SpotTile({ spot }) {
           {spot?.reviews?.length > 0 ? (
             <p>
               {/* <i className="fa-solid fa-sun mr-2" ></i> */}
-              <i className="fa-solid fa-face-grin-stars mr-2"></i>
+              {/* <i className="fa-solid fa-face-grin-stars mr-2"></i> */}
+              <i className="fa-solid fa-star mr-2"></i>
+
               {calculateAverage(spot?.reviews)}
             </p>
           ) : (
             <p>
               {" "}
               {/* <i className="fa-solid fa-sun mr-2" ></i> New */}
-              <i className="fa-solid fa-face-grin-stars mr-2"></i> New
+              {/* <i className="fa-solid fa-face-grin-stars mr-2"></i> New */}
+              <i className="fa-solid fa-star mr-2"></i> New
+
 
             </p>
           )}
