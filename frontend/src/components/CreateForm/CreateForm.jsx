@@ -51,7 +51,7 @@ export default function CreateForm() {
     if (!spotName) errs.push("Name is required");
     if (!price || price < 1) errs.push("Price is required");
     if (
-      !picture.length &&
+      !picture.length ||
       !ending.some((extension) => picture.endsWith(extension))
     )
       errs.push(
