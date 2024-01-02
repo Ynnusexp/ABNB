@@ -23,7 +23,8 @@
     height: 90px;
     cursor: pointer;
     margin-top: 10px;
-
+    position: absolute;
+    left:42%;
 }
 
 .list-wrapper {

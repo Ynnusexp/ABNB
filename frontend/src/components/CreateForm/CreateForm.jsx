@@ -362,7 +362,7 @@ export default function CreateForm() {
 
         <span className="d-flex align-center">
           <span className="d-block mr-2">$</span>
-          <input
+          <input min="0" max="9999999"
             type="number"
             placeholder="Price per night (USD)"
             className="text3"
@@ -379,6 +379,7 @@ export default function CreateForm() {
 
             required
           />
+
         </span>
         <p className="invalid ">
           {errors.find((error) => error.includes("Price"))}

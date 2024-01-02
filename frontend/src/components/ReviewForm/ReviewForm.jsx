@@ -15,6 +15,7 @@ function ReviewForm(props) {
   const [errors, setErrors] = useState({});
   const { closeModal } = useModal();
   const [enableSubmit, setEnableSubmit] = useState(false);
+  const [serverError, setServerError] = useState("")
 
   const sessionUser = useSelector((state) => state.session.user);
   useEffect(() => {
@@ -64,6 +65,8 @@ function ReviewForm(props) {
     })
       .then((resp) => {
         console.log("RESP: ", resp);
+        if(resp.error) setServerError(resp.error)
+        else {setServerError("")}
         return resp.json();
       })
 
@@ -77,11 +80,13 @@ function ReviewForm(props) {
         console.log("in err", err);
         // setErrors(err);// edge case, should never be happening, change to hard code or fix it to be dynamic
         setErrors({ server: "Review already exist for this spot" });////// edge case, should never be happening and should give backend response
+
       });
   };
   return (
     <div className="review-submit-form">
       <h1>How was your stay?</h1>
+      {serverError && <p>{serverError}</p>}
       {errors.server && <p className="errors">{errors.server}</p>}
       {review.length >= 200 && <p className="blue d-block" > You have reached the Max Length: 200 character </p>}
       <form onSubmit={handleSubmit}>

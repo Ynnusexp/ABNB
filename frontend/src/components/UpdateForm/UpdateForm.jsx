@@ -286,7 +286,7 @@ export default function UpdateForm() {
         </p>
         <span className="d-flex align-center">
           <span className="d-block mr-2">$</span>
-          <input
+          <input min="0" max="9999999"
             type="Number"
             placeholder="Price per night (USD)"
             className="text3"
